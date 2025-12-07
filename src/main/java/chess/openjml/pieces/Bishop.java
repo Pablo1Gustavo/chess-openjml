@@ -28,6 +28,22 @@ public class Bishop extends Piece
         {
             return false;
         }
+        
+        // Check path is clear
+        int rowStep = Integer.compare(targetRow - row, 0);
+        int colStep = Integer.compare(targetCol - col, 0);
+        int currentRow = row + rowStep;
+        int currentCol = col + colStep;
+        
+        while (currentRow != targetRow || currentCol != targetCol)
+        {
+            if (board.isCellOccupied(currentRow, currentCol))
+            {
+                return false;
+            }
+            currentRow += rowStep;
+            currentCol += colStep;
+        }
 
         return !checkTargetMoveIsAlly(board, targetRow, targetCol);
     }

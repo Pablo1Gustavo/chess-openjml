@@ -1,5 +1,7 @@
 package chess.openjml;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import chess.openjml.pieces.Piece;
@@ -7,10 +9,12 @@ import chess.openjml.pieces.Piece;
 public class Board
 {
     Optional<Piece>[][] grid;
+    private List<Move> moveHistory;
 
     public Board(Optional<Piece>[][] grid)
     {
         this.grid = grid;
+        this.moveHistory = new ArrayList<>();
     }
 
     public int getRows()
@@ -99,5 +103,45 @@ public class Board
     public boolean isCellOccupied(int row, int col)
     {
         return grid[row][col].isPresent();
+    }
+    
+    // Move history
+    
+    public void addMoveToHistory(Move move)
+    {
+        moveHistory.add(move);
+    }
+    
+    public List<Move> getMoveHistory()
+    {
+        return new ArrayList<>(moveHistory);
+    }
+    
+    public Move getLastMove()
+    {
+        if (moveHistory.isEmpty())
+        {
+            return null;
+        }
+        return moveHistory.get(moveHistory.size() - 1);
+    }
+    
+    public int getMoveCount()
+    {
+        return moveHistory.size();
+    }
+    
+    public void clearHistory()
+    {
+        moveHistory.clear();
+    }
+    
+    public Move getMoveAt(int index)
+    {
+        if (index < 0 || index >= moveHistory.size())
+        {
+            return null;
+        }
+        return moveHistory.get(index);
     }
 }
