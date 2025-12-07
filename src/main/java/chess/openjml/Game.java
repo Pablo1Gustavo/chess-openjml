@@ -20,6 +20,10 @@ public class Game
     private boolean blackCanCastleKingside;
     private boolean blackCanCastleQueenside;
     
+    // En passant target square (the square where the pawn can be captured)
+    private int enPassantRow = -1;
+    private int enPassantCol = -1;
+    
     public Game()
     {
         initializeBoard();
@@ -104,6 +108,16 @@ public class Game
         return halfmoveClock;
     }
     
+    public int getEnPassantRow()
+    {
+        return enPassantRow;
+    }
+    
+    public int getEnPassantCol()
+    {
+        return enPassantCol;
+    }
+    
     /**
      * Try to move a piece from one square to another
      */
@@ -138,8 +152,22 @@ public class Game
             return false;
         }
         
-        // Check move is valid for this piece
-        if (!piece.isValidMove(board, toRow, toCol))
+        // Check for en passant move (special case for pawns)
+        boolean isEnPassantMove = false;
+        if (piece instanceof Pawn && toRow == enPassantRow && toCol == enPassantCol)
+        {
+            // Check if this is a valid en passant capture (diagonal move to en passant square)
+            int direction = currentPlayer == Color.WHITE ? 1 : -1;
+            int rowDiff = toRow - fromRow;
+            int colDiff = Math.abs(toCol - fromCol);
+            if (colDiff == 1 && rowDiff == direction)
+            {
+                isEnPassantMove = true;
+            }
+        }
+        
+        // Check move is valid for this piece (or is en passant)
+        if (!isEnPassantMove && !piece.isValidMove(board, toRow, toCol))
         {
             return false;
         }
@@ -160,8 +188,42 @@ public class Game
             capturedType = board.getPieceAt(toRow, toCol).get().getClass().getSimpleName();
         }
         
-        // Execute move on board
-        board.movePiece(fromRow, fromCol, toRow, toCol);
+        // Check for en passant capture
+        boolean isEnPassantCapture = false;
+        if (piece instanceof Pawn && toRow == enPassantRow && toCol == enPassantCol && capturedType == null)
+        {
+            // This is an en passant capture - remove the captured pawn
+            int capturedPawnRow = (currentPlayer == Color.WHITE) ? toRow - 1 : toRow + 1;
+            if (board.isCellOccupied(capturedPawnRow, toCol))
+            {
+                capturedType = "Pawn";
+                board.grid[capturedPawnRow][toCol] = Optional.empty();
+                isEnPassantCapture = true;
+            }
+        }
+        
+        // Execute move on board (use direct grid manipulation for en passant)
+        if (isEnPassantCapture)
+        {
+            // Move the pawn directly without validation (we already validated it's en passant)
+            board.grid[toRow][toCol] = Optional.of(piece);
+            board.grid[fromRow][fromCol] = Optional.empty();
+            piece.move(board, toRow, toCol);
+        }
+        else
+        {
+            board.movePiece(fromRow, fromCol, toRow, toCol);
+        }
+        
+        // Track en passant opportunities: if a pawn moves two squares, mark the square it passed through
+        enPassantRow = -1;
+        enPassantCol = -1;
+        if (piece instanceof Pawn && Math.abs(toRow - fromRow) == 2)
+        {
+            // The en passant target square is the square the pawn passed through
+            enPassantRow = (fromRow + toRow) / 2;
+            enPassantCol = toCol;
+        }
         
         // Handle pawn promotion
         if (promotionPiece != null && piece.getClass().getSimpleName().equals("Pawn"))
@@ -313,6 +375,8 @@ public class Game
         whiteCanCastleQueenside = true;
         blackCanCastleKingside = true;
         blackCanCastleQueenside = true;
+        enPassantRow = -1;
+        enPassantCol = -1;
     }
     
     /**
@@ -555,10 +619,26 @@ public class Game
         Optional<Piece> targetPiece = board.getPieceAt(toRow, toCol);
         Color playerColor = movingPiece.getColor();
         
+        // Check if this is an en passant capture
+        Optional<Piece> enPassantCapturedPiece = Optional.empty();
+        int enPassantCapturedRow = -1;
+        if (movingPiece instanceof Pawn && toRow == enPassantRow && toCol == enPassantCol)
+        {
+            // This is an en passant capture - save the captured pawn
+            enPassantCapturedRow = (playerColor == Color.WHITE) ? toRow - 1 : toRow + 1;
+            enPassantCapturedPiece = board.getPieceAt(enPassantCapturedRow, toCol);
+        }
+        
         // Temporarily make the move
         board.grid[toRow][toCol] = Optional.of(movingPiece);
         board.grid[fromRow][fromCol] = Optional.empty();
         movingPiece.setPosition(toRow, toCol);
+        
+        // Remove en passant captured pawn if applicable
+        if (enPassantCapturedRow != -1)
+        {
+            board.grid[enPassantCapturedRow][toCol] = Optional.empty();
+        }
         
         // Check if king is in check
         boolean inCheck = isInCheck(playerColor);
@@ -567,6 +647,12 @@ public class Game
         board.grid[fromRow][fromCol] = Optional.of(movingPiece);
         board.grid[toRow][toCol] = targetPiece;
         movingPiece.setPosition(fromRow, fromCol);
+        
+        // Restore en passant captured pawn if applicable
+        if (enPassantCapturedRow != -1)
+        {
+            board.grid[enPassantCapturedRow][toCol] = enPassantCapturedPiece;
+        }
         
         return inCheck;
     }
