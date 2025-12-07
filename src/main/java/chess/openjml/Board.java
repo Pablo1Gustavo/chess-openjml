@@ -63,10 +63,10 @@ public class Board
         for (int col = 0; col < cols; col++)
         {
             char label = (char) ('A' + col);
-            colLabel.append(label).append(" ");
+            colLabel.append("  ").append(label).append(" ");
         }
 
-        sb.append("    ").append(colLabel).append("\n")
+        sb.append("   ").append(colLabel).append("\n")
           .append("   ").append("----".repeat(cols)).append("-\n");
 
         for (int row = rows - 1; row >= 0; row--)
@@ -85,7 +85,7 @@ public class Board
               .append("   ").append("----".repeat(cols)).append("-\n");
         }
 
-        sb.append("    ").append(colLabel).append("\n");
+        sb.append("   ").append(colLabel).append("\n");
 
         return sb.toString();
     }
