@@ -14,53 +14,52 @@ public class Board
     private List<Move> moveHistory;
 
     //@ public invariant grid != null;
-    //@ public invariant grid.length == 8;
-    //@ public invariant (\forall int i; 0 <= i && i < 8; grid[i] != null && grid[i].length == 8);
+    //@ public invariant grid.length > 0;
+    //@ public invariant (\forall int i; 0 <= i && i < grid.length; grid[i] != null && grid[i].length > 0);
+    //@ public invariant (\forall int i; 0 <= i && i < grid.length; grid[i].length == grid[0].length);
     //@ public invariant moveHistory != null;
 
-    /*@ requires grid != null;
-      @ requires grid.length == 8;
-      @ requires (\forall int i; 0 <= i && i < 8; grid[i] != null && grid[i].length == 8);
-      @ ensures this.grid == grid;
-      @ ensures this.moveHistory != null;
-      @ ensures this.moveHistory.size() == 0;
-      @*/
+    //@ requires grid != null;
+    //@ requires grid.length > 0;
+    //@ requires (\forall int i; 0 <= i && i < grid.length; grid[i] != null && grid[i].length > 0);
+    //@ requires (\forall int i; 0 <= i && i < grid.length; grid[i].length == grid[0].length);
+    //@ ensures this.grid == grid;
+    //@ ensures this.moveHistory != null;
+    //@ ensures this.moveHistory.size() == 0;
     public Board(Optional<Piece>[][] grid)
     {
         this.grid = grid;
         this.moveHistory = new ArrayList<>();
     }
 
-    /*@ ensures \result == 8;
-      @ pure
-      @*/
-    public int getRows()
+    //@ ensures \result == grid.length;
+    //@ ensures \result > 0;
+    //@ pure
+    public int getRowsLength()
     {
         return grid.length;
     }
 
-    /*@ ensures \result == 8;
-      @ pure
-      @*/
-    public int getCols()
+    //@ ensures \result == grid[0].length;
+    //@ ensures \result > 0;
+    //@ pure
+    public int getColsLength()
     {
         return grid[0].length;
     }
 
-    /*@ ensures \result <==> (row >= 0 && row < 8 && col >= 0 && col < 8);
-      @ pure
-      @*/
+    //@ ensures \result <==> (row >= 0 && row < grid.length && col >= 0 && col < grid[0].length);
+    //@ pure
     public boolean isWithinBounds(int row, int col)
     {
-        return row >= 0 && row < getRows() && col >= 0 && col < getCols();
+        return row >= 0 && row < getRowsLength() && col >= 0 && col < getColsLength();
     }
 
-    /*@ requires fromRow >= 0 && fromRow < 8;
-      @ requires fromCol >= 0 && fromCol < 8;
-      @ requires toRow >= 0 && toRow < 8;
-      @ requires toCol >= 0 && toCol < 8;
-      @ requires grid[fromRow][fromCol].isPresent();
-      @*/
+    //@ requires fromRow >= 0 && fromRow < getRowsLength();
+    //@ requires fromCol >= 0 && fromCol < getColsLength();
+    //@ requires toRow >= 0 && toRow < getRowsLength();
+    //@ requires toCol >= 0 && toCol < getColsLength();
+    //@ requires grid[fromRow][fromCol].isPresent();
     public void movePiece(int fromRow, int fromCol, int toRow, int toCol)
     {   
         if (!grid[fromRow][fromCol].isPresent())
@@ -119,31 +118,28 @@ public class Board
         return sb.toString();
     }
 
-    /*@ requires row >= 0 && row < 8;
-      @ requires col >= 0 && col < 8;
-      @ ensures \result != null;
-      @ pure
-      @*/
+    //@ requires row >= 0 && row < getRowsLength();
+    //@ requires col >= 0 && col < getColsLength();
+    //@ ensures \result != null;
+    //@ pure
     public Optional<Piece> getPieceAt(int row, int col)
     {
         return grid[row][col];
     }
 
-    /*@ requires row >= 0 && row < 8;
-      @ requires col >= 0 && col < 8;
-      @ ensures \result <==> !grid[row][col].isPresent();
-      @ pure
-      @*/
+    //@ requires row >= 0 && row < getRowsLength();
+    //@ requires col >= 0 && col < getColsLength();
+    //@ ensures \result <==> !grid[row][col].isPresent();
+    //@ pure
     public boolean isCellEmpty(int row, int col)
     {
         return !grid[row][col].isPresent();
     }
 
-    /*@ requires row >= 0 && row < 8;
-      @ requires col >= 0 && col < 8;
-      @ ensures \result <==> grid[row][col].isPresent();
-      @ pure
-      @*/
+    //@ requires row >= 0 && row < getRowsLength();
+    //@ requires col >= 0 && col < getColsLength();
+    //@ ensures \result <==> grid[row][col].isPresent();
+    //@ pure
     public boolean isCellOccupied(int row, int col)
     {
         return grid[row][col].isPresent();
