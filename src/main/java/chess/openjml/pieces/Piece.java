@@ -60,6 +60,12 @@ public abstract class Piece
         this.col = targetCol;
         this.moveCount++;
     }
+    
+    public void setPosition(int row, int col)
+    {
+        this.row = row;
+        this.col = col;
+    }
 
     public int getRow()
     {

@@ -110,6 +110,13 @@ public class App
         {
             Move lastMove = game.getBoard().getLastMove();
             System.out.println("✓ Move: " + lastMove.getAlgebraicNotation());
+            
+            // Check if current player is in check
+            if (game.isInCheck(game.getCurrentPlayer()))
+            {
+                System.out.println("⚠ " + game.getCurrentPlayer() + " is in check!");
+            }
+            
             showBoard();
         }
         else

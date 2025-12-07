@@ -125,6 +125,12 @@ public class Game
             return false;
         }
         
+        // Check if move would leave king in check
+        if (wouldLeaveKingInCheck(fromRow, fromCol, toRow, toCol))
+        {
+            return false;
+        }
+        
         // Capture if there's an enemy piece
         String capturedType = null;
         if (board.isCellOccupied(toRow, toCol))
@@ -132,31 +138,36 @@ public class Game
             capturedType = board.getPieceAt(toRow, toCol).get().getClass().getSimpleName();
         }
         
-        // Create move record
-        Move move = new Move.Builder(fromRow, fromCol, toRow, toCol, 
+        // Execute move on board
+        board.movePiece(fromRow, fromCol, toRow, toCol);
+        
+        // Check if this move puts opponent in check
+        Color opponentColor = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
+        boolean causesCheck = isInCheck(opponentColor);
+        
+        // Create move record with check flag
+        Move.Builder moveBuilder = new Move.Builder(fromRow, fromCol, toRow, toCol, 
                                       piece.getClass().getSimpleName(), currentPlayer)
             .moveIndex(board.getMoveCount())
-            .algebraicNotation(generateAlgebraicNotation(piece, fromRow, fromCol, toRow, toCol, capturedType))
-            .build();
+            .algebraicNotation(generateAlgebraicNotation(piece, fromRow, fromCol, toRow, toCol, capturedType, causesCheck));
         
         if (capturedType != null)
         {
-            move = new Move.Builder(fromRow, fromCol, toRow, toCol, 
-                                     piece.getClass().getSimpleName(), currentPlayer)
-                .capture(capturedType, toRow, toCol)
-                .moveIndex(board.getMoveCount())
-                .algebraicNotation(generateAlgebraicNotation(piece, fromRow, fromCol, toRow, toCol, capturedType))
-                .build();
+            moveBuilder.capture(capturedType, toRow, toCol);
         }
         
-        // Execute move on board
-        board.movePiece(fromRow, fromCol, toRow, toCol);
+        if (causesCheck)
+        {
+            moveBuilder.check();
+        }
+        
+        Move move = moveBuilder.build();
         
         // Add to history
         board.addMoveToHistory(move);
         
         // Switch player
-        currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
+        currentPlayer = opponentColor;
         
         // Update move counter
         if (currentPlayer == Color.WHITE)
@@ -168,28 +179,46 @@ public class Game
     }
     
     private String generateAlgebraicNotation(Piece piece, int fromRow, int fromCol, 
-                                             int toRow, int toCol, String capturedType)
+                                             int toRow, int toCol, String capturedType, boolean causesCheck)
     {
         String fromSquare = squareToAlgebraic(fromRow, fromCol);
         String toSquare = squareToAlgebraic(toRow, toCol);
+        
+        String notation;
         
         if (piece instanceof Pawn)
         {
             if (capturedType != null)
             {
-                return Character.toLowerCase(fromSquare.charAt(0)) + "x" + toSquare;
+                notation = Character.toLowerCase(fromSquare.charAt(0)) + "x" + toSquare;
             }
-            return toSquare;
+            else
+            {
+                notation = toSquare;
+            }
         }
-        
-        String pieceName = piece.getClass().getSimpleName();
-        String pieceLetter = getPieceLetter(pieceName);
-        
-        if (capturedType != null)
+        else
         {
-            return pieceLetter + "x" + toSquare;
+            String pieceName = piece.getClass().getSimpleName();
+            String pieceLetter = getPieceLetter(pieceName);
+            
+            if (capturedType != null)
+            {
+                notation = pieceLetter + "x" + toSquare;
+            }
+            else
+            {
+                notation = pieceLetter + toSquare;
+            }
         }
-        return pieceLetter + toSquare;
+        
+        // Add check marker
+        if (causesCheck)
+        {
+            notation += "+";
+        }
+        
+        return notation;
     }
     
     private String getPieceLetter(String pieceName)
@@ -218,5 +247,92 @@ public class Game
         currentPlayer = Color.WHITE;
         fullMoveNumber = 1;
         halfmoveClock = 0;
+    }
+    
+    // Check detection methods
+    
+    /**
+     * Find the king of the specified color
+     */
+    private int[] findKing(Color color)
+    {
+        for (int row = 0; row < 8; row++)
+        {
+            for (int col = 0; col < 8; col++)
+            {
+                if (board.isCellOccupied(row, col))
+                {
+                    Piece piece = board.getPieceAt(row, col).get();
+                    if (piece instanceof King && piece.getColor() == color)
+                    {
+                        return new int[]{row, col};
+                    }
+                }
+            }
+        }
+        return null; // Should never happen in a valid game
+    }
+    
+    /**
+     * Check if a square is under attack by the specified color
+     */
+    public boolean isSquareUnderAttack(int targetRow, int targetCol, Color attackingColor)
+    {
+        for (int row = 0; row < 8; row++)
+        {
+            for (int col = 0; col < 8; col++)
+            {
+                if (board.isCellOccupied(row, col))
+                {
+                    Piece piece = board.getPieceAt(row, col).get();
+                    if (piece.getColor() == attackingColor)
+                    {
+                        if (piece.isValidMove(board, targetRow, targetCol))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Check if the specified color's king is in check
+     */
+    public boolean isInCheck(Color color)
+    {
+        int[] kingPos = findKing(color);
+        if (kingPos == null) return false;
+        
+        Color enemyColor = (color == Color.WHITE) ? Color.BLACK : Color.WHITE;
+        return isSquareUnderAttack(kingPos[0], kingPos[1], enemyColor);
+    }
+    
+    /**
+     * Check if the move would leave the player's own king in check
+     */
+    private boolean wouldLeaveKingInCheck(int fromRow, int fromCol, int toRow, int toCol)
+    {
+        // Save the current state
+        Piece movingPiece = board.getPieceAt(fromRow, fromCol).get();
+        Optional<Piece> targetPiece = board.getPieceAt(toRow, toCol);
+        Color playerColor = movingPiece.getColor();
+        
+        // Temporarily make the move
+        board.grid[toRow][toCol] = Optional.of(movingPiece);
+        board.grid[fromRow][fromCol] = Optional.empty();
+        movingPiece.setPosition(toRow, toCol);
+        
+        // Check if king is in check
+        boolean inCheck = isInCheck(playerColor);
+        
+        // Undo the move
+        board.grid[fromRow][fromCol] = Optional.of(movingPiece);
+        board.grid[toRow][toCol] = targetPiece;
+        movingPiece.setPosition(fromRow, fromCol);
+        
+        return inCheck;
     }
 }
