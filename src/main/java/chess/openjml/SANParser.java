@@ -143,23 +143,7 @@ public class SANParser
     
     private static boolean handleCastling(Game game, boolean kingside)
     {
-        Board board = game.getBoard();
-        Color player = game.getCurrentPlayer();
-        
-        int row = player == Color.WHITE ? 0 : 7;
-        int kingCol = 4;
-        int toCol = kingside ? 6 : 2;
-        
-        if (board.isCellOccupied(row, kingCol))
-        {
-            Optional<Piece> piece = board.getPieceAt(row, kingCol);
-            if (piece.isPresent() && piece.get().getClass().getSimpleName().equals("King"))
-            {
-                return game.movePiece(row, kingCol, row, toCol);
-            }
-        }
-        
-        return false;
+        return game.castle(kingside);
     }
     
     private static String getPieceName(char pieceChar)

@@ -14,12 +14,22 @@ public class Game
     private int fullMoveNumber;
     private int halfmoveClock;
     
+    // Castling rights
+    private boolean whiteCanCastleKingside;
+    private boolean whiteCanCastleQueenside;
+    private boolean blackCanCastleKingside;
+    private boolean blackCanCastleQueenside;
+    
     public Game()
     {
         initializeBoard();
         this.currentPlayer = Color.WHITE;
         this.fullMoveNumber = 1;
         this.halfmoveClock = 0;
+        this.whiteCanCastleKingside = true;
+        this.whiteCanCastleQueenside = true;
+        this.blackCanCastleKingside = true;
+        this.blackCanCastleQueenside = true;
     }
     
     private void initializeBoard()
@@ -130,6 +140,9 @@ public class Game
         {
             return false;
         }
+        
+        // Update castling rights if king or rook moves
+        updateCastlingRights(piece, fromRow, fromCol);
         
         // Capture if there's an enemy piece
         String capturedType = null;
@@ -247,6 +260,179 @@ public class Game
         currentPlayer = Color.WHITE;
         fullMoveNumber = 1;
         halfmoveClock = 0;
+        whiteCanCastleKingside = true;
+        whiteCanCastleQueenside = true;
+        blackCanCastleKingside = true;
+        blackCanCastleQueenside = true;
+    }
+    
+    /**
+     * Update castling rights when a king or rook moves
+     */
+    private void updateCastlingRights(Piece piece, int fromRow, int fromCol)
+    {
+        if (piece instanceof King)
+        {
+            if (piece.getColor() == Color.WHITE)
+            {
+                whiteCanCastleKingside = false;
+                whiteCanCastleQueenside = false;
+            }
+            else
+            {
+                blackCanCastleKingside = false;
+                blackCanCastleQueenside = false;
+            }
+        }
+        else if (piece instanceof Rook)
+        {
+            if (piece.getColor() == Color.WHITE && fromRow == 0)
+            {
+                if (fromCol == 0) whiteCanCastleQueenside = false;
+                if (fromCol == 7) whiteCanCastleKingside = false;
+            }
+            else if (piece.getColor() == Color.BLACK && fromRow == 7)
+            {
+                if (fromCol == 0) blackCanCastleQueenside = false;
+                if (fromCol == 7) blackCanCastleKingside = false;
+            }
+        }
+    }
+    
+    /**
+     * Attempt to castle (kingside or queenside)
+     * Returns true if castling was successful
+     */
+    public boolean castle(boolean kingside)
+    {
+        int row = currentPlayer == Color.WHITE ? 0 : 7;
+        int kingCol = 4;
+        int rookCol = kingside ? 7 : 0;
+        int kingToCol = kingside ? 6 : 2;
+        int rookToCol = kingside ? 5 : 3;
+        
+        // Check castling rights
+        boolean canCastle = false;
+        if (currentPlayer == Color.WHITE)
+        {
+            canCastle = kingside ? whiteCanCastleKingside : whiteCanCastleQueenside;
+        }
+        else
+        {
+            canCastle = kingside ? blackCanCastleKingside : blackCanCastleQueenside;
+        }
+        
+        if (!canCastle)
+        {
+            return false;
+        }
+        
+        // Check king and rook are in correct positions
+        if (board.isCellEmpty(row, kingCol) || board.isCellEmpty(row, rookCol))
+        {
+            return false;
+        }
+        
+        Piece king = board.getPieceAt(row, kingCol).get();
+        Piece rook = board.getPieceAt(row, rookCol).get();
+        
+        if (!(king instanceof King) || !(rook instanceof Rook))
+        {
+            return false;
+        }
+        
+        if (king.getColor() != currentPlayer || rook.getColor() != currentPlayer)
+        {
+            return false;
+        }
+        
+        // Check squares between king and rook are empty
+        int start = Math.min(kingCol, rookCol) + 1;
+        int end = Math.max(kingCol, rookCol);
+        for (int col = start; col < end; col++)
+        {
+            if (board.isCellOccupied(row, col))
+            {
+                return false;
+            }
+        }
+        
+        // Check king is not in check
+        if (isInCheck(currentPlayer))
+        {
+            return false;
+        }
+        
+        // Check king doesn't pass through check
+        int step = kingside ? 1 : -1;
+        for (int col = kingCol; col != kingToCol + step; col += step)
+        {
+            if (col != kingCol && isSquareUnderAttack(row, col, currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE))
+            {
+                return false;
+            }
+        }
+        
+        // Execute castling - move king and rook
+        board.grid[row][kingToCol] = Optional.of(king);
+        board.grid[row][kingCol] = Optional.empty();
+        king.setPosition(row, kingToCol);
+        
+        board.grid[row][rookToCol] = Optional.of(rook);
+        board.grid[row][rookCol] = Optional.empty();
+        rook.setPosition(row, rookToCol);
+        
+        // Update castling rights
+        if (currentPlayer == Color.WHITE)
+        {
+            whiteCanCastleKingside = false;
+            whiteCanCastleQueenside = false;
+        }
+        else
+        {
+            blackCanCastleKingside = false;
+            blackCanCastleQueenside = false;
+        }
+        
+        // Check if this move puts opponent in check
+        Color opponentColor = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
+        boolean causesCheck = isInCheck(opponentColor);
+        
+        // Create move record
+        String notation = kingside ? "O-O" : "O-O-O";
+        if (causesCheck) notation += "+";
+        
+        Move.Builder moveBuilder = new Move.Builder(row, kingCol, row, kingToCol, "King", currentPlayer)
+            .moveIndex(board.getMoveCount())
+            .algebraicNotation(notation);
+        
+        if (kingside)
+        {
+            moveBuilder.castleKingSide();
+        }
+        else
+        {
+            moveBuilder.castleQueenSide();
+        }
+        
+        if (causesCheck)
+        {
+            moveBuilder.check();
+        }
+        
+        Move move = moveBuilder.build();
+        board.addMoveToHistory(move);
+        
+        // Switch player
+        currentPlayer = opponentColor;
+        
+        // Update move counter
+        if (currentPlayer == Color.WHITE)
+        {
+            fullMoveNumber++;
+        }
+        
+        return true;
     }
     
     // Check detection methods
