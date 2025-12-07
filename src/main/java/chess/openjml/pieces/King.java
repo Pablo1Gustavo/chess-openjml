@@ -1,5 +1,6 @@
 package chess.openjml.pieces;
 
+import chess.openjml.Board;
 import chess.openjml.pieces.enums.Color;
 
 public class King extends Piece
@@ -9,12 +10,28 @@ public class King extends Piece
         super(row, col, color);
     }
 
-    public boolean isValidMove(int targetRow, int targetCol)
+    public boolean isValidMove(Board board, int targetRow, int targetCol)
     {
+        if (targetRow == row && targetCol == col)
+        {
+            return false;
+        }
+        if (!board.isWithinBounds(targetRow, targetCol))
+        {
+            return false;
+        }
+
         int rowDiff = Math.abs(targetRow - row);
         int colDiff = Math.abs(targetCol - col);
         
-        return (rowDiff <= 1 && colDiff <= 1) && (rowDiff > 0 || colDiff > 0);
+        boolean isOneSquareMove = (rowDiff <= 1 && colDiff <= 1) && (rowDiff > 0 || colDiff > 0);
+        
+        if (!isOneSquareMove)
+        {
+            return false;
+        }
+        
+        return !checkTargetMoveIsAlly(board, targetRow, targetCol);
     }
 
     public String icon()

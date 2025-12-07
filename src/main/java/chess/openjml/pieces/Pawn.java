@@ -1,5 +1,6 @@
 package chess.openjml.pieces;
 
+import chess.openjml.Board;
 import chess.openjml.pieces.enums.Color;
 
 public class Pawn extends Piece
@@ -9,26 +10,38 @@ public class Pawn extends Piece
         super(row, col, color);
     }
 
-    public boolean isValidMove(int targetRow, int targetCol)
+    public boolean isValidMove(Board board, int targetRow, int targetCol)
     {
+        if (targetRow == row && targetCol == col)
+        {
+            return false;
+        }
+        if (!board.isWithinBounds(targetRow, targetCol))
+        {
+            return false;
+        }
+
         int direction = color == Color.WHITE ? 1 : -1;
-        int rowDiff = Math.abs(targetRow - row);
+        int rowDiff = targetRow - row;
         int colDiff = Math.abs(targetCol - col);
         
         boolean isSimpleMove = colDiff == 0 && rowDiff == direction;
         if (isSimpleMove)
         {
-            return true;
+            return board.isCellEmpty(targetRow, targetCol);
         }
+        
         boolean isInitialDoubleMove = colDiff == 0 && rowDiff == 2 * direction && !hasMoved();
         if (isInitialDoubleMove)
         {
-            return true;
+            int intermediateRow = row + direction;
+            return board.isCellEmpty(intermediateRow, col) && board.isCellEmpty(targetRow, targetCol);
         }
-        boolean isEnPassantMove = colDiff == 1 && rowDiff == direction;
-        if (isEnPassantMove)
+
+        boolean isSimleCaptureMove = colDiff == 1 && rowDiff == direction;
+        if (isSimleCaptureMove)
         {
-            return true;
+            return checkTargetMoveIsEnemy(board, targetRow, targetCol);
         }
         
         return false;

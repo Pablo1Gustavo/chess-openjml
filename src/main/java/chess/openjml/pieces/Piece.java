@@ -1,5 +1,6 @@
 package chess.openjml.pieces;
 
+import chess.openjml.Board;
 import chess.openjml.pieces.enums.Color;
 
 public abstract class Piece
@@ -21,21 +22,43 @@ public abstract class Piece
         return this.color != other.color;
     }
 
-    public abstract boolean isValidMove(int targetRow, int targetCol);
+    public boolean isAlly(Piece other)
+    {
+        return this.color == other.color;
+    }
+
+    protected boolean checkTargetMoveIsAlly(Board board, int targetRow, int targetCol)
+    {
+        if (board.isCellOccupied(targetRow, targetCol))
+        {
+            Piece targetPiece = board.getPieceAt(targetRow, targetCol).get();
+            return isAlly(targetPiece);
+        }
+        return false;
+    }
+
+    protected boolean checkTargetMoveIsEnemy(Board board, int targetRow, int targetCol)
+    {
+        if (board.isCellOccupied(targetRow, targetCol))
+        {
+            Piece targetPiece = board.getPieceAt(targetRow, targetCol).get();
+            return isEnemy(targetPiece);
+        }
+        return false;
+    }
+
+    public abstract boolean isValidMove(Board board, int targetRow, int targetCol);
 
     public boolean hasMoved()
     {
         return moveCount > 0;
     }
 
-    public void move(int targetRow, int targetCol)
+    public void move(Board board, int targetRow, int targetCol)
     {
-        if (isValidMove(targetRow, targetCol))
-        {
-            this.row = targetRow;
-            this.col = targetCol;
-            this.moveCount++;
-        }
+        this.row = targetRow;
+        this.col = targetCol;
+        this.moveCount++;
     }
 
     public int getRow()
