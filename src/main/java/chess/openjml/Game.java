@@ -335,4 +335,50 @@ public class Game
         
         return inCheck;
     }
+    
+    /**
+     * Check if the specified color has any legal moves
+     */
+    public boolean hasLegalMoves(Color color)
+    {
+        // Try all possible moves for all pieces of this color
+        for (int fromRow = 0; fromRow < 8; fromRow++)
+        {
+            for (int fromCol = 0; fromCol < 8; fromCol++)
+            {
+                if (board.isCellOccupied(fromRow, fromCol))
+                {
+                    Piece piece = board.getPieceAt(fromRow, fromCol).get();
+                    if (piece.getColor() == color)
+                    {
+                        // Try all possible destination squares
+                        for (int toRow = 0; toRow < 8; toRow++)
+                        {
+                            for (int toCol = 0; toCol < 8; toCol++)
+                            {
+                                // Check if this is a valid move for the piece
+                                if (piece.isValidMove(board, toRow, toCol))
+                                {
+                                    // Check if this move would leave king in check
+                                    if (!wouldLeaveKingInCheck(fromRow, fromCol, toRow, toCol))
+                                    {
+                                        return true; // Found a legal move
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false; // No legal moves found
+    }
+    
+    /**
+     * Check if the specified color is in checkmate
+     */
+    public boolean isCheckmate(Color color)
+    {
+        return isInCheck(color) && !hasLegalMoves(color);
+    }
 }

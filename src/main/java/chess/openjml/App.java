@@ -111,10 +111,21 @@ public class App
             Move lastMove = game.getBoard().getLastMove();
             System.out.println("✓ Move: " + lastMove.getAlgebraicNotation());
             
-            // Check if current player is in check
-            if (game.isInCheck(game.getCurrentPlayer()))
+            Color currentPlayer = game.getCurrentPlayer();
+            
+            // Check for checkmate
+            if (game.isCheckmate(currentPlayer))
             {
-                System.out.println("⚠ " + game.getCurrentPlayer() + " is in check!");
+                System.out.println("♔ CHECKMATE! " + (currentPlayer == Color.WHITE ? "Black" : "White") + " wins!");
+                showBoard();
+                System.out.println("Game over. Type 'reset' to play again or 'quit' to exit.");
+                return;
+            }
+            
+            // Check if current player is in check
+            if (game.isInCheck(currentPlayer))
+            {
+                System.out.println("⚠ " + currentPlayer + " is in check!");
             }
             
             showBoard();
