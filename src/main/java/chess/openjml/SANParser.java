@@ -50,7 +50,24 @@ public class SANParser
         Board board = game.getBoard();
         Color player = game.getCurrentPlayer();
         
-        // Pattern: [a-h]x[a-h][1-8] or [a-h][1-8] or [a-h]x[a-h][1-8]=X
+        // Check for promotion: e8=Q, exd8=Q, etc.
+        String promotionPiece = null;
+        if (san.contains("="))
+        {
+            String[] parts = san.split("=");
+            san = parts[0];
+            char promotionChar = parts[1].charAt(0);
+            promotionPiece = switch (promotionChar)
+            {
+                case 'q' -> "Queen";
+                case 'r' -> "Rook";
+                case 'b' -> "Bishop";
+                case 'n' -> "Knight";
+                default -> null;
+            };
+        }
+        
+        // Pattern: [a-h]x[a-h][1-8] or [a-h][1-8]
         int toCol = san.charAt(san.length() - 2) - 'a';
         int toRow = Integer.parseInt(san.substring(san.length() - 1)) - 1;
         
@@ -71,7 +88,7 @@ public class SANParser
                         int expectedRow = toRow - direction;
                         if (row == expectedRow)
                         {
-                            return game.movePiece(row, fromCol, toRow, toCol);
+                            return game.movePiece(row, fromCol, toRow, toCol, promotionPiece);
                         }
                     }
                 }
@@ -89,7 +106,7 @@ public class SANParser
                 Optional<Piece> piece = board.getPieceAt(fromRow, toCol);
                 if (piece.isPresent() && piece.get().getColor() == player)
                 {
-                    return game.movePiece(fromRow, toCol, toRow, toCol);
+                    return game.movePiece(fromRow, toCol, toRow, toCol, promotionPiece);
                 }
             }
             
@@ -100,7 +117,7 @@ public class SANParser
                 Optional<Piece> piece = board.getPieceAt(fromRow, toCol);
                 if (piece.isPresent() && piece.get().getColor() == player)
                 {
-                    return game.movePiece(fromRow, toCol, toRow, toCol);
+                    return game.movePiece(fromRow, toCol, toRow, toCol, promotionPiece);
                 }
             }
         }

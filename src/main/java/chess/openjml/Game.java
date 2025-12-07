@@ -109,6 +109,15 @@ public class Game
      */
     public boolean movePiece(int fromRow, int fromCol, int toRow, int toCol)
     {
+        return movePiece(fromRow, fromCol, toRow, toCol, null);
+    }
+    
+    /**
+     * Try to move a piece from one square to another with optional promotion
+     * @param promotionPiece The piece to promote to (Queen, Rook, Bishop, Knight) or null for no promotion
+     */
+    public boolean movePiece(int fromRow, int fromCol, int toRow, int toCol, String promotionPiece)
+    {
         // Check bounds
         if (!board.isWithinBounds(fromRow, fromCol) || !board.isWithinBounds(toRow, toCol))
         {
@@ -154,6 +163,20 @@ public class Game
         // Execute move on board
         board.movePiece(fromRow, fromCol, toRow, toCol);
         
+        // Handle pawn promotion
+        if (promotionPiece != null && piece.getClass().getSimpleName().equals("Pawn"))
+        {
+            int promotionRank = (currentPlayer == Color.WHITE) ? 7 : 0;
+            if (toRow == promotionRank)
+            {
+                Piece promotedPiece = createPromotedPiece(promotionPiece, toRow, toCol, currentPlayer);
+                if (promotedPiece != null)
+                {
+                    board.grid[toRow][toCol] = Optional.of(promotedPiece);
+                }
+            }
+        }
+        
         // Check if this move puts opponent in check
         Color opponentColor = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
         boolean causesCheck = isInCheck(opponentColor);
@@ -162,7 +185,7 @@ public class Game
         Move.Builder moveBuilder = new Move.Builder(fromRow, fromCol, toRow, toCol, 
                                       piece.getClass().getSimpleName(), currentPlayer)
             .moveIndex(board.getMoveCount())
-            .algebraicNotation(generateAlgebraicNotation(piece, fromRow, fromCol, toRow, toCol, capturedType, causesCheck));
+            .algebraicNotation(generateAlgebraicNotation(piece, fromRow, fromCol, toRow, toCol, capturedType, causesCheck, promotionPiece));
         
         if (capturedType != null)
         {
@@ -172,6 +195,11 @@ public class Game
         if (causesCheck)
         {
             moveBuilder.check();
+        }
+        
+        if (promotionPiece != null)
+        {
+            moveBuilder.promotion(promotionPiece);
         }
         
         Move move = moveBuilder.build();
@@ -192,7 +220,7 @@ public class Game
     }
     
     private String generateAlgebraicNotation(Piece piece, int fromRow, int fromCol, 
-                                             int toRow, int toCol, String capturedType, boolean causesCheck)
+                                             int toRow, int toCol, String capturedType, boolean causesCheck, String promotionPiece)
     {
         String fromSquare = squareToAlgebraic(fromRow, fromCol);
         String toSquare = squareToAlgebraic(toRow, toCol);
@@ -208,6 +236,12 @@ public class Game
             else
             {
                 notation = toSquare;
+            }
+            
+            // Add promotion
+            if (promotionPiece != null)
+            {
+                notation += "=" + getPieceLetter(promotionPiece);
             }
         }
         else
@@ -252,6 +286,21 @@ public class Game
         char file = (char) ('a' + col);
         int rank = row + 1;
         return "" + file + rank;
+    }
+    
+    /**
+     * Create a promoted piece based on the promotion type
+     */
+    private Piece createPromotedPiece(String promotionType, int row, int col, Color color)
+    {
+        return switch (promotionType)
+        {
+            case "Queen" -> new Queen(row, col, color);
+            case "Rook" -> new Rook(row, col, color);
+            case "Bishop" -> new Bishop(row, col, color);
+            case "Knight" -> new Knight(row, col, color);
+            default -> null;
+        };
     }
     
     public void reset()
