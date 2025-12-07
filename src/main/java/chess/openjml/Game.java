@@ -381,4 +381,12 @@ public class Game
     {
         return isInCheck(color) && !hasLegalMoves(color);
     }
+    
+    /**
+     * Check if the specified color is in stalemate
+     */
+    public boolean isStalemate(Color color)
+    {
+        return !isInCheck(color) && !hasLegalMoves(color);
+    }
 }

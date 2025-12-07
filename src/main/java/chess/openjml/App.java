@@ -122,6 +122,15 @@ public class App
                 return;
             }
             
+            // Check for stalemate
+            if (game.isStalemate(currentPlayer))
+            {
+                System.out.println("♔ STALEMATE! Game is a draw.");
+                showBoard();
+                System.out.println("Game over. Type 'reset' to play again or 'quit' to exit.");
+                return;
+            }
+            
             // Check if current player is in check
             if (game.isInCheck(currentPlayer))
             {
