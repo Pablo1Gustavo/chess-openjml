@@ -133,10 +133,48 @@ public class SANParser
         char pieceChar = san.charAt(0);
         String pieceName = getPieceName(pieceChar);
         
+        // Parse the destination square (always last 2 characters)
         int toCol = san.charAt(san.length() - 2) - 'a';
         int toRow = Integer.parseInt(san.substring(san.length() - 1)) - 1;
         
-        // Try to find a piece of the right type that can move there
+        // Check for capture (contains 'x')
+        boolean isCapture = san.contains("x");
+        
+        // Parse disambiguation - everything between piece letter and destination (or 'x')
+        // Examples: Nbd7 -> "b", N4d7 -> "4", Nb4d7 -> "b4", Nxd7 -> ""
+        String disambiguation = "";
+        int startIdx = 1; // After piece letter
+        int endIdx = san.length() - 2; // Before destination square
+        
+        // If there's a capture 'x', disambiguation is before it
+        if (isCapture)
+        {
+            int xPos = san.indexOf('x');
+            endIdx = xPos;
+        }
+        
+        if (endIdx > startIdx)
+        {
+            disambiguation = san.substring(startIdx, endIdx);
+        }
+        
+        // Parse disambiguation into file and/or rank
+        Integer disambigFile = null;
+        Integer disambigRank = null;
+        
+        for (char c : disambiguation.toCharArray())
+        {
+            if (c >= 'a' && c <= 'h')
+            {
+                disambigFile = c - 'a';
+            }
+            else if (c >= '1' && c <= '8')
+            {
+                disambigRank = c - '1';
+            }
+        }
+        
+        // Find all pieces of the right type that can move to the destination
         for (int row = 0; row < 8; row++)
         {
             for (int col = 0; col < 8; col++)
@@ -146,10 +184,24 @@ public class SANParser
                     Optional<Piece> piece = board.getPieceAt(row, col);
                     if (piece.isPresent() && 
                         piece.get().getColor() == player &&
-                        piece.get().getClass().getSimpleName().equals(pieceName) &&
-                        piece.get().isValidMove(board, toRow, toCol))
+                        piece.get().getClass().getSimpleName().equals(pieceName))
                     {
-                        return game.movePiece(row, col, toRow, toCol);
+                        // Check disambiguation constraints
+                        if (disambigFile != null && col != disambigFile)
+                        {
+                            continue; // Wrong file
+                        }
+                        if (disambigRank != null && row != disambigRank)
+                        {
+                            continue; // Wrong rank
+                        }
+                        
+                        // Check if this piece can make the move
+                        if (piece.get().isValidMove(board, toRow, toCol) &&
+                            !game.wouldLeaveKingInCheck(row, col, toRow, toCol))
+                        {
+                            return game.movePiece(row, col, toRow, toCol);
+                        }
                     }
                 }
             }

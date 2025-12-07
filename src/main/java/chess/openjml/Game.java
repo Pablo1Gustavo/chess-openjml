@@ -612,7 +612,10 @@ public class Game
     /**
      * Check if the move would leave the player's own king in check
      */
-    private boolean wouldLeaveKingInCheck(int fromRow, int fromCol, int toRow, int toCol)
+    /**
+     * Check if a move would leave the player's king in check
+     */
+    public boolean wouldLeaveKingInCheck(int fromRow, int fromCol, int toRow, int toCol)
     {
         // Save the current state
         Piece movingPiece = board.getPieceAt(fromRow, fromCol).get();
