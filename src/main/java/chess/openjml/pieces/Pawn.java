@@ -5,23 +5,11 @@ import chess.openjml.pieces.enums.Color;
 
 public class Pawn extends Piece
 {
-    /*@ requires row >= 0 && row < 8;
-      @ requires col >= 0 && col < 8;
-      @ requires color != null;
-      @*/
     public Pawn(int row, int col, Color color)
     {
         super(row, col, color);
     }
 
-    /*@ also
-      @ requires board != null;
-      @ requires targetRow >= 0 && targetRow < 8;
-      @ requires targetCol >= 0 && targetCol < 8;
-      @ ensures \result ==> (targetRow != row || targetCol != col);
-      @ ensures \result ==> board.isWithinBounds(targetRow, targetCol);
-      @ pure
-      @*/
     public boolean isValidMove(Board board, int targetRow, int targetCol)
     {
         if (targetRow == row && targetCol == col)
@@ -33,7 +21,7 @@ public class Pawn extends Piece
             return false;
         }
 
-        int direction = color == Color.WHITE ? 1 : -1;
+        int direction = color.direction();
         int rowDiff = targetRow - row;
         int colDiff = Math.abs(targetCol - col);
         
@@ -59,9 +47,6 @@ public class Pawn extends Piece
         return false;
     }
 
-    //@ also ensures \result != null;
-    //@ ensures \result.length() > 0;
-    //@ pure
     public String icon()
     {
         return color == Color.WHITE ? "♙" : "♟";

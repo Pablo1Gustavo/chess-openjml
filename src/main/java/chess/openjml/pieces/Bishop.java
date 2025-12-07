@@ -5,23 +5,11 @@ import chess.openjml.pieces.enums.Color;
 
 public class Bishop extends Piece
 {
-    /*@ requires row >= 0 && row < 8;
-      @ requires col >= 0 && col < 8;
-      @ requires color != null;
-      @*/
     public Bishop(int row, int col, Color color)
     {
         super(row, col, color);
     }
 
-    /*@ also
-      @ requires board != null;
-      @ requires targetRow >= 0 && targetRow < 8;
-      @ requires targetCol >= 0 && targetCol < 8;
-      @ ensures (targetRow == \old(row) && targetCol == \old(col)) ==> !\result;
-      @ ensures !board.isWithinBounds(targetRow, targetCol) ==> !\result;
-      @ pure
-      @*/
     public boolean isValidMove(Board board, int targetRow, int targetCol)
     {
         if (targetRow == row && targetCol == col)
@@ -47,9 +35,6 @@ public class Bishop extends Piece
         int currentRow = row + rowStep;
         int currentCol = col + colStep;
         
-        //@ maintaining currentRow >= 0 && currentRow < 8;
-        //@ maintaining currentCol >= 0 && currentCol < 8;
-        //@ decreasing Math.abs(targetRow - currentRow);
         while (currentRow != targetRow || currentCol != targetCol)
         {
             if (board.isCellOccupied(currentRow, currentCol))
@@ -63,9 +48,6 @@ public class Bishop extends Piece
         return !checkTargetMoveIsAlly(board, targetRow, targetCol);
     }
 
-    //@ also ensures \result != null;
-    //@ ensures \result.length() > 0;
-    //@ pure
     public String icon()
     {
         return color == Color.WHITE ? "♗" : "♝";

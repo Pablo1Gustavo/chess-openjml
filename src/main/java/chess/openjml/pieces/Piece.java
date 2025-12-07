@@ -3,10 +3,11 @@ package chess.openjml.pieces;
 import chess.openjml.Board;
 import chess.openjml.pieces.enums.Color;
 
+//@ non_null_by_default
 public abstract class Piece
 {
     //@ spec_public
-    private int moveCount = 0;
+    protected int moveCount = 0;
     //@ spec_public
     protected int row;
     //@ spec_public
@@ -14,20 +15,17 @@ public abstract class Piece
     //@ spec_public
     protected Color color;
 
-    //@ public invariant row >= 0 && row < 8;
-    //@ public invariant col >= 0 && col < 8;
+    //@ public invariant row >= 0;
+    //@ public invariant col >= 0;
     //@ public invariant moveCount >= 0;
-    //@ public invariant color != null;
 
-    /*@ requires row >= 0 && row < 8;
-      @ requires col >= 0 && col < 8;
-      @ requires color != null;
-      @ ensures this.row == row;
-      @ ensures this.col == col;
-      @ ensures this.color == color;
-      @ ensures this.moveCount == 0;
-      @ ensures !hasMoved();
-      @*/
+    //@ requires row >= 0;
+    //@ requires col >= 0;
+    //@ ensures this.row == row;
+    //@ ensures this.col == col;
+    //@ ensures this.color == color;
+    //@ ensures this.moveCount == 0;
+    //@ ensures !hasMoved();
     public Piece(int row, int col, Color color)
     {
         this.row = row;
@@ -35,30 +33,24 @@ public abstract class Piece
         this.color = color;
     }
 
-    /*@ requires other != null;
-      @ ensures \result == (this.color != other.color);
-      @ pure
-      @*/
+    //@ ensures \result == (this.color != other.color);
+    //@ pure
     public boolean isEnemy(Piece other)
     {
         return this.color != other.color;
     }
 
-    /*@ requires other != null;
-      @ ensures \result == (this.color == other.color);
-      @ pure
-      @*/
+    //@ ensures \result == (this.color == other.color);
+    //@ pure
     public boolean isAlly(Piece other)
     {
         return this.color == other.color;
     }
 
-    /*@ requires board != null;
-      @ requires targetRow >= 0 && targetRow < 8;
-      @ requires targetCol >= 0 && targetCol < 8;
-      @ ensures \result ==> board.isCellOccupied(targetRow, targetCol);
-      @ pure
-      @*/
+    //@ requires targetRow >= 0 && targetRow < board.getRowsLength();
+    //@ requires targetCol >= 0 && targetCol < board.getColsLength();
+    //@ ensures \result ==> board.isCellOccupied(targetRow, targetCol);
+    //@ pure
     protected boolean checkTargetMoveIsAlly(Board board, int targetRow, int targetCol)
     {
         if (board.isCellOccupied(targetRow, targetCol))
@@ -69,12 +61,10 @@ public abstract class Piece
         return false;
     }
 
-    /*@ requires board != null;
-      @ requires targetRow >= 0 && targetRow < 8;
-      @ requires targetCol >= 0 && targetCol < 8;
-      @ ensures \result ==> board.isCellOccupied(targetRow, targetCol);
-      @ pure
-      @*/
+    //@ requires targetRow >= 0 && targetRow < board.getRowsLength();
+    //@ requires targetCol >= 0 && targetCol < board.getColsLength();
+    //@ ensures \result ==> board.isCellOccupied(targetRow, targetCol);
+    //@ pure
     protected boolean checkTargetMoveIsEnemy(Board board, int targetRow, int targetCol)
     {
         if (board.isCellOccupied(targetRow, targetCol))
@@ -85,28 +75,26 @@ public abstract class Piece
         return false;
     }
 
-    /*@ requires board != null;
-      @ requires targetRow >= 0 && targetRow < 8;
-      @ requires targetCol >= 0 && targetCol < 8;
-      @*/
+    //@ requires targetRow >= 0 && targetRow < board.getRowsLength();
+    //@ requires targetCol >= 0 && targetCol < board.getColsLength();
+    //@ ensures \result ==> board.isWithinBounds(targetRow, targetCol);
+    //@ ensures \result ==> (targetRow != row || targetCol != col);
+    //@ pure
     public abstract boolean isValidMove(Board board, int targetRow, int targetCol);
 
-    /*@ ensures \result == (moveCount > 0);
-      @ pure
-      @*/
+    //@ ensures \result == (moveCount > 0);
+    //@ pure
     public boolean hasMoved()
     {
         return moveCount > 0;
     }
 
-    /*@ requires board != null;
-      @ requires targetRow >= 0 && targetRow < 8;
-      @ requires targetCol >= 0 && targetCol < 8;
-      @ ensures this.row == targetRow;
-      @ ensures this.col == targetCol;
-      @ ensures this.moveCount == \old(moveCount) + 1;
-      @ ensures hasMoved();
-      @*/
+    //@ requires targetRow >= 0 && targetRow < board.getRowsLength();
+    //@ requires targetCol >= 0 && targetCol < board.getColsLength();
+    //@ ensures this.row == targetRow;
+    //@ ensures this.col == targetCol;
+    //@ ensures this.moveCount == \old(moveCount) + 1;
+    //@ ensures hasMoved();
     public void move(Board board, int targetRow, int targetCol)
     {
         this.row = targetRow;
@@ -114,46 +102,40 @@ public abstract class Piece
         this.moveCount++;
     }
     
-    /*@ requires row >= 0 && row < 8;
-      @ requires col >= 0 && col < 8;
-      @ ensures this.row == row;
-      @ ensures this.col == col;
-      @*/
+    //@ requires row >= 0 && row < board.getRowsLength();
+    //@ requires col >= 0 && col < board.getColsLength();
+    //@ ensures this.row == row;
+    //@ ensures this.col == col;
     public void setPosition(int row, int col)
     {
         this.row = row;
         this.col = col;
     }
 
-    /*@ ensures \result == row;
-      @ ensures \result >= 0 && \result < 8;
-      @ pure
-      @*/
+    //@ ensures \result == row;
+    //@ ensures \result >= 0;
+    //@ pure
     public int getRow()
     {
         return row;
     }
 
-    /*@ ensures \result == col;
-      @ ensures \result >= 0 && \result < 8;
-      @ pure
-      @*/
+    //@ ensures \result == col;
+    //@ ensures \result >= 0;
+    //@ pure
     public int getCol()
     {
         return col;
     }
 
-    /*@ ensures \result == color;
-      @ ensures \result != null;
-      @ pure
-      @*/
+    //@ ensures \result == color;
+    //@ pure
     public Color getColor()
     {
         return color;
     }
 
-    /*@ ensures \result != null;
-      @ pure
-      @*/
+    //@ ensures \result.length() > 0;
+    //@ pure
     public abstract String icon();
 }

@@ -5,23 +5,11 @@ import chess.openjml.pieces.enums.Color;
 
 public class King extends Piece
 {
-    /*@ requires row >= 0 && row < 8;
-      @ requires col >= 0 && col < 8;
-      @ requires color != null;
-      @*/
     public King(int row, int col, Color color)
     {
         super(row, col, color);
     }
 
-    /*@ also
-      @ requires board != null;
-      @ requires targetRow >= 0 && targetRow < 8;
-      @ requires targetCol >= 0 && targetCol < 8;
-      @ ensures (targetRow == \old(row) && targetCol == \old(col)) ==> !\result;
-      @ ensures !board.isWithinBounds(targetRow, targetCol) ==> !\result;
-      @ pure
-      @*/
     public boolean isValidMove(Board board, int targetRow, int targetCol)
     {
         if (targetRow == row && targetCol == col)
@@ -46,9 +34,6 @@ public class King extends Piece
         return !checkTargetMoveIsAlly(board, targetRow, targetCol);
     }
 
-    //@ also ensures \result != null;
-    //@ also ensures \result.length() > 0;
-    //@ pure
     public String icon()
     {
         return color == Color.WHITE ? "♔" : "♚";
