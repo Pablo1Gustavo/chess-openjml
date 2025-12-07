@@ -14,8 +14,10 @@ public class App
     private static final Pattern PAWN_ADVANCE = Pattern.compile("^[a-h][1-8](?:=[QRBN])?[+#]?$");
     private static final Pattern PAWN_CAPTURE = Pattern.compile("^[a-h]x[a-h][1-8](?:=[QRBN])?[+#]?$");
     
+    //@ spec_public
     private static Game game;
 
+    //@ requires args != null;
     public static void main(String[] args)
     {
         System.out.println("♟ Chess Terminal ♟");

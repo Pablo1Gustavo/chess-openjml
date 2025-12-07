@@ -1,1 +1,14 @@
-target
+# Maven build output
+target/
+
+# OpenJML tools (347MB - download separately)
+tools/
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db

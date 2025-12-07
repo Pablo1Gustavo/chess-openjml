@@ -13,6 +13,8 @@ public class SANParser
      * Parse a SAN move and execute it on the game
      * Returns true if move was successful, false otherwise
      */
+    //@ requires game != null;
+    //@ requires san != null;
     public static boolean parseSANAndMove(Game game, String san)
     {
         san = san.trim().toLowerCase();
@@ -45,6 +47,8 @@ public class SANParser
         return false;
     }
     
+    //@ requires game != null;
+    //@ requires san != null;
     private static boolean parsePawnMove(Game game, String san)
     {
         Board board = game.getBoard();
@@ -125,6 +129,8 @@ public class SANParser
         return false;
     }
     
+    //@ requires game != null;
+    //@ requires san != null;
     private static boolean parsePieceMove(Game game, String san)
     {
         Board board = game.getBoard();
@@ -210,11 +216,14 @@ public class SANParser
         return false;
     }
     
+    //@ requires game != null;
     private static boolean handleCastling(Game game, boolean kingside)
     {
         return game.castle(kingside);
     }
     
+    //@ ensures \result != null;
+    //@ pure
     private static String getPieceName(char pieceChar)
     {
         return switch (pieceChar)

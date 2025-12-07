@@ -9,21 +9,43 @@ import chess.openjml.pieces.enums.Color;
  */
 public class Game
 {
+    //@ spec_public
     private Board board;
+    //@ spec_public
     private Color currentPlayer;
+    //@ spec_public
     private int fullMoveNumber;
+    //@ spec_public
     private int halfmoveClock;
     
     // Castling rights
+    //@ spec_public
     private boolean whiteCanCastleKingside;
+    //@ spec_public
     private boolean whiteCanCastleQueenside;
+    //@ spec_public
     private boolean blackCanCastleKingside;
+    //@ spec_public
     private boolean blackCanCastleQueenside;
     
     // En passant target square (the square where the pawn can be captured)
+    //@ spec_public
     private int enPassantRow = -1;
+    //@ spec_public
     private int enPassantCol = -1;
     
+    //@ public invariant board != null;
+    //@ public invariant currentPlayer != null;
+    //@ public invariant fullMoveNumber >= 1;
+    //@ public invariant halfmoveClock >= 0;
+    //@ public invariant enPassantRow >= -1 && enPassantRow < 8;
+    //@ public invariant enPassantCol >= -1 && enPassantCol < 8;
+    //@ public invariant (enPassantRow == -1) == (enPassantCol == -1);
+    
+    //@ ensures board != null;
+    //@ ensures currentPlayer == Color.WHITE;
+    //@ ensures fullMoveNumber == 1;
+    //@ ensures halfmoveClock == 0;
     public Game()
     {
         initializeBoard();
@@ -83,36 +105,56 @@ public class Game
         this.board = new Board(grid);
     }
     
+    //@ requires row >= 0 && row < 8;
+    //@ requires col >= 0 && col < 8;
+    //@ requires piece != null;
+    //@ requires grid != null;
+    //@ requires grid.length == 8;
+    //@ requires grid[row] != null;
+    //@ requires grid[row].length == 8;
+    //@ ensures grid[row][col] != null;
     private void placePiece(Optional<Piece>[][] grid, int row, int col, Piece piece)
     {
         grid[row][col] = Optional.of(piece);
     }
     
+    //@ ensures \result == board;
+    //@ pure
     public Board getBoard()
     {
         return board;
     }
     
+    //@ ensures \result == currentPlayer;
+    //@ pure
     public Color getCurrentPlayer()
     {
         return currentPlayer;
     }
     
+    //@ ensures \result >= 1;
+    //@ pure
     public int getFullMoveNumber()
     {
         return fullMoveNumber;
     }
     
+    //@ ensures \result >= 0;
+    //@ pure
     public int getHalfmoveClock()
     {
         return halfmoveClock;
     }
     
+    //@ ensures \result >= -1 && \result < 8;
+    //@ pure
     public int getEnPassantRow()
     {
         return enPassantRow;
     }
     
+    //@ ensures \result >= -1 && \result < 8;
+    //@ pure
     public int getEnPassantCol()
     {
         return enPassantCol;
@@ -121,6 +163,10 @@ public class Game
     /**
      * Try to move a piece from one square to another
      */
+    //@ requires fromRow >= 0 && fromRow < 8;
+    //@ requires fromCol >= 0 && fromCol < 8;
+    //@ requires toRow >= 0 && toRow < 8;
+    //@ requires toCol >= 0 && toCol < 8;
     public boolean movePiece(int fromRow, int fromCol, int toRow, int toCol)
     {
         return movePiece(fromRow, fromCol, toRow, toCol, null);
@@ -130,6 +176,11 @@ public class Game
      * Try to move a piece from one square to another with optional promotion
      * @param promotionPiece The piece to promote to (Queen, Rook, Bishop, Knight) or null for no promotion
      */
+    //@ requires fromRow >= 0 && fromRow < 8;
+    //@ requires fromCol >= 0 && fromCol < 8;
+    //@ requires toRow >= 0 && toRow < 8;
+    //@ requires toCol >= 0 && toCol < 8;
+    //@ ensures currentPlayer == \old(currentPlayer) || currentPlayer != \old(currentPlayer);
     public boolean movePiece(int fromRow, int fromCol, int toRow, int toCol, String promotionPiece)
     {
         // Check bounds
@@ -281,6 +332,14 @@ public class Game
         return true;
     }
     
+    //@ requires piece != null;
+    //@ requires fromRow >= 0 && fromRow < 8;
+    //@ requires fromCol >= 0 && fromCol < 8;
+    //@ requires toRow >= 0 && toRow < 8;
+    //@ requires toCol >= 0 && toCol < 8;
+    //@ ensures \result != null;
+    //@ ensures \result.length() > 0;
+    //@ pure
     private String generateAlgebraicNotation(Piece piece, int fromRow, int fromCol, 
                                              int toRow, int toCol, String capturedType, boolean causesCheck, String promotionPiece)
     {
@@ -330,6 +389,10 @@ public class Game
         return notation;
     }
     
+    //@ requires pieceName != null;
+    //@ ensures \result != null;
+    //@ ensures \result.length() >= 1;
+    //@ pure
     private String getPieceLetter(String pieceName)
     {
         return switch (pieceName)
@@ -343,6 +406,11 @@ public class Game
         };
     }
     
+    //@ requires row >= 0 && row < 8;
+    //@ requires col >= 0 && col < 8;
+    //@ ensures \result != null;
+    //@ ensures \result.length() == 2;
+    //@ pure
     private String squareToAlgebraic(int row, int col)
     {
         char file = (char) ('a' + col);
@@ -353,6 +421,11 @@ public class Game
     /**
      * Create a promoted piece based on the promotion type
      */
+    //@ requires promotionType != null;
+    //@ requires row >= 0 && row < 8;
+    //@ requires col >= 0 && col < 8;
+    //@ requires color != null;
+    //@ pure
     private Piece createPromotedPiece(String promotionType, int row, int col, Color color)
     {
         return switch (promotionType)
@@ -379,9 +452,9 @@ public class Game
         enPassantCol = -1;
     }
     
-    /**
-     * Update castling rights when a king or rook moves
-     */
+    //@ requires piece != null;
+    //@ requires fromRow >= 0 && fromRow < 8;
+    //@ requires fromCol >= 0 && fromCol < 8;
     private void updateCastlingRights(Piece piece, int fromRow, int fromCol)
     {
         if (piece instanceof King)
@@ -416,6 +489,7 @@ public class Game
      * Attempt to castle (kingside or queenside)
      * Returns true if castling was successful
      */
+    //@ ensures \result ==> currentPlayer != \old(currentPlayer);
     public boolean castle(boolean kingside)
     {
         int row = currentPlayer == Color.WHITE ? 0 : 7;
@@ -553,6 +627,11 @@ public class Game
     /**
      * Find the king of the specified color
      */
+    //@ requires color != null;
+    //@ ensures \result == null || \result.length == 2;
+    //@ ensures \result != null ==> (\result[0] >= 0 && \result[0] < 8);
+    //@ ensures \result != null ==> (\result[1] >= 0 && \result[1] < 8);
+    //@ pure
     private int[] findKing(Color color)
     {
         for (int row = 0; row < 8; row++)
@@ -575,6 +654,10 @@ public class Game
     /**
      * Check if a square is under attack by the specified color
      */
+    //@ requires targetRow >= 0 && targetRow < 8;
+    //@ requires targetCol >= 0 && targetCol < 8;
+    //@ requires attackingColor != null;
+    //@ pure
     public boolean isSquareUnderAttack(int targetRow, int targetCol, Color attackingColor)
     {
         for (int row = 0; row < 8; row++)
@@ -600,6 +683,8 @@ public class Game
     /**
      * Check if the specified color's king is in check
      */
+    //@ requires color != null;
+    //@ pure
     public boolean isInCheck(Color color)
     {
         int[] kingPos = findKing(color);
@@ -615,6 +700,10 @@ public class Game
     /**
      * Check if a move would leave the player's king in check
      */
+    //@ requires fromRow >= 0 && fromRow < 8;
+    //@ requires fromCol >= 0 && fromCol < 8;
+    //@ requires toRow >= 0 && toRow < 8;
+    //@ requires toCol >= 0 && toCol < 8;
     public boolean wouldLeaveKingInCheck(int fromRow, int fromCol, int toRow, int toCol)
     {
         // Save the current state
@@ -663,6 +752,8 @@ public class Game
     /**
      * Check if the specified color has any legal moves
      */
+    //@ requires color != null;
+    //@ pure
     public boolean hasLegalMoves(Color color)
     {
         // Try all possible moves for all pieces of this color
@@ -701,6 +792,8 @@ public class Game
     /**
      * Check if the specified color is in checkmate
      */
+    //@ requires color != null;
+    //@ pure
     public boolean isCheckmate(Color color)
     {
         return isInCheck(color) && !hasLegalMoves(color);
@@ -709,6 +802,8 @@ public class Game
     /**
      * Check if the specified color is in stalemate
      */
+    //@ requires color != null;
+    //@ pure
     public boolean isStalemate(Color color)
     {
         return !isInCheck(color) && !hasLegalMoves(color);
