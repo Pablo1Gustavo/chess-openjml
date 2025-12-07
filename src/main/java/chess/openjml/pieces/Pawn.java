@@ -50,8 +50,8 @@ public class Pawn extends Piece
             return board.isCellEmpty(intermediateRow, col) && board.isCellEmpty(targetRow, targetCol);
         }
 
-        boolean isSimleCaptureMove = colDiff == 1 && rowDiff == direction;
-        if (isSimleCaptureMove)
+        boolean isSimpleCaptureMove = colDiff == 1 && rowDiff == direction;
+        if (isSimpleCaptureMove)
         {
             return checkTargetMoveIsEnemy(board, targetRow, targetCol);
         }
