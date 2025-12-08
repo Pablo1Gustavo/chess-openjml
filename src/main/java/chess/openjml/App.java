@@ -120,8 +120,7 @@ public class App
             if (game.isCheckmate(currentPlayer))
             {
                 System.out.println("♔ CHECKMATE! " + (currentPlayer == Color.WHITE ? "Black" : "White") + " wins!");
-                showBoard();
-                System.out.println("Game over. Type 'reset' to play again or 'quit' to exit.");
+                endGame(game);
                 return;
             }
             
@@ -129,8 +128,7 @@ public class App
             if (game.isStalemate(currentPlayer))
             {
                 System.out.println("♔ STALEMATE! Game is a draw.");
-                showBoard();
-                System.out.println("Game over. Type 'reset' to play again or 'quit' to exit.");
+                endGame(game);
                 return;
             }
             
@@ -145,6 +143,22 @@ public class App
         else
         {
             System.out.println("✗ Illegal move.");
+        }
+    }
+
+    private static void endGame(Game game)
+    {
+        showBoard();
+        System.out.println("Game over. Type 'reset' to play again or 'quit' to exit.");
+
+        try {
+            game.writePGNFile();
+        }
+        catch (Exception e) {
+            System.err.println("Error writing PGN file: " + e.getMessage());
+        }
+        finally {
+            System.exit(0);
         }
     }
     

@@ -1,6 +1,12 @@
 package chess.openjml;
 
 import java.util.Optional;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import chess.openjml.pieces.*;
 import chess.openjml.pieces.enums.Color;
 import chess.openjml.moves.*;
@@ -294,12 +300,13 @@ public class Game
         // Check if this move puts opponent in check
         Color opponentColor = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
         boolean causesCheck = isInCheck(opponentColor);
+        boolean causesCheckmate = causesCheck && !hasLegalMoves(opponentColor);
         
         // Create move record with check flag
         MoveFactory.Builder moveBuilder = new MoveFactory.Builder(fromRow, fromCol, toRow, toCol, 
                                       piece.getClass().getSimpleName(), currentPlayer)
             .moveIndex(board.getMoveCount())
-            .algebraicNotation(generateAlgebraicNotation(piece, fromRow, fromCol, toRow, toCol, capturedType, causesCheck, promotionPiece));
+            .algebraicNotation(generateAlgebraicNotation(piece, fromRow, fromCol, toRow, toCol, capturedType, causesCheck, causesCheckmate, promotionPiece));
         
         if (capturedType != null)
         {
@@ -309,6 +316,11 @@ public class Game
         if (causesCheck)
         {
             moveBuilder.check();
+        }
+        
+        if (causesCheckmate)
+        {
+            moveBuilder.checkmate();
         }
         
         if (promotionPiece != null)
@@ -342,7 +354,7 @@ public class Game
     //@ ensures \result.length() > 0;
     //@ pure
     private String generateAlgebraicNotation(Piece piece, int fromRow, int fromCol, 
-                                             int toRow, int toCol, String capturedType, boolean causesCheck, String promotionPiece)
+                                             int toRow, int toCol, String capturedType, boolean causesCheck, boolean causesCheckmate, String promotionPiece)
     {
         String fromSquare = squareToAlgebraic(fromRow, fromCol);
         String toSquare = squareToAlgebraic(toRow, toCol);
@@ -381,8 +393,12 @@ public class Game
             }
         }
         
-        // Add check marker
-        if (causesCheck)
+        // Add check or checkmate marker
+        if (causesCheckmate)
+        {
+            notation += "#";
+        }
+        else if (causesCheck)
         {
             notation += "+";
         }
@@ -585,10 +601,18 @@ public class Game
         // Check if this move puts opponent in check
         Color opponentColor = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
         boolean causesCheck = isInCheck(opponentColor);
+        boolean causesCheckmate = causesCheck && !hasLegalMoves(opponentColor);
         
         // Create move record
         String notation = kingside ? "O-O" : "O-O-O";
-        if (causesCheck) notation += "+";
+        if (causesCheckmate)
+        {
+            notation += "#";
+        }
+        else if (causesCheck)
+        {
+            notation += "+";
+        }
         
         MoveFactory.Builder moveBuilder = new MoveFactory.Builder(row, kingCol, row, kingToCol, "King", currentPlayer)
             .moveIndex(board.getMoveCount())
@@ -606,6 +630,11 @@ public class Game
         if (causesCheck)
         {
             moveBuilder.check();
+        }
+        
+        if (causesCheckmate)
+        {
+            moveBuilder.checkmate();
         }
         
         BaseMove move = moveBuilder.build();
@@ -787,7 +816,7 @@ public class Game
                 }
             }
         }
-        return false; // No legal moves found
+        return false;
     }
     
     /**
@@ -808,5 +837,84 @@ public class Game
     public boolean isStalemate(Color color)
     {
         return !isInCheck(color) && !hasLegalMoves(color);
+    }
+    
+    public void writePGNFile() throws IOException
+    {
+        LocalDateTime date = LocalDateTime.now();
+
+        String fileName = String.format("game-%s.pgn", 
+            date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")));
+        
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName)))
+        {
+            String result = "*";
+            if (isCheckmate(Color.WHITE))
+            {
+                result = "0-1";
+            }
+            else if (isCheckmate(Color.BLACK))
+            {
+                result = "1-0";
+            }
+            else if (isStalemate(Color.WHITE) || isStalemate(Color.BLACK))
+            {
+                result = "1/2-1/2";
+            }
+            
+            String dateText = date.toLocalDate().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+            writer.write(String.format("""
+                [Event "?"]
+                [Site "?"]
+                [Date "%s"]
+                [Round "?"]
+                [White "?"]
+                [Black "?"]
+                [Result "%s"]
+                
+                """, dateText, result));
+            
+            StringBuilder moveText = new StringBuilder();
+            int moveNumber = 1;
+            
+            for (BaseMove move : board.getMoveHistory())
+            {
+                if (move.getPieceColor() == Color.WHITE)
+                {
+                    if (moveText.length() > 0)
+                    {
+                        moveText.append(" ");
+                    }
+                    moveText.append(moveNumber).append(". ");
+                    moveNumber++;
+                }
+                else {
+                    moveText.append(" ");
+                }
+                moveText.append(move.getAlgebraicNotation());
+            }
+            
+            moveText.append(" ").append(result);
+            
+            String moves = moveText.toString();
+            int lineLength = 0;
+            for (int i = 0; i < moves.length(); i++)
+            {
+                char c = moves.charAt(i);
+                
+                if (c == ' ' && lineLength > 80)
+                {
+                    writer.write("\n");
+                    lineLength = 0;
+                }
+                else
+                {
+                    writer.write(c);
+                    lineLength++;
+                }
+            }
+            
+            writer.write("\n");
+        }
     }
 }
