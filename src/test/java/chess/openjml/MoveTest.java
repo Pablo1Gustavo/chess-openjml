@@ -154,10 +154,9 @@ public class MoveTest extends TestCase
     {
         CastlingRights rights = new CastlingRights(true, true, false, false);
         BaseMove move = new MoveFactory.Builder(0, 4, 0, 5, "King", Color.WHITE)
-            .previousState(rights, 5, 3, 10, 15)
+            .previousState(rights, 5, 3, 15)
             .build();
         
-        assertEquals(10, move.getPreviousHalfmoveClock());
         assertEquals(15, move.getPreviousFullmoveNumber());
         assertEquals(5, move.getPreviousEnPassantRow());
         assertEquals(3, move.getPreviousEnPassantCol());

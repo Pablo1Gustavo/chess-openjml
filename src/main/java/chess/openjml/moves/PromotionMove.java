@@ -21,20 +21,19 @@ public class PromotionMove extends BaseMove
     //@ requires from != null;
     //@ requires to != null;
     //@ requires moveIndex >= 0;
-    //@ requires previousHalfmoveClock >= 0;
     //@ requires previousFullmoveNumber >= 1;
     public PromotionMove(Position from, Position to,
                          Color pieceColor, String promotionPieceType,
                          String capturedPieceType, Position capturedPosition,
                          CastlingRights previousCastlingRights,
                          int previousEnPassantRow, int previousEnPassantCol,
-                         int previousHalfmoveClock, int previousFullmoveNumber,
+                         int previousFullmoveNumber,
                          int moveIndex, long timestamp, long timeRemaining,
                          String algebraicNotation, String resultingFEN)
     {
         super(from, to, "Pawn", pieceColor,
               previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
-              previousHalfmoveClock, previousFullmoveNumber,
+              previousFullmoveNumber,
               moveIndex, timestamp, timeRemaining,
               algebraicNotation, resultingFEN);
         
@@ -49,14 +48,13 @@ public class PromotionMove extends BaseMove
     //@ requires toRow >= 0;
     //@ requires toCol >= 0;
     //@ requires moveIndex >= 0;
-    //@ requires previousHalfmoveClock >= 0;
     //@ requires previousFullmoveNumber >= 1;
     public PromotionMove(int fromRow, int fromCol, int toRow, int toCol,
                          Color pieceColor, String promotionPieceType,
                          String capturedPieceType, int capturedRow, int capturedCol,
                          CastlingRights previousCastlingRights,
                          int previousEnPassantRow, int previousEnPassantCol,
-                         int previousHalfmoveClock, int previousFullmoveNumber,
+                         int previousFullmoveNumber,
                          int moveIndex, long timestamp, long timeRemaining,
                          String algebraicNotation, String resultingFEN)
     {
@@ -64,7 +62,7 @@ public class PromotionMove extends BaseMove
               pieceColor, promotionPieceType, capturedPieceType,
               capturedRow >= 0 ? new Position(capturedRow, capturedCol) : null,
               previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
-              previousHalfmoveClock, previousFullmoveNumber,
+              previousFullmoveNumber,
               moveIndex, timestamp, timeRemaining,
               algebraicNotation, resultingFEN);
     }

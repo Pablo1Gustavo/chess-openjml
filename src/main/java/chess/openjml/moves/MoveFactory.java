@@ -53,8 +53,6 @@ public class MoveFactory
         //@ spec_public
         private int previousEnPassantCol = -1;
         //@ spec_public
-        private int previousHalfmoveClock = 0;
-        //@ spec_public
         private int previousFullmoveNumber = 1;
         
         //@ spec_public
@@ -151,16 +149,14 @@ public class MoveFactory
             return this;
         }
         
-        //@ requires halfmoveClock >= 0;
         //@ requires fullmoveNumber >= 1;
         //@ ensures \result == this;
         public Builder previousState(CastlingRights castlingRights, int enPassantRow, int enPassantCol, 
-                                    int halfmoveClock, int fullmoveNumber)
+                                    int fullmoveNumber)
         {
             this.previousCastlingRights = castlingRights;
             this.previousEnPassantRow = enPassantRow;
             this.previousEnPassantCol = enPassantCol;
-            this.previousHalfmoveClock = halfmoveClock;
             this.previousFullmoveNumber = fullmoveNumber;
             return this;
         }
@@ -215,7 +211,7 @@ public class MoveFactory
                     from, to,
                     pieceColor, isCastleKingSide, isCastleQueenSide,
                     previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
-                    previousHalfmoveClock, previousFullmoveNumber,
+                    previousFullmoveNumber,
                     moveIndex, timestamp, timeRemaining,
                     algebraicNotation, resultingFEN
                 );
@@ -227,7 +223,7 @@ public class MoveFactory
                     pieceColor, promotionPieceType,
                     capturedPieceType, capturedPosition,
                     previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
-                    previousHalfmoveClock, previousFullmoveNumber,
+                    previousFullmoveNumber,
                     moveIndex, timestamp, timeRemaining,
                     algebraicNotation, resultingFEN
                 );
@@ -239,7 +235,7 @@ public class MoveFactory
                     pieceType, pieceColor,
                     capturedPieceType, capturedPosition, isEnPassant,
                     previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
-                    previousHalfmoveClock, previousFullmoveNumber,
+                    previousFullmoveNumber,
                     moveIndex, timestamp, timeRemaining,
                     algebraicNotation, resultingFEN
                 );
@@ -250,7 +246,7 @@ public class MoveFactory
                     from, to,
                     pieceType, pieceColor,
                     previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
-                    previousHalfmoveClock, previousFullmoveNumber,
+                    previousFullmoveNumber,
                     moveIndex, timestamp, timeRemaining,
                     algebraicNotation, resultingFEN
                 );

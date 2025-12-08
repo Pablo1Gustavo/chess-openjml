@@ -32,8 +32,6 @@ public abstract class BaseMove
     //@ spec_public
     protected final int previousEnPassantCol;
     //@ spec_public
-    protected final int previousHalfmoveClock;
-    //@ spec_public
     protected final int previousFullmoveNumber;
     
     // History metadata
@@ -54,19 +52,17 @@ public abstract class BaseMove
     //@ public invariant to != null;
     //@ public invariant moveIndex >= 0;
     //@ public invariant previousFullmoveNumber >= 1;
-    //@ public invariant previousHalfmoveClock >= 0;
     //@ public invariant resultsInCheckmate ==> resultsInCheck;
     
     //@ requires from != null;
     //@ requires to != null;
     //@ requires moveIndex >= 0;
-    //@ requires previousHalfmoveClock >= 0;
     //@ requires previousFullmoveNumber >= 1;
     protected BaseMove(Position from, Position to,
                        String pieceType, Color pieceColor,
                        CastlingRights previousCastlingRights,
                        int previousEnPassantRow, int previousEnPassantCol,
-                       int previousHalfmoveClock, int previousFullmoveNumber,
+                       int previousFullmoveNumber,
                        int moveIndex, long timestamp, long timeRemaining,
                        String algebraicNotation, String resultingFEN)
     {
@@ -78,7 +74,6 @@ public abstract class BaseMove
         this.previousCastlingRights = previousCastlingRights;
         this.previousEnPassantRow = previousEnPassantRow;
         this.previousEnPassantCol = previousEnPassantCol;
-        this.previousHalfmoveClock = previousHalfmoveClock;
         this.previousFullmoveNumber = previousFullmoveNumber;
         
         this.moveIndex = moveIndex;
@@ -178,12 +173,6 @@ public abstract class BaseMove
     public int getPreviousEnPassantCol()
     {
         return previousEnPassantCol;
-    }
-    
-    //@ pure
-    public int getPreviousHalfmoveClock()
-    {
-        return previousHalfmoveClock;
     }
     
     //@ pure

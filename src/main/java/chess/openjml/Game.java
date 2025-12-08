@@ -22,8 +22,6 @@ public class Game
     private Color currentPlayer;
     //@ spec_public
     private int fullMoveNumber;
-    //@ spec_public
-    private int halfmoveClock;
     
     // Castling rights
     //@ spec_public
@@ -44,7 +42,6 @@ public class Game
     //@ public invariant board != null;
     //@ public invariant currentPlayer != null;
     //@ public invariant fullMoveNumber >= 1;
-    //@ public invariant halfmoveClock >= 0;
     //@ public invariant enPassantRow >= -1 && enPassantRow < 8;
     //@ public invariant enPassantCol >= -1 && enPassantCol < 8;
     //@ public invariant (enPassantRow == -1) == (enPassantCol == -1);
@@ -52,13 +49,11 @@ public class Game
     //@ ensures board != null;
     //@ ensures currentPlayer == Color.WHITE;
     //@ ensures fullMoveNumber == 1;
-    //@ ensures halfmoveClock == 0;
     public Game()
     {
         initializeBoard();
         this.currentPlayer = Color.WHITE;
         this.fullMoveNumber = 1;
-        this.halfmoveClock = 0;
         this.whiteCanCastleKingside = true;
         this.whiteCanCastleQueenside = true;
         this.blackCanCastleKingside = true;
@@ -145,13 +140,6 @@ public class Game
     public int getFullMoveNumber()
     {
         return fullMoveNumber;
-    }
-    
-    //@ ensures \result >= 0;
-    //@ pure
-    public int getHalfmoveClock()
-    {
-        return halfmoveClock;
     }
     
     //@ ensures \result >= -1 && \result < 8;
@@ -450,7 +438,6 @@ public class Game
         initializeBoard();
         currentPlayer = Color.WHITE;
         fullMoveNumber = 1;
-        halfmoveClock = 0;
         whiteCanCastleKingside = true;
         whiteCanCastleQueenside = true;
         blackCanCastleKingside = true;
@@ -655,9 +642,6 @@ public class Game
         return king.isPresent() && king.get().isBeingAttacked(board);
     }
     
-    /**
-     * Check if the move would leave the player's own king in check
-     */
     /**
      * Check if a move would leave the player's king in check
      */

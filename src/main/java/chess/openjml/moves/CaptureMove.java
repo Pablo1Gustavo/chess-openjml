@@ -20,7 +20,6 @@ public class CaptureMove extends BaseMove
     //@ requires to != null;
     //@ requires capturedPosition != null;
     //@ requires moveIndex >= 0;
-    //@ requires previousHalfmoveClock >= 0;
     //@ requires previousFullmoveNumber >= 1;
     public CaptureMove(Position from, Position to,
                        String pieceType, Color pieceColor,
@@ -28,13 +27,13 @@ public class CaptureMove extends BaseMove
                        boolean isEnPassant,
                        CastlingRights previousCastlingRights,
                        int previousEnPassantRow, int previousEnPassantCol,
-                       int previousHalfmoveClock, int previousFullmoveNumber,
+                       int previousFullmoveNumber,
                        int moveIndex, long timestamp, long timeRemaining,
                        String algebraicNotation, String resultingFEN)
     {
         super(from, to, pieceType, pieceColor,
               previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
-              previousHalfmoveClock, previousFullmoveNumber,
+              previousFullmoveNumber,
               moveIndex, timestamp, timeRemaining,
               algebraicNotation, resultingFEN);
         
@@ -50,7 +49,6 @@ public class CaptureMove extends BaseMove
     //@ requires capturedRow >= 0;
     //@ requires capturedCol >= 0;
     //@ requires moveIndex >= 0;
-    //@ requires previousHalfmoveClock >= 0;
     //@ requires previousFullmoveNumber >= 1;
     public CaptureMove(int fromRow, int fromCol, int toRow, int toCol,
                        String pieceType, Color pieceColor,
@@ -58,14 +56,14 @@ public class CaptureMove extends BaseMove
                        boolean isEnPassant,
                        CastlingRights previousCastlingRights,
                        int previousEnPassantRow, int previousEnPassantCol,
-                       int previousHalfmoveClock, int previousFullmoveNumber,
+                       int previousFullmoveNumber,
                        int moveIndex, long timestamp, long timeRemaining,
                        String algebraicNotation, String resultingFEN)
     {
         this(new Position(fromRow, fromCol), new Position(toRow, toCol),
               pieceType, pieceColor, capturedPieceType, new Position(capturedRow, capturedCol),
               isEnPassant, previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
-              previousHalfmoveClock, previousFullmoveNumber,
+              previousFullmoveNumber,
               moveIndex, timestamp, timeRemaining,
               algebraicNotation, resultingFEN);
     }

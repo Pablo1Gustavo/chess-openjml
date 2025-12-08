@@ -19,7 +19,6 @@ public class CastlingMove extends BaseMove
     //@ requires from != null;
     //@ requires to != null;
     //@ requires moveIndex >= 0;
-    //@ requires previousHalfmoveClock >= 0;
     //@ requires previousFullmoveNumber >= 1;
     //@ requires kingSide || queenSide;
     //@ requires !(kingSide && queenSide);
@@ -27,13 +26,13 @@ public class CastlingMove extends BaseMove
                         Color pieceColor, boolean kingSide, boolean queenSide,
                         CastlingRights previousCastlingRights,
                         int previousEnPassantRow, int previousEnPassantCol,
-                        int previousHalfmoveClock, int previousFullmoveNumber,
+                        int previousFullmoveNumber,
                         int moveIndex, long timestamp, long timeRemaining,
                         String algebraicNotation, String resultingFEN)
     {
         super(from, to, "King", pieceColor,
               previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
-              previousHalfmoveClock, previousFullmoveNumber,
+              previousFullmoveNumber,
               moveIndex, timestamp, timeRemaining,
               algebraicNotation, resultingFEN);
         
@@ -46,7 +45,6 @@ public class CastlingMove extends BaseMove
     //@ requires toRow >= 0;
     //@ requires toCol >= 0;
     //@ requires moveIndex >= 0;
-    //@ requires previousHalfmoveClock >= 0;
     //@ requires previousFullmoveNumber >= 1;
     //@ requires kingSide || queenSide;
     //@ requires !(kingSide && queenSide);
@@ -54,13 +52,13 @@ public class CastlingMove extends BaseMove
                         Color pieceColor, boolean kingSide, boolean queenSide,
                         CastlingRights previousCastlingRights,
                         int previousEnPassantRow, int previousEnPassantCol,
-                        int previousHalfmoveClock, int previousFullmoveNumber,
+                        int previousFullmoveNumber,
                         int moveIndex, long timestamp, long timeRemaining,
                         String algebraicNotation, String resultingFEN)
     {
         this(new Position(fromRow, fromCol), new Position(toRow, toCol), pieceColor, kingSide, queenSide,
               previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
-              previousHalfmoveClock, previousFullmoveNumber,
+              previousFullmoveNumber,
               moveIndex, timestamp, timeRemaining,
               algebraicNotation, resultingFEN);
     }
