@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 import chess.openjml.pieces.Piece;
+import chess.openjml.pieces.King;
 import chess.openjml.pieces.enums.Color;
 import chess.openjml.moves.BaseMove;
 import chess.openjml.moves.Position;
@@ -17,12 +18,31 @@ public class Board
     private LinkedList<BaseMove> moveHistory;
 
     //@ public invariant grid.length > 0;
-    //@ public invariant (\forall int i; 0 <= i && i < grid.length; grid[i].length > 0 && grid[i].length <= 26);
-    //@ public invariant (\forall int i; 0 <= i && i < grid.length; grid[i].length == grid[0].length);
+    //@ public invariant (\forall int r; 0 <= r && r < grid.length; grid[r].length > 0 && grid[r].length <= 26);
+    //@ public invariant (\forall int r; 0 <= r && r < grid.length; grid[r].length == grid[0].length);
+    // === existe exatamente 1 rei branco ===
+    //@ public invariant
+    //@     (\num_of int r, c;
+    //@         0 <= r && r < grid.length &&
+    //@         0 <= c && c < grid[r].length &&
+    //@         grid[r][c].isPresent() &&
+    //@         (grid[r][c].get() instanceof King) &&
+    //@         ((King)grid[r][c].get()).color == Color.WHITE
+    //@     ) == 1;
+    // === existe exatamente 1 rei preto ===
+    //@ public invariant
+    //@     (\num_of int r, c;
+    //@         0 <= r && r < grid.length &&
+    //@         0 <= c && c < grid[r].length &&
+    //@         grid[r][c].isPresent() &&
+    //@         (grid[r][c].get() instanceof King) &&
+    //@         ((King)grid[r][c].get()).color == Color.BLACK
+    //@     ) == 1;
 
     //@ requires grid.length > 0;
-    //@ requires (\forall int i; 0 <= i && i < grid.length; grid[i].length > 0 && grid[i].length <= 26);
-    //@ requires (\forall int i; 0 <= i && i < grid.length; grid[i].length == grid[0].length);
+    //@ requires (\forall int r; 0 <= r && r < grid.length; grid[r].length > 0 && grid[r].length <= 26);
+    //@ requires (\forall int r; 0 <= r && r < grid.length; grid[r].length == grid[0].length);
+    //@ requires (\exists int r, c; 0 <= r && r < grid.length && 0 <= c && c < grid[r].length && grid[r][c].isPresent());
     //@ ensures this.grid == grid;
     //@ ensures this.moveHistory.size() == 0;
     public Board(Optional<Piece>[][] grid)
