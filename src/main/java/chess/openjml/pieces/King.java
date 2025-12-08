@@ -35,11 +35,15 @@ public class King extends Piece
         return !checkTargetMoveIsAlly(board, target);
     }
 
+    //@ also
+    //@ ensures \result == (color == Color.WHITE ? "♔" : "♚");
     public String icon()
     {
         return color == Color.WHITE ? "♔" : "♚";
     }
 
+    //@ also
+    //@ ensures \result == "K";
     public String letter()
     {
         return "K";

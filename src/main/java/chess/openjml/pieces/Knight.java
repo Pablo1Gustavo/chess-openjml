@@ -34,11 +34,15 @@ public class Knight extends Piece
         return !checkTargetMoveIsAlly(board, target);
     }
 
+    //@ also
+    //@ ensures \result == (color == Color.WHITE ? "♘" : "♞");
     public String icon()
     {
         return color == Color.WHITE ? "♘" : "♞";
     }
 
+    //@ also
+    //@ ensures \result == "N";
     public String letter()
     {
         return "N";

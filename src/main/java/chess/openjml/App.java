@@ -32,7 +32,7 @@ public class App
         {
             while (true)
             {
-                System.out.print(game.getCurrentPlayer() == Color.WHITE ? "White > " : "Black > ");
+                System.out.print(game.getCurrentPlayer().toString() + " > ");
                 if (!scanner.hasNextLine()) break;
                 
                 String line = scanner.nextLine().trim();
@@ -119,7 +119,7 @@ public class App
             // Check for checkmate
             if (game.isCheckmate(currentPlayer))
             {
-                System.out.println("♔ CHECKMATE! " + (currentPlayer == Color.WHITE ? "Black" : "White") + " wins!");
+                System.out.println("♔ CHECKMATE! " + currentPlayer.toString() + " wins!");
                 endGame(game);
                 return;
             }

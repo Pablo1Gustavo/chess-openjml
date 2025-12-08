@@ -12,7 +12,7 @@ public abstract class Piece
     //@ spec_public
     protected Position position;
     //@ spec_public
-    protected Color color;
+    protected final Color color;
 
     //@ public invariant position != null;
     //@ public invariant moveCount >= 0;

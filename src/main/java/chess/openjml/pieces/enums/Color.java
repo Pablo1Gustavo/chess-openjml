@@ -20,7 +20,9 @@ public enum Color
     {
         return this == WHITE ? BLACK : WHITE;
     }
-    
+
+    //@ also
+    //@ ensures \result == (this == WHITE ? "White" : "Black");
     //@ pure
     @Override
     public String toString()

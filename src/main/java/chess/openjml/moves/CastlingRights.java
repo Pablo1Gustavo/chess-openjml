@@ -70,7 +70,6 @@ public class CastlingRights
         this.blackQueenSide = value;
     }
     
-    @Override
     public String toString()
     {
         StringBuilder sb = new StringBuilder();

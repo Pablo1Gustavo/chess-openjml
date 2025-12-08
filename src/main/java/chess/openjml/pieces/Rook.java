@@ -33,11 +33,15 @@ public class Rook extends Piece
         return !checkTargetMoveIsAlly(board, target);
     }
 
+    //@ also
+    //@ ensures \result == (color == Color.WHITE ? "♖" : "♜");
     public String icon()
     {
         return color == Color.WHITE ? "♖" : "♜";
     }
 
+    //@ also
+    //@ ensures \result == "R";
     public String letter()
     {
         return "R";

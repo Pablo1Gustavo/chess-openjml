@@ -33,11 +33,15 @@ public class Queen extends Piece
         return !checkTargetMoveIsAlly(board, target);
     }
 
+    //@ also
+    //@ ensures \result == (color == Color.WHITE ? "♕" : "♛");
     public String icon()
     {
         return color == Color.WHITE ? "♕" : "♛";
     }
 
+    //@ also
+    //@ ensures \result == "Q";
     public String letter()
     {
         return "Q";

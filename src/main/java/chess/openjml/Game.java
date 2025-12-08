@@ -757,6 +757,9 @@ public class Game
         return !isInCheck(color) && !hasLegalMoves(color);
     }
     
+    //@ requires board != null;
+    //@ assignable \nothing; 
+    //@ signals (IOException e) true;
     public void writePGNFile() throws IOException
     {
         LocalDateTime date = LocalDateTime.now();
