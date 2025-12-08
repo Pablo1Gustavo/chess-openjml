@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 import chess.openjml.pieces.Piece;
+import chess.openjml.moves.BaseMove;
 
 public class Board
 {
     //@ spec_public
     Optional<Piece>[][] grid;
     //@ spec_public
-    private List<Move> moveHistory;
+    private List<BaseMove> moveHistory;
 
     //@ public invariant grid != null;
     //@ public invariant grid.length > 0;
@@ -147,17 +148,17 @@ public class Board
     
     // Move history
     
-    public void addMoveToHistory(Move move)
+    public void addMoveToHistory(BaseMove move)
     {
         moveHistory.add(move);
     }
     
-    public List<Move> getMoveHistory()
+    public List<BaseMove> getMoveHistory()
     {
         return new ArrayList<>(moveHistory);
     }
     
-    public Move getLastMove()
+    public BaseMove getLastMove()
     {
         if (moveHistory.isEmpty())
         {
@@ -176,7 +177,7 @@ public class Board
         moveHistory.clear();
     }
     
-    public Move getMoveAt(int index)
+    public BaseMove getMoveAt(int index)
     {
         if (index < 0 || index >= moveHistory.size())
         {

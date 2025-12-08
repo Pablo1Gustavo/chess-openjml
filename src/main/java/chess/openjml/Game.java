@@ -3,6 +3,7 @@ package chess.openjml;
 import java.util.Optional;
 import chess.openjml.pieces.*;
 import chess.openjml.pieces.enums.Color;
+import chess.openjml.moves.*;
 
 /**
  * Manages a chess game: board state, piece positions, turns, and move execution.
@@ -295,7 +296,7 @@ public class Game
         boolean causesCheck = isInCheck(opponentColor);
         
         // Create move record with check flag
-        Move.Builder moveBuilder = new Move.Builder(fromRow, fromCol, toRow, toCol, 
+        MoveFactory.Builder moveBuilder = new MoveFactory.Builder(fromRow, fromCol, toRow, toCol, 
                                       piece.getClass().getSimpleName(), currentPlayer)
             .moveIndex(board.getMoveCount())
             .algebraicNotation(generateAlgebraicNotation(piece, fromRow, fromCol, toRow, toCol, capturedType, causesCheck, promotionPiece));
@@ -315,7 +316,7 @@ public class Game
             moveBuilder.promotion(promotionPiece);
         }
         
-        Move move = moveBuilder.build();
+        BaseMove move = moveBuilder.build();
         
         // Add to history
         board.addMoveToHistory(move);
@@ -589,7 +590,7 @@ public class Game
         String notation = kingside ? "O-O" : "O-O-O";
         if (causesCheck) notation += "+";
         
-        Move.Builder moveBuilder = new Move.Builder(row, kingCol, row, kingToCol, "King", currentPlayer)
+        MoveFactory.Builder moveBuilder = new MoveFactory.Builder(row, kingCol, row, kingToCol, "King", currentPlayer)
             .moveIndex(board.getMoveCount())
             .algebraicNotation(notation);
         
@@ -607,7 +608,7 @@ public class Game
             moveBuilder.check();
         }
         
-        Move move = moveBuilder.build();
+        BaseMove move = moveBuilder.build();
         board.addMoveToHistory(move);
         
         // Switch player

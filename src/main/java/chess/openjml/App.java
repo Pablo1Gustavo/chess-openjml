@@ -3,6 +3,7 @@ package chess.openjml;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import chess.openjml.pieces.enums.Color;
+import chess.openjml.moves.BaseMove;
 
 /**
  * Terminal interface for chess game
@@ -110,7 +111,7 @@ public class App
     {
         if (SANParser.parseSANAndMove(game, san))
         {
-            Move lastMove = game.getBoard().getLastMove();
+            BaseMove lastMove = game.getBoard().getLastMove();
             System.out.println("✓ Move: " + lastMove.getAlgebraicNotation());
             
             Color currentPlayer = game.getCurrentPlayer();

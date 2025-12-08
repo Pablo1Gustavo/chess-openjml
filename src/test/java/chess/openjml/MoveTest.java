@@ -2,13 +2,13 @@ package chess.openjml;
 
 import junit.framework.TestCase;
 import chess.openjml.pieces.enums.Color;
-import chess.openjml.Move.CastlingRights;
+import chess.openjml.moves.*;
 
 public class MoveTest extends TestCase
 {
     public void testSimplePawnMove()
     {
-        Move move = new Move.Builder(1, 4, 3, 4, "Pawn", Color.WHITE)
+        BaseMove move = new MoveFactory.Builder(1, 4, 3, 4, "Pawn", Color.WHITE)
             .moveIndex(0)
             .algebraicNotation("e4")
             .build();
@@ -24,62 +24,70 @@ public class MoveTest extends TestCase
     
     public void testCaptureMove()
     {
-        Move move = new Move.Builder(4, 6, 5, 5, "Knight", Color.WHITE)
+        BaseMove move = new MoveFactory.Builder(4, 6, 5, 5, "Knight", Color.WHITE)
             .capture("Pawn", 5, 5)
             .moveIndex(10)
             .algebraicNotation("Nxf6")
             .build();
         
         assertTrue(move.isCapture());
-        assertEquals("Pawn", move.getCapturedPieceType());
-        assertEquals("f6", move.getCapturedSquare());
+        assertTrue(move instanceof CaptureMove);
+        CaptureMove captureMove = (CaptureMove) move;
+        assertEquals("Pawn", captureMove.getCapturedPieceType());
+        assertEquals("f6", captureMove.getCapturedSquare());
         assertEquals("Nxf6", move.getAlgebraicNotation());
     }
     
     public void testPawnPromotion()
     {
-        Move move = new Move.Builder(6, 4, 7, 4, "Pawn", Color.WHITE)
+        BaseMove move = new MoveFactory.Builder(6, 4, 7, 4, "Pawn", Color.WHITE)
             .promotion("Queen")
             .moveIndex(50)
             .algebraicNotation("e8=Q")
             .build();
         
         assertTrue(move.isPromotion());
-        assertEquals("Queen", move.getPromotionPieceType());
+        assertTrue(move instanceof PromotionMove);
+        PromotionMove promotionMove = (PromotionMove) move;
+        assertEquals("Queen", promotionMove.getPromotionPieceType());
         assertEquals("e8=Q", move.getAlgebraicNotation());
     }
     
     public void testKingsideCastling()
     {
-        Move move = new Move.Builder(0, 4, 0, 6, "King", Color.WHITE)
+        BaseMove move = new MoveFactory.Builder(0, 4, 0, 6, "King", Color.WHITE)
             .castleKingSide()
             .moveIndex(5)
             .algebraicNotation("O-O")
             .build();
         
-        assertTrue(move.isCastleKingSide());
+        assertTrue(move instanceof CastlingMove);
+        CastlingMove castlingMove = (CastlingMove) move;
+        assertTrue(castlingMove.isCastleKingSide());
         assertTrue(move.isCastle());
-        assertFalse(move.isCastleQueenSide());
+        assertFalse(castlingMove.isCastleQueenSide());
         assertEquals("O-O", move.getAlgebraicNotation());
     }
     
     public void testQueensideCastling()
     {
-        Move move = new Move.Builder(0, 4, 0, 2, "King", Color.WHITE)
+        BaseMove move = new MoveFactory.Builder(0, 4, 0, 2, "King", Color.WHITE)
             .castleQueenSide()
             .moveIndex(8)
             .algebraicNotation("O-O-O")
             .build();
         
-        assertTrue(move.isCastleQueenSide());
+        assertTrue(move instanceof CastlingMove);
+        CastlingMove castlingMove = (CastlingMove) move;
+        assertTrue(castlingMove.isCastleQueenSide());
         assertTrue(move.isCastle());
-        assertFalse(move.isCastleKingSide());
+        assertFalse(castlingMove.isCastleKingSide());
         assertEquals("O-O-O", move.getAlgebraicNotation());
     }
     
     public void testEnPassant()
     {
-        Move move = new Move.Builder(4, 4, 5, 3, "Pawn", Color.WHITE)
+        BaseMove move = new MoveFactory.Builder(4, 4, 5, 3, "Pawn", Color.WHITE)
             .capture("Pawn", 4, 3)
             .enPassant()
             .moveIndex(20)
@@ -88,13 +96,15 @@ public class MoveTest extends TestCase
         
         assertTrue(move.isEnPassant());
         assertTrue(move.isCapture());
-        assertEquals("d5", move.getCapturedSquare());
+        assertTrue(move instanceof CaptureMove);
+        CaptureMove captureMove = (CaptureMove) move;
+        assertEquals("d5", captureMove.getCapturedSquare());
         assertEquals("d6", move.getToSquare());
     }
     
     public void testCheckAndCheckmate()
     {
-        Move checkMove = new Move.Builder(3, 3, 5, 5, "Queen", Color.WHITE)
+        BaseMove checkMove = new MoveFactory.Builder(3, 3, 5, 5, "Queen", Color.WHITE)
             .check()
             .algebraicNotation("Qf6+")
             .build();
@@ -102,7 +112,7 @@ public class MoveTest extends TestCase
         assertTrue(checkMove.resultsInCheck());
         assertFalse(checkMove.resultsInCheckmate());
         
-        Move checkmateMove = new Move.Builder(3, 3, 7, 7, "Queen", Color.WHITE)
+        BaseMove checkmateMove = new MoveFactory.Builder(3, 3, 7, 7, "Queen", Color.WHITE)
             .checkmate()
             .algebraicNotation("Qh8#")
             .build();
@@ -143,7 +153,7 @@ public class MoveTest extends TestCase
     public void testPreviousState()
     {
         CastlingRights rights = new CastlingRights(true, true, false, false);
-        Move move = new Move.Builder(0, 4, 0, 5, "King", Color.WHITE)
+        BaseMove move = new MoveFactory.Builder(0, 4, 0, 5, "King", Color.WHITE)
             .previousState(rights, 5, 3, 10, 15)
             .build();
         
