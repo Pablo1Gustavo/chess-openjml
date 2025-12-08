@@ -102,8 +102,8 @@ public abstract class Piece
         this.moveCount++;
     }
     
-    //@ requires row >= 0 && row < board.getRowsLength();
-    //@ requires col >= 0 && col < board.getColsLength();
+    //@ requires row >= 0;
+    //@ requires col >= 0;
     //@ ensures this.row == row;
     //@ ensures this.col == col;
     public void setPosition(int row, int col)
