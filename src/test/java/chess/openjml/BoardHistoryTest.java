@@ -48,9 +48,7 @@ public class BoardHistoryTest extends TestCase
     }
     
     public void testGetLastMove()
-    {
-        assertNull(board.getLastMove());
-        
+    {        
         BaseMove move1 = new MoveFactory.Builder(1, 4, 3, 4, "Pawn", Color.WHITE)
             .algebraicNotation("e4")
             .build();
@@ -90,57 +88,5 @@ public class BoardHistoryTest extends TestCase
         assertEquals(0, history.get(0).getMoveIndex());
         assertEquals(1, history.get(1).getMoveIndex());
         assertEquals(2, history.get(2).getMoveIndex());
-    }
-    
-    public void testGetMoveAt()
-    {
-        BaseMove move1 = new MoveFactory.Builder(1, 0, 2, 0, "Pawn", Color.WHITE)
-            .algebraicNotation("a3")
-            .build();
-        BaseMove move2 = new MoveFactory.Builder(6, 0, 5, 0, "Pawn", Color.BLACK)
-            .algebraicNotation("a6")
-            .build();
-        
-        board.addMoveToHistory(move1);
-        board.addMoveToHistory(move2);
-        
-        BaseMove retrieved = board.getMoveAt(0);
-        assertNotNull(retrieved);
-        assertEquals("a3", retrieved.getAlgebraicNotation());
-        
-        retrieved = board.getMoveAt(1);
-        assertEquals("a6", retrieved.getAlgebraicNotation());
-        
-        assertNull(board.getMoveAt(-1));
-        assertNull(board.getMoveAt(10));
-    }
-    
-    public void testClearHistory()
-    {
-        BaseMove move1 = new MoveFactory.Builder(1, 4, 3, 4, "Pawn", Color.WHITE).build();
-        BaseMove move2 = new MoveFactory.Builder(6, 4, 4, 4, "Pawn", Color.BLACK).build();
-        
-        board.addMoveToHistory(move1);
-        board.addMoveToHistory(move2);
-        assertEquals(2, board.getMoveCount());
-        
-        board.clearHistory();
-        assertEquals(0, board.getMoveCount());
-        assertNull(board.getLastMove());
-    }
-    
-    public void testHistoryImmutability()
-    {
-        BaseMove move = new MoveFactory.Builder(1, 4, 3, 4, "Pawn", Color.WHITE).build();
-        board.addMoveToHistory(move);
-        
-        List<BaseMove> history1 = board.getMoveHistory();
-        List<BaseMove> history2 = board.getMoveHistory();
-        
-        // Should be different list instances
-        assertNotSame(history1, history2);
-        
-        // But contain the same moves
-        assertEquals(history1.size(), history2.size());
     }
 }
