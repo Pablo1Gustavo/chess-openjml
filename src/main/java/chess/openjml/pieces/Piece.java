@@ -138,4 +138,8 @@ public abstract class Piece
     //@ ensures \result.length() > 0;
     //@ pure
     public abstract String icon();
+
+    //@ ensures \result.length() > 0;
+    //@ pure
+    public abstract String letter();
 }

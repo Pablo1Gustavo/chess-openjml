@@ -76,6 +76,7 @@ public class Board
         piece.move(this, toRow, toCol);
     }
 
+    //@ ensures \result.length() > 0;
     //@ pure
     public String toString()
     {

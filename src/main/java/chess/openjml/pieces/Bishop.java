@@ -52,4 +52,9 @@ public class Bishop extends Piece
     {
         return color == Color.WHITE ? "♗" : "♝";
     }
+
+    public String letter()
+    {
+        return "B";
+    }
 }

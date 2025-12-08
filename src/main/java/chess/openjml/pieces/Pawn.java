@@ -51,4 +51,9 @@ public class Pawn extends Piece
     {
         return color == Color.WHITE ? "♙" : "♟";
     }
+
+    public String letter()
+    {
+        return "P";
+    }
 }

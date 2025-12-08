@@ -38,4 +38,9 @@ public class King extends Piece
     {
         return color == Color.WHITE ? "♔" : "♚";
     }
+
+    public String letter()
+    {
+        return "K";
+    }
 }

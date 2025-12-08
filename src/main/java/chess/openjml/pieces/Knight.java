@@ -37,4 +37,9 @@ public class Knight extends Piece
     {
         return color == Color.WHITE ? "♘" : "♞";
     }
+
+    public String letter()
+    {
+        return "N";
+    }
 }

@@ -289,6 +289,8 @@ public abstract class BaseMove
     //@ pure
     public abstract boolean isPromotion();
     
+
+    //@ ensures \result.length() > 0;
     //@ pure
     @Override
     public abstract String toString();

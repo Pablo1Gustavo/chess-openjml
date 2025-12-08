@@ -51,4 +51,9 @@ public class Rook extends Piece
     {
         return color == Color.WHITE ? "♖" : "♜";
     }
+
+    public String letter()
+    {
+        return "R";
+    }
 }

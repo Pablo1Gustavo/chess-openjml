@@ -55,4 +55,9 @@ public class Queen extends Piece
     {
         return color == Color.WHITE ? "♕" : "♛";
     }
+
+    public String letter()
+    {
+        return "Q";
+    }
 }
