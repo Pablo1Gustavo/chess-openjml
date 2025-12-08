@@ -1,0 +1,366 @@
+@startuml Chess OpenJML Class Diagram
+
+!define ABSTRACT_CLASS abstract class
+!define ENUM enum
+
+' Main package
+package chess.openjml {
+    class App {
+        - {static} game: Game
+        + {static} main(args: String[]): void
+        - {static} showBoard(): void
+    }
+
+    class Board {
+        - grid: Optional<Piece>[][]
+        - moveHistory: LinkedList<BaseMove>
+        + Board(grid: Optional<Piece>[][])
+        + getRowsLength(): int
+        + getColsLength(): int
+        + isWithinBounds(pos: Position): boolean
+        + movePiece(fromRow: int, fromCol: int, toRow: int, toCol: int): void
+        + movePiece(from: Position, to: Position): void
+        + getPieceAt(pos: Position): Optional<Piece>
+        + isCellOccupied(pos: Position): boolean
+        + isCellEmpty(pos: Position): boolean
+        + isIntervalClear(from: Position, to: Position): boolean
+        + toString(): String
+    }
+
+    class Game {
+        - board: Board
+        - currentPlayer: Color
+        - fullMoveNumber: int
+        - whiteCanCastleKingside: boolean
+        - whiteCanCastleQueenside: boolean
+        - blackCanCastleKingside: boolean
+        - blackCanCastleQueenside: boolean
+        - enPassantRow: int
+        - enPassantCol: int
+        + Game()
+        - initializeBoard(): void
+        + getBoard(): Board
+        + getCurrentPlayer(): Color
+        + movePiece(fromRow: int, fromCol: int, toRow: int, toCol: int, promotionPiece: String): boolean
+        + castle(kingSide: boolean): boolean
+        + isInCheck(color: Color): boolean
+        + isInCheckmate(color: Color): boolean
+        + undoLastMove(): boolean
+        + exportToPGN(filePath: String): void
+    }
+
+    class SANParser {
+        + {static} parseSANAndMove(game: Game, san: String): boolean
+        - {static} parsePawnMove(game: Game, san: String): boolean
+        - {static} parsePieceMove(game: Game, san: String): boolean
+        - {static} handleCastling(game: Game, kingSide: boolean): boolean
+    }
+}
+
+' Pieces package
+package chess.openjml.pieces {
+    ABSTRACT_CLASS Piece {
+        # moveCount: int
+        # position: Position
+        # {final} color: Color
+        + Piece(position: Position, color: Color)
+        + isEnemy(other: Piece): boolean
+        + isAlly(other: Piece): boolean
+        + isEnemy(otherColor: Color): boolean
+        + isAlly(otherColor: Color): boolean
+        # checkTargetMoveIsAlly(board: Board, target: Position): boolean
+        # checkTargetMoveIsEnemy(board: Board, target: Position): boolean
+        + {abstract} isValidMove(board: Board, target: Position): boolean
+        + hasMoved(): boolean
+        + move(board: Board, target: Position): void
+        + getPosition(): Position
+        + getColor(): Color
+        + getMoveCount(): int
+        + {abstract} icon(): String
+        + {abstract} letter(): String
+    }
+
+    class King {
+        + King(position: Position, color: Color)
+        + isValidMove(board: Board, target: Position): boolean
+        + icon(): String
+        + letter(): String
+    }
+
+    class Queen {
+        + Queen(position: Position, color: Color)
+        + isValidMove(board: Board, target: Position): boolean
+        + icon(): String
+        + letter(): String
+    }
+
+    class Rook {
+        + Rook(position: Position, color: Color)
+        + isValidMove(board: Board, target: Position): boolean
+        + icon(): String
+        + letter(): String
+    }
+
+    class Bishop {
+        + Bishop(position: Position, color: Color)
+        + isValidMove(board: Board, target: Position): boolean
+        + icon(): String
+        + letter(): String
+    }
+
+    class Knight {
+        + Knight(position: Position, color: Color)
+        + isValidMove(board: Board, target: Position): boolean
+        + icon(): String
+        + letter(): String
+    }
+
+    class Pawn {
+        + Pawn(position: Position, color: Color)
+        + isValidMove(board: Board, target: Position): boolean
+        + icon(): String
+        + letter(): String
+    }
+
+    package enums {
+        ENUM Color {
+            BLACK
+            WHITE
+            + direction(): int
+            + opposite(): Color
+            + toString(): String
+        }
+    }
+}
+
+' Moves package
+package chess.openjml.moves {
+    ABSTRACT_CLASS BaseMove {
+        # {final} from: Position
+        # {final} to: Position
+        # {final} pieceType: String
+        # {final} pieceColor: Color
+        # resultsInCheck: boolean
+        # resultsInCheckmate: boolean
+        # {final} previousCastlingRights: CastlingRights
+        # {final} previousEnPassantRow: int
+        # {final} previousEnPassantCol: int
+        # {final} previousFullmoveNumber: int
+        # {final} moveIndex: int
+        # {final} timestamp: long
+        # {final} timeRemaining: long
+        # algebraicNotation: String
+        # resultingFEN: String
+        # BaseMove(...)
+        + getFrom(): Position
+        + getTo(): Position
+        + getPieceType(): String
+        + getPieceColor(): Color
+        + getAlgebraicNotation(): String
+        + getResultingFEN(): String
+        + isCheck(): boolean
+        + isCheckmate(): boolean
+        + getMoveIndex(): int
+        + toSAN(): String
+        + toPGN(): String
+    }
+
+    class StandardMove {
+        + StandardMove(...)
+        + getDescription(): String
+    }
+
+    class CaptureMove {
+        - {final} capturedPieceType: String
+        - {final} capturedPosition: Position
+        - {final} isEnPassantCapture: boolean
+        + CaptureMove(...)
+        + getCapturedPieceType(): String
+        + getCapturedPosition(): Position
+        + isEnPassant(): boolean
+        + getDescription(): String
+    }
+
+    class CastlingMove {
+        - {final} kingSide: boolean
+        - {final} queenSide: boolean
+        + CastlingMove(...)
+        + isKingSide(): boolean
+        + isQueenSide(): boolean
+        + getDescription(): String
+    }
+
+    class PromotionMove {
+        - {final} promotionPieceType: String
+        - {final} capturedPieceType: String
+        - {final} capturedPosition: Position
+        - {final} isAlsoCapture: boolean
+        + PromotionMove(...)
+        + getPromotionPieceType(): String
+        + getCapturedPieceType(): String
+        + isAlsoCapture(): boolean
+        + getDescription(): String
+    }
+
+    class Position {
+        - {final} row: int
+        - {final} col: int
+        + Position(row: int, col: int)
+        + getRow(): int
+        + getCol(): int
+        + getColChar(): char
+        + sameRow(p: Position): boolean
+        + sameCol(p: Position): boolean
+        + sameDiagonal(p: Position): boolean
+        + equals(obj: Object): boolean
+        + hashCode(): int
+        + toString(): String
+    }
+
+    class CastlingRights {
+        - whiteKingSide: boolean
+        - whiteQueenSide: boolean
+        - blackKingSide: boolean
+        - blackQueenSide: boolean
+        + CastlingRights()
+        + CastlingRights(whiteKingSide: boolean, whiteQueenSide: boolean, blackKingSide: boolean, blackQueenSide: boolean)
+        + CastlingRights(other: CastlingRights)
+        + canWhiteCastleKingSide(): boolean
+        + canWhiteCastleQueenSide(): boolean
+        + canBlackCastleKingSide(): boolean
+        + canBlackCastleQueenSide(): boolean
+        + revokeWhiteKingSide(): void
+        + revokeWhiteQueenSide(): void
+        + revokeBlackKingSide(): void
+        + revokeBlackQueenSide(): void
+        + toString(): String
+    }
+
+    class MoveFactory {
+        + {static} createBuilder(): Builder
+        + {static} createStandardMove(...): StandardMove
+        + {static} createCaptureMove(...): CaptureMove
+        + {static} createCastlingMove(...): CastlingMove
+        + {static} createPromotionMove(...): PromotionMove
+    }
+
+    class Builder {
+        - from: Position
+        - to: Position
+        - pieceType: String
+        - pieceColor: Color
+        - capturedPieceType: String
+        - capturedPosition: Position
+        - promotionPieceType: String
+        - isCapture: boolean
+        - isCastleKingSide: boolean
+        - isCastleQueenSide: boolean
+        - isEnPassant: boolean
+        - isPromotion: boolean
+        - resultsInCheck: boolean
+        - resultsInCheckmate: boolean
+        - previousCastlingRights: CastlingRights
+        - previousEnPassantRow: int
+        - previousEnPassantCol: int
+        - previousFullmoveNumber: int
+        - moveIndex: int
+        - timestamp: long
+        - timeRemaining: long
+        - algebraicNotation: String
+        - resultingFEN: String
+        + from(position: Position): Builder
+        + to(position: Position): Builder
+        + pieceType(pieceType: String): Builder
+        + pieceColor(color: Color): Builder
+        + capture(...): Builder
+        + promotion(...): Builder
+        + castling(...): Builder
+        + build(): BaseMove
+    }
+}
+
+' Relationships
+
+' App uses Game and SANParser
+App --> Game : uses
+App --> SANParser : uses
+
+' Game has Board and uses moves
+Game *-- Board : contains
+Game --> Color : uses
+Game ..> BaseMove : creates
+
+' SANParser uses Game
+SANParser --> Game : uses
+
+' Board contains Pieces and BaseMove
+Board o-- Piece : contains
+Board o-- BaseMove : stores history
+Board --> Position : uses
+
+' Piece hierarchy
+King --|> Piece
+Queen --|> Piece
+Rook --|> Piece
+Bishop --|> Piece
+Knight --|> Piece
+Pawn --|> Piece
+
+' Piece uses Color and Position
+Piece --> Color : has
+Piece --> Position : has
+Piece --> Board : validates moves
+
+' Move hierarchy
+StandardMove --|> BaseMove
+CaptureMove --|> BaseMove
+CastlingMove --|> BaseMove
+PromotionMove --|> BaseMove
+
+' BaseMove uses Position, Color, and CastlingRights
+BaseMove --> Position : has
+BaseMove --> Color : has
+BaseMove --> CastlingRights : stores
+
+' MoveFactory creates moves and contains Builder
+MoveFactory ..> BaseMove : creates
+MoveFactory +-- Builder : contains
+Builder ..> BaseMove : builds
+Builder --> Position : uses
+Builder --> Color : uses
+Builder --> CastlingRights : uses
+
+note right of Game
+  Main game controller.
+  Manages board state,
+  turn tracking, castling
+  rights, en passant,
+  and move validation.
+end note
+
+note right of Board
+  Represents the chess board.
+  Contains 8x8 grid of pieces
+  and move history.
+end note
+
+note left of Piece
+  Abstract base class for
+  all chess pieces. Each
+  piece type implements
+  its own move validation.
+end note
+
+note bottom of BaseMove
+  Abstract base for all move types.
+  Stores complete move metadata
+  including previous state for undo.
+end note
+
+note right of MoveFactory
+  Factory pattern with fluent
+  builder for creating different
+  types of chess moves.
+end note
+
+@enduml
