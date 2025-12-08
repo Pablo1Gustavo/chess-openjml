@@ -12,4 +12,19 @@ public enum Color
     {
         return this == WHITE ? 1 : -1;
     }
+
+    //@ ensures this == WHITE ==> \result == BLACK;
+    //@ ensures this == BLACK ==> \result == WHITE;
+    //@ pure
+    public Color opposite()
+    {
+        return this == WHITE ? BLACK : WHITE;
+    }
+    
+    //@ pure
+    @Override
+    public String toString()
+    {
+        return this == WHITE ? "White" : "Black";
+    }
 }

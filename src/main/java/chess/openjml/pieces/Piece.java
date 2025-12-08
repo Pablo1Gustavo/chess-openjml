@@ -42,6 +42,20 @@ public abstract class Piece
         return this.color == other.color;
     }
 
+    //@ ensures \result == (this.color != otherColor);
+    //@ pure
+    public boolean isEnemy(Color otherColor)
+    {
+        return this.color != otherColor;
+    }
+
+    //@ ensures \result == (this.color == otherColor);
+    //@ pure
+    public boolean isAlly(Color otherColor)
+    {
+        return this.color == otherColor;
+    }
+
     //@ requires target != null;
     //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
     //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
@@ -143,4 +157,11 @@ public abstract class Piece
     //@ ensures \result.length() > 0;
     //@ pure
     public abstract String letter();
+
+    //@ requires board != null;
+    //@ pure
+    public boolean isBeingAttacked(Board board)
+    {        
+        return position.isBeingAttacked(board, color.opposite());
+    }
 }

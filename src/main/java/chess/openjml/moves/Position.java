@@ -1,5 +1,9 @@
 package chess.openjml.moves;
 
+import chess.openjml.Board;
+import chess.openjml.pieces.Piece;
+import chess.openjml.pieces.enums.Color;
+
 //@ non_null_by_default
 public class Position
 {
@@ -8,11 +12,11 @@ public class Position
     //@ spec_public
     private final int col;
 
-    //@ public invariant 0 <= row && row < Integer.MAX_VALUE;
-    //@ public invariant 0 <= col && col < Integer.MAX_VALUE;
+    //@ public invariant 0 <= row && row < 26;
+    //@ public invariant 0 <= col && col < 26;
 
-    //@ requires 0 <= row && row < Integer.MAX_VALUE;
-    //@ requires 0 <= col && col < Integer.MAX_VALUE;
+    //@ requires 0 <= row && row < 26;
+    //@ requires 0 <= col && col < 26;
     //@ ensures this.row == row;
     //@ ensures this.col == col;
     public Position(int row, int col)
@@ -125,5 +129,27 @@ public class Position
         int col = notation.charAt(0) - 'a';
         int row = notation.charAt(1) - '1';
         return new Position(row, col);
+    }
+
+    //@ requires board != null;
+    //@ pure
+    public boolean isBeingAttacked(Board board, Color enemyColor)
+    {
+        for (int row = 0; row < board.getRowsLength(); row++)
+        {
+            for (int col = 0; col < board.getColsLength(); col++)
+            {
+                Position pos = new Position(row, col);
+                if (board.isCellOccupied(pos))
+                {
+                    Piece piece = board.getPieceAt(pos).get();
+                    if (piece.isAlly(enemyColor) && piece.isValidMove(board, this))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

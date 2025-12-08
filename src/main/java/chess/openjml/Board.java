@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Optional;
 
 import chess.openjml.pieces.Piece;
+import chess.openjml.pieces.enums.Color;
 import chess.openjml.moves.BaseMove;
 import chess.openjml.moves.Position;
 
@@ -16,11 +17,11 @@ public class Board
     private LinkedList<BaseMove> moveHistory;
 
     //@ public invariant grid.length > 0;
-    //@ public invariant (\forall int i; 0 <= i && i < grid.length; grid[i].length > 0);
+    //@ public invariant (\forall int i; 0 <= i && i < grid.length; grid[i].length > 0 && grid[i].length <= 26);
     //@ public invariant (\forall int i; 0 <= i && i < grid.length; grid[i].length == grid[0].length);
 
     //@ requires grid.length > 0;
-    //@ requires (\forall int i; 0 <= i && i < grid.length; grid[i].length > 0);
+    //@ requires (\forall int i; 0 <= i && i < grid.length; grid[i].length > 0 && grid[i].length <= 26);
     //@ requires (\forall int i; 0 <= i && i < grid.length; grid[i].length == grid[0].length);
     //@ ensures this.grid == grid;
     //@ ensures this.moveHistory.size() == 0;
@@ -188,7 +189,36 @@ public class Board
 
         return true;
     }
+
+    //@ requires cls != null;
+    //@ requires color != null;
+    //@ ensures \result != null;
+    //@ ensures !\result.isPresent() || cls.isInstance(\result.get());
+    //@ pure
+    public <T extends Piece> Optional<T> findPiece(Class<T> cls, Color color)
+    {
+        for (int row = 0; row < getRowsLength(); row++)
+        {
+            for (int col = 0; col < getColsLength(); col++)
+            {
+                Optional<Piece> pieceOpt = grid[row][col];
+                
+                if (pieceOpt.isPresent())
+                {
+                    var piece = pieceOpt.get();
+                    if (cls.isInstance(piece) && piece.getColor() == color)
+                    {
+                        return Optional.of(cls.cast(piece));
+                    }
+                }
+            }
+        }
+        return Optional.empty();
+    }
     
+    //@ requires move != null;
+    //@ ensures moveHistory.size() == \old(moveHistory.size()) + 1;
+    //@ ensures moveHistory.getLast() == move;
     public void addMoveToHistory(BaseMove move)
     {
         moveHistory.add(move);

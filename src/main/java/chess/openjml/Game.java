@@ -216,7 +216,7 @@ public class Game
         if (piece instanceof Pawn && toRow == enPassantRow && toCol == enPassantCol)
         {
             // Check if this is a valid en passant capture (diagonal move to en passant square)
-            int direction = currentPlayer == Color.WHITE ? 1 : -1;
+            int direction = currentPlayer.direction();
             int rowDiff = toRow - fromRow;
             int colDiff = Math.abs(toCol - fromCol);
             if (colDiff == 1 && rowDiff == direction)
@@ -561,7 +561,9 @@ public class Game
         int step = kingside ? 1 : -1;
         for (int col = kingCol; col != kingToCol + step; col += step)
         {
-            if (col != kingCol && isSquareUnderAttack(row, col, currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE))
+            var position = new Position(row, col);
+
+            if (col != kingCol && position.isBeingAttacked(board, currentPlayer.opposite()))
             {
                 return false;
             }
@@ -642,65 +644,6 @@ public class Game
         return true;
     }
     
-    // Check detection methods
-    
-    /**
-     * Find the king of the specified color
-     */
-    //@ requires color != null;
-    //@ ensures \result == null || \result.length == 2;
-    //@ ensures \result != null ==> (\result[0] >= 0 && \result[0] < 8);
-    //@ ensures \result != null ==> (\result[1] >= 0 && \result[1] < 8);
-    //@ pure
-    private int[] findKing(Color color)
-    {
-        for (int row = 0; row < 8; row++)
-        {
-            for (int col = 0; col < 8; col++)
-            {
-                if (board.isCellOccupied(new Position(row, col)))
-                {
-                    Piece piece = board.getPieceAt(new Position(row, col)).get();
-                    if (piece instanceof King && piece.getColor() == color)
-                    {
-                        return new int[]{row, col};
-                    }
-                }
-            }
-        }
-        return null; // Should never happen in a valid game
-    }
-    
-    /**
-     * Check if a square is under attack by the specified color
-     */
-    //@ requires targetRow >= 0 && targetRow < 8;
-    //@ requires targetCol >= 0 && targetCol < 8;
-    //@ requires attackingColor != null;
-    //@ pure
-    public boolean isSquareUnderAttack(int targetRow, int targetCol, Color attackingColor)
-    {
-        Position target = new Position(targetRow, targetCol);
-        for (int row = 0; row < 8; row++)
-        {
-            for (int col = 0; col < 8; col++)
-            {
-                if (board.isCellOccupied(new Position(row, col)))
-                {
-                    Piece piece = board.getPieceAt(new Position(row, col)).get();
-                    if (piece.getColor() == attackingColor)
-                    {
-                        if (piece.isValidMove(board, target))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-    
     /**
      * Check if the specified color's king is in check
      */
@@ -708,11 +651,8 @@ public class Game
     //@ pure
     public boolean isInCheck(Color color)
     {
-        int[] kingPos = findKing(color);
-        if (kingPos == null) return false;
-        
-        Color enemyColor = (color == Color.WHITE) ? Color.BLACK : Color.WHITE;
-        return isSquareUnderAttack(kingPos[0], kingPos[1], enemyColor);
+        var king = board.findPiece(King.class, color);
+        return king.isPresent() && king.get().isBeingAttacked(board);
     }
     
     /**
@@ -859,7 +799,7 @@ public class Game
             String dateText = date.toLocalDate().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
             writer.write(String.format("""
                 [Event "?"]
-                [Site "?"]
+                [Site "openjml-chess"]
                 [Date "%s"]
                 [Round "?"]
                 [White "?"]
