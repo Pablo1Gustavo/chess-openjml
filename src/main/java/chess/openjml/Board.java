@@ -1,36 +1,31 @@
 package chess.openjml;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Optional;
 
 import chess.openjml.pieces.Piece;
 import chess.openjml.moves.BaseMove;
 
+//@ non_null_by_default
 public class Board
 {
     //@ spec_public
     Optional<Piece>[][] grid;
     //@ spec_public
-    private List<BaseMove> moveHistory;
+    private LinkedList<BaseMove> moveHistory;
 
-    //@ public invariant grid != null;
     //@ public invariant grid.length > 0;
-    //@ public invariant (\forall int i; 0 <= i && i < grid.length; grid[i] != null && grid[i].length > 0);
+    //@ public invariant (\forall int i; 0 <= i && i < grid.length; grid[i].length > 0);
     //@ public invariant (\forall int i; 0 <= i && i < grid.length; grid[i].length == grid[0].length);
-    //@ public invariant moveHistory != null;
-
-    //@ requires grid != null;
     //@ requires grid.length > 0;
-    //@ requires (\forall int i; 0 <= i && i < grid.length; grid[i] != null && grid[i].length > 0);
+    //@ requires (\forall int i; 0 <= i && i < grid.length; grid[i].length > 0);
     //@ requires (\forall int i; 0 <= i && i < grid.length; grid[i].length == grid[0].length);
     //@ ensures this.grid == grid;
-    //@ ensures this.moveHistory != null;
     //@ ensures this.moveHistory.size() == 0;
     public Board(Optional<Piece>[][] grid)
     {
         this.grid = grid;
-        this.moveHistory = new ArrayList<>();
+        this.moveHistory = new LinkedList<>();
     }
 
     //@ ensures \result == grid.length;
@@ -81,6 +76,7 @@ public class Board
         piece.move(this, toRow, toCol);
     }
 
+    //@ pure
     public String toString()
     {
         int rows = grid.length;
@@ -106,7 +102,7 @@ public class Board
             for (int col = 0; col < cols; col++)
             {
                 Optional<Piece> cell = grid[row][col];
-                String icon = cell != null && cell.isPresent() ? cell.get().icon() : " ";
+                String icon = cell.isPresent() ? cell.get().icon() : " ";
                 sb.append(" ").append(icon).append(" |");
             }
 
@@ -121,7 +117,6 @@ public class Board
 
     //@ requires row >= 0 && row < getRowsLength();
     //@ requires col >= 0 && col < getColsLength();
-    //@ ensures \result != null;
     //@ pure
     public Optional<Piece> getPieceAt(int row, int col)
     {
@@ -146,43 +141,30 @@ public class Board
         return grid[row][col].isPresent();
     }
     
-    // Move history
-    
     public void addMoveToHistory(BaseMove move)
     {
         moveHistory.add(move);
     }
     
-    public List<BaseMove> getMoveHistory()
+    //@ ensures \result == moveHistory;
+    //@ pure
+    public LinkedList<BaseMove> getMoveHistory()
     {
-        return new ArrayList<>(moveHistory);
+        return moveHistory;
     }
     
+    //@ requires moveHistory.size() > 0;
+    //@ ensures \result == moveHistory.getLast();
+    //@ pure
     public BaseMove getLastMove()
     {
-        if (moveHistory.isEmpty())
-        {
-            return null;
-        }
-        return moveHistory.get(moveHistory.size() - 1);
+        return moveHistory.getLast();
     }
     
+    //@ ensures \result == moveHistory.size();
+    //@ pure
     public int getMoveCount()
     {
         return moveHistory.size();
-    }
-    
-    public void clearHistory()
-    {
-        moveHistory.clear();
-    }
-    
-    public BaseMove getMoveAt(int index)
-    {
-        if (index < 0 || index >= moveHistory.size())
-        {
-            return null;
-        }
-        return moveHistory.get(index);
     }
 }
