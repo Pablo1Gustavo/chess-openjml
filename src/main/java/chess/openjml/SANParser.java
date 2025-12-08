@@ -3,6 +3,7 @@ package chess.openjml;
 import java.util.Optional;
 import chess.openjml.pieces.Piece;
 import chess.openjml.pieces.enums.Color;
+import chess.openjml.moves.Position;
 
 /**
  * Parses Standard Algebraic Notation (SAN) and converts to board moves
@@ -84,9 +85,9 @@ public class SANParser
             int direction = player == Color.WHITE ? 1 : -1;
             for (int row = 0; row < 8; row++)
             {
-                if (board.isCellOccupied(row, fromCol))
+                if (board.isCellOccupied(new Position(row, fromCol)))
                 {
-                    Optional<Piece> piece = board.getPieceAt(row, fromCol);
+                    Optional<Piece> piece = board.getPieceAt(new Position(row, fromCol));
                     if (piece.isPresent() && piece.get().getColor() == player)
                     {
                         int expectedRow = toRow - direction;
@@ -105,9 +106,9 @@ public class SANParser
             
             // Try one square back
             int fromRow = toRow - direction;
-            if (board.isWithinBounds(fromRow, toCol) && board.isCellOccupied(fromRow, toCol))
+            if (board.isWithinBounds(new Position(fromRow, toCol)) && board.isCellOccupied(new Position(fromRow, toCol)))
             {
-                Optional<Piece> piece = board.getPieceAt(fromRow, toCol);
+                Optional<Piece> piece = board.getPieceAt(new Position(fromRow, toCol));
                 if (piece.isPresent() && piece.get().getColor() == player)
                 {
                     return game.movePiece(fromRow, toCol, toRow, toCol, promotionPiece);
@@ -116,9 +117,9 @@ public class SANParser
             
             // Try two squares back (initial pawn move)
             fromRow = toRow - 2 * direction;
-            if (board.isWithinBounds(fromRow, toCol) && board.isCellOccupied(fromRow, toCol))
+            if (board.isWithinBounds(new Position(fromRow, toCol)) && board.isCellOccupied(new Position(fromRow, toCol)))
             {
-                Optional<Piece> piece = board.getPieceAt(fromRow, toCol);
+                Optional<Piece> piece = board.getPieceAt(new Position(fromRow, toCol));
                 if (piece.isPresent() && piece.get().getColor() == player)
                 {
                     return game.movePiece(fromRow, toCol, toRow, toCol, promotionPiece);
@@ -185,9 +186,9 @@ public class SANParser
         {
             for (int col = 0; col < 8; col++)
             {
-                if (board.isCellOccupied(row, col))
+                if (board.isCellOccupied(new Position(row, col)))
                 {
-                    Optional<Piece> piece = board.getPieceAt(row, col);
+                    Optional<Piece> piece = board.getPieceAt(new Position(row, col));
                     if (piece.isPresent() && 
                         piece.get().getColor() == player &&
                         piece.get().getClass().getSimpleName().equals(pieceName))
@@ -203,7 +204,7 @@ public class SANParser
                         }
                         
                         // Check if this piece can make the move
-                        if (piece.get().isValidMove(board, toRow, toCol) &&
+                        if (piece.get().isValidMove(board, new Position(toRow, toCol)) &&
                             !game.wouldLeaveKingInCheck(row, col, toRow, toCol))
                         {
                             return game.movePiece(row, col, toRow, toCol);

@@ -2,6 +2,7 @@ package chess.openjml;
 
 import java.util.Optional;
 import chess.openjml.pieces.*;
+import chess.openjml.moves.Position;
 import chess.openjml.pieces.enums.Color;
 
 public class AmbiguousNotationTest
@@ -37,10 +38,10 @@ public class AmbiguousNotationTest
         }
         
         // Place two white knights that can both reach d7
-        board.grid[5][1] = Optional.of(new Knight(5, 1, Color.WHITE));  // b6
-        board.grid[5][5] = Optional.of(new Knight(5, 5, Color.WHITE));  // f6
-        board.grid[0][0] = Optional.of(new King(0, 0, Color.WHITE));
-        board.grid[7][7] = Optional.of(new King(7, 7, Color.BLACK));
+        board.grid[5][1] = Optional.of(new Knight(new Position(5, 1), Color.WHITE));  // b6
+        board.grid[5][5] = Optional.of(new Knight(new Position(5, 5), Color.WHITE));  // f6
+        board.grid[0][0] = Optional.of(new King(new Position(0, 0), Color.WHITE));
+        board.grid[7][7] = Optional.of(new King(new Position(7, 7), Color.BLACK));
         
         System.out.println("Initial position (both knights can reach d7):");
         System.out.println(board);
@@ -51,10 +52,10 @@ public class AmbiguousNotationTest
         System.out.println("After Nbd7:");
         System.out.println(board);
         
-        boolean knightOnD7 = board.getPieceAt(6, 3).isPresent() && 
-                            board.getPieceAt(6, 3).get() instanceof Knight;
-        boolean oldB6Empty = board.isCellEmpty(5, 1);
-        boolean f6KnightStill = board.getPieceAt(5, 5).isPresent();
+        boolean knightOnD7 = board.getPieceAt(new Position(6, 3)).isPresent() && 
+                            board.getPieceAt(new Position(6, 3)).get() instanceof Knight;
+        boolean oldB6Empty = board.isCellEmpty(new Position(5, 1));
+        boolean f6KnightStill = board.getPieceAt(new Position(5, 5)).isPresent();
         
         System.out.println("Move successful: " + success);
         System.out.println("Knight on d7: " + knightOnD7);
@@ -82,10 +83,10 @@ public class AmbiguousNotationTest
         }
         
         // Place two white knights on same file that can both reach d7
-        board.grid[5][5] = Optional.of(new Knight(5, 5, Color.WHITE));  // f6
-        board.grid[4][5] = Optional.of(new Knight(4, 5, Color.WHITE));  // f5
-        board.grid[0][0] = Optional.of(new King(0, 0, Color.WHITE));
-        board.grid[7][7] = Optional.of(new King(7, 7, Color.BLACK));
+        board.grid[5][5] = Optional.of(new Knight(new Position(5, 5), Color.WHITE));  // f6
+        board.grid[4][5] = Optional.of(new Knight(new Position(4, 5), Color.WHITE));  // f5
+        board.grid[0][0] = Optional.of(new King(new Position(0, 0), Color.WHITE));
+        board.grid[7][7] = Optional.of(new King(new Position(7, 7), Color.BLACK));
         
         System.out.println("Initial position (both knights on f-file can reach d7):");
         System.out.println(board);
@@ -96,10 +97,10 @@ public class AmbiguousNotationTest
         System.out.println("After N6d7:");
         System.out.println(board);
         
-        boolean knightOnD7 = board.getPieceAt(6, 3).isPresent() && 
-                            board.getPieceAt(6, 3).get() instanceof Knight;
-        boolean oldF6Empty = board.isCellEmpty(5, 5);
-        boolean f5KnightStill = board.getPieceAt(4, 5).isPresent();
+        boolean knightOnD7 = board.getPieceAt(new Position(6, 3)).isPresent() && 
+                            board.getPieceAt(new Position(6, 3)).get() instanceof Knight;
+        boolean oldF6Empty = board.isCellEmpty(new Position(5, 5));
+        boolean f5KnightStill = board.getPieceAt(new Position(4, 5)).isPresent();
         
         System.out.println("Move successful: " + success);
         System.out.println("Knight on d7: " + knightOnD7);
@@ -127,18 +128,18 @@ public class AmbiguousNotationTest
         }
         
         // Place three knights that can reach d7 (extreme case)
-        board.grid[5][1] = Optional.of(new Knight(5, 1, Color.WHITE));  // b6
-        board.grid[5][5] = Optional.of(new Knight(5, 5, Color.WHITE));  // f6
-        board.grid[4][1] = Optional.of(new Knight(4, 1, Color.WHITE));  // b5
-        board.grid[0][0] = Optional.of(new King(0, 0, Color.WHITE));
-        board.grid[7][7] = Optional.of(new King(7, 7, Color.BLACK));
+        board.grid[5][1] = Optional.of(new Knight(new Position(5, 1), Color.WHITE));  // b6
+        board.grid[5][5] = Optional.of(new Knight(new Position(5, 5), Color.WHITE));  // f6
+        board.grid[4][1] = Optional.of(new Knight(new Position(4, 1), Color.WHITE));  // b5
+        board.grid[0][0] = Optional.of(new King(new Position(0, 0), Color.WHITE));
+        board.grid[7][7] = Optional.of(new King(new Position(7, 7), Color.BLACK));
         
         // Move knight from b6 using full disambiguation
         boolean success = SANParser.parseSANAndMove(game, "Nb6d7");
         
-        boolean knightOnD7 = board.getPieceAt(6, 3).isPresent() && 
-                            board.getPieceAt(6, 3).get() instanceof Knight;
-        boolean oldB6Empty = board.isCellEmpty(5, 1);
+        boolean knightOnD7 = board.getPieceAt(new Position(6, 3)).isPresent() && 
+                            board.getPieceAt(new Position(6, 3)).get() instanceof Knight;
+        boolean oldB6Empty = board.isCellEmpty(new Position(5, 1));
         
         System.out.println("Move successful: " + success);
         System.out.println("Knight on d7: " + knightOnD7);
@@ -165,11 +166,11 @@ public class AmbiguousNotationTest
         }
         
         // Place two white knights and a black pawn to capture
-        board.grid[3][1] = Optional.of(new Knight(3, 1, Color.WHITE));  // b4
-        board.grid[3][5] = Optional.of(new Knight(3, 5, Color.WHITE));  // f4
-        board.grid[4][3] = Optional.of(new Pawn(4, 3, Color.BLACK));    // d5
-        board.grid[0][0] = Optional.of(new King(0, 0, Color.WHITE));
-        board.grid[7][7] = Optional.of(new King(7, 7, Color.BLACK));
+        board.grid[3][1] = Optional.of(new Knight(new Position(3, 1), Color.WHITE));  // b4
+        board.grid[3][5] = Optional.of(new Knight(new Position(3, 5), Color.WHITE));  // f4
+        board.grid[4][3] = Optional.of(new Pawn(new Position(4, 3), Color.BLACK));    // d5
+        board.grid[0][0] = Optional.of(new King(new Position(0, 0), Color.WHITE));
+        board.grid[7][7] = Optional.of(new King(new Position(7, 7), Color.BLACK));
         
         System.out.println("Initial position:");
         System.out.println(board);
@@ -180,11 +181,11 @@ public class AmbiguousNotationTest
         System.out.println("After Nbxd5:");
         System.out.println(board);
         
-        boolean knightOnD5 = board.getPieceAt(4, 3).isPresent() && 
-                            board.getPieceAt(4, 3).get() instanceof Knight &&
-                            board.getPieceAt(4, 3).get().getColor() == Color.WHITE;
-        boolean oldB4Empty = board.isCellEmpty(3, 1);
-        boolean f4KnightStill = board.getPieceAt(3, 5).isPresent();
+        boolean knightOnD5 = board.getPieceAt(new Position(4, 3)).isPresent() && 
+                            board.getPieceAt(new Position(4, 3)).get() instanceof Knight &&
+                            board.getPieceAt(new Position(4, 3)).get().getColor() == Color.WHITE;
+        boolean oldB4Empty = board.isCellEmpty(new Position(3, 1));
+        boolean f4KnightStill = board.getPieceAt(new Position(3, 5)).isPresent();
         
         System.out.println("Move successful: " + success);
         System.out.println("Knight on d5: " + knightOnD5);
@@ -212,15 +213,15 @@ public class AmbiguousNotationTest
         }
         
         // Place only one knight
-        board.grid[5][1] = Optional.of(new Knight(5, 1, Color.WHITE));  // b6
-        board.grid[0][0] = Optional.of(new King(0, 0, Color.WHITE));
-        board.grid[7][7] = Optional.of(new King(7, 7, Color.BLACK));
+        board.grid[5][1] = Optional.of(new Knight(new Position(5, 1), Color.WHITE));  // b6
+        board.grid[0][0] = Optional.of(new King(new Position(0, 0), Color.WHITE));
+        board.grid[7][7] = Optional.of(new King(new Position(7, 7), Color.BLACK));
         
         // Move without disambiguation (only one knight can move there)
         boolean success = SANParser.parseSANAndMove(game, "Nd7");
         
-        boolean knightOnD7 = board.getPieceAt(6, 3).isPresent() && 
-                            board.getPieceAt(6, 3).get() instanceof Knight;
+        boolean knightOnD7 = board.getPieceAt(new Position(6, 3)).isPresent() && 
+                            board.getPieceAt(new Position(6, 3)).get() instanceof Knight;
         
         System.out.println("Move successful: " + success);
         System.out.println("Knight on d7: " + knightOnD7);

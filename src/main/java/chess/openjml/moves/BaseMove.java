@@ -10,13 +10,9 @@ import chess.openjml.pieces.enums.Color;
 public abstract class BaseMove
 {
     //@ spec_public
-    protected final int fromRow;
+    protected final Position from;
     //@ spec_public
-    protected final int fromCol;
-    //@ spec_public
-    protected final int toRow;
-    //@ spec_public
-    protected final int toCol;
+    protected final Position to;
     //@ spec_public
     protected final String pieceType;
     //@ spec_public
@@ -54,23 +50,19 @@ public abstract class BaseMove
     //@ spec_public
     protected String resultingFEN;
     
-    //@ public invariant fromRow >= 0;
-    //@ public invariant fromCol >= 0;
-    //@ public invariant toRow >= 0;
-    //@ public invariant toCol >= 0;
+    //@ public invariant from != null;
+    //@ public invariant to != null;
     //@ public invariant moveIndex >= 0;
     //@ public invariant previousFullmoveNumber >= 1;
     //@ public invariant previousHalfmoveClock >= 0;
     //@ public invariant resultsInCheckmate ==> resultsInCheck;
     
-    //@ requires fromRow >= 0;
-    //@ requires fromCol >= 0;
-    //@ requires toRow >= 0;
-    //@ requires toCol >= 0;
+    //@ requires from != null;
+    //@ requires to != null;
     //@ requires moveIndex >= 0;
     //@ requires previousHalfmoveClock >= 0;
     //@ requires previousFullmoveNumber >= 1;
-    protected BaseMove(int fromRow, int fromCol, int toRow, int toCol,
+    protected BaseMove(Position from, Position to,
                        String pieceType, Color pieceColor,
                        CastlingRights previousCastlingRights,
                        int previousEnPassantRow, int previousEnPassantCol,
@@ -78,10 +70,8 @@ public abstract class BaseMove
                        int moveIndex, long timestamp, long timeRemaining,
                        String algebraicNotation, String resultingFEN)
     {
-        this.fromRow = fromRow;
-        this.fromCol = fromCol;
-        this.toRow = toRow;
-        this.toCol = toCol;
+        this.from = from;
+        this.to = to;
         this.pieceType = pieceType;
         this.pieceColor = pieceColor;
         
@@ -104,32 +94,46 @@ public abstract class BaseMove
     
     // Common getters
     
-    //@ ensures \result == fromRow;
+    //@ ensures \result == from;
+    //@ pure
+    public Position getFrom()
+    {
+        return from;
+    }
+    
+    //@ ensures \result == to;
+    //@ pure
+    public Position getTo()
+    {
+        return to;
+    }
+    
+    //@ ensures \result == from.getRow();
     //@ pure
     public int getFromRow()
     {
-        return fromRow;
+        return from.getRow();
     }
     
-    //@ ensures \result == fromCol;
+    //@ ensures \result == from.getCol();
     //@ pure
     public int getFromCol()
     {
-        return fromCol;
+        return from.getCol();
     }
     
-    //@ ensures \result == toRow;
+    //@ ensures \result == to.getRow();
     //@ pure
     public int getToRow()
     {
-        return toRow;
+        return to.getRow();
     }
     
-    //@ ensures \result == toCol;
+    //@ ensures \result == to.getCol();
     //@ pure
     public int getToCol()
     {
-        return toCol;
+        return to.getCol();
     }
     
     //@ ensures \result == pieceType;
@@ -256,25 +260,14 @@ public abstract class BaseMove
     //@ pure
     public String getFromSquare()
     {
-        return squareToAlgebraic(fromRow, fromCol);
+        return from.toAlgebraic();
     }
     
     //@ ensures \result.length() == 2;
     //@ pure
     public String getToSquare()
     {
-        return squareToAlgebraic(toRow, toCol);
-    }
-    
-    //@ requires row >= 0;
-    //@ requires col >= 0;
-    //@ ensures \result.length() == 2;
-    //@ pure
-    protected String squareToAlgebraic(int row, int col)
-    {
-        char file = (char) ('a' + col);
-        int rank = row + 1;
-        return new StringBuilder(2).append(file).append(rank).toString();
+        return to.toAlgebraic();
     }
     
     //@ pure
@@ -290,6 +283,7 @@ public abstract class BaseMove
     public abstract boolean isPromotion();
     
 
+    //@ also
     //@ ensures \result.length() > 0;
     //@ pure
     @Override

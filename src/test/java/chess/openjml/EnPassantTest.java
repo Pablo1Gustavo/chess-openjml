@@ -2,6 +2,7 @@ package chess.openjml;
 
 import java.util.Optional;
 import chess.openjml.pieces.*;
+import chess.openjml.moves.Position;
 import chess.openjml.pieces.enums.Color;
 
 public class EnPassantTest
@@ -37,15 +38,15 @@ public class EnPassantTest
         }
         
         // Set up the position: white pawn on e5, black pawn on f7, kings
-        board.grid[4][4] = Optional.of(new Pawn(4, 4, Color.WHITE));  // e5
-        board.grid[6][5] = Optional.of(new Pawn(6, 5, Color.BLACK));  // f7
-        board.grid[0][0] = Optional.of(new King(0, 0, Color.WHITE));
-        board.grid[0][1] = Optional.of(new Rook(0, 1, Color.WHITE));  // Add a rook for white to move
-        board.grid[7][7] = Optional.of(new King(7, 7, Color.BLACK));
+        board.grid[4][4] = Optional.of(new Pawn(new Position(4, 4), Color.WHITE));  // e5
+        board.grid[6][5] = Optional.of(new Pawn(new Position(6, 5), Color.BLACK));  // f7
+        board.grid[0][0] = Optional.of(new King(new Position(0, 0), Color.WHITE));
+        board.grid[0][1] = Optional.of(new Rook(new Position(0, 1), Color.WHITE));  // Add a rook for white to move
+        board.grid[7][7] = Optional.of(new King(new Position(7, 7), Color.BLACK));
         
         // Manually mark white pawn as moved by calling move()
-        Pawn whitePawn = (Pawn) board.getPieceAt(4, 4).get();
-        whitePawn.move(board, 4, 4); // This increments moveCount
+        Pawn whitePawn = (Pawn) board.getPieceAt(new Position(4, 4)).get();
+        whitePawn.move(board, new Position(4, 4)); // This increments moveCount
         
         System.out.println("Initial position:");
         System.out.println(board);
@@ -66,10 +67,10 @@ public class EnPassantTest
         System.out.println("After white captures en passant (e5xf6):");
         System.out.println(board);
         
-        boolean whitePawnOnF6 = board.getPieceAt(5, 5).isPresent() && 
-                                board.getPieceAt(5, 5).get() instanceof Pawn &&
-                                board.getPieceAt(5, 5).get().getColor() == Color.WHITE;
-        boolean blackPawnGone = board.isCellEmpty(4, 5);  // f5 should be empty
+        boolean whitePawnOnF6 = board.getPieceAt(new Position(5, 5)).isPresent() && 
+                                board.getPieceAt(new Position(5, 5)).get() instanceof Pawn &&
+                                board.getPieceAt(new Position(5, 5)).get().getColor() == Color.WHITE;
+        boolean blackPawnGone = board.isCellEmpty(new Position(4, 5));  // f5 should be empty
         
         System.out.println("Capture successful: " + success);
         System.out.println("White pawn on f6: " + whitePawnOnF6);
@@ -96,14 +97,14 @@ public class EnPassantTest
         }
         
         // Place white pawn on e5, black pawn on d7
-        board.grid[4][4] = Optional.of(new Pawn(4, 4, Color.WHITE));  // e5
-        board.grid[6][3] = Optional.of(new Pawn(6, 3, Color.BLACK));  // d7
-        board.grid[0][0] = Optional.of(new King(0, 0, Color.WHITE));
-        board.grid[0][1] = Optional.of(new Rook(0, 1, Color.WHITE));
-        board.grid[7][7] = Optional.of(new King(7, 7, Color.BLACK));
+        board.grid[4][4] = Optional.of(new Pawn(new Position(4, 4), Color.WHITE));  // e5
+        board.grid[6][3] = Optional.of(new Pawn(new Position(6, 3), Color.BLACK));  // d7
+        board.grid[0][0] = Optional.of(new King(new Position(0, 0), Color.WHITE));
+        board.grid[0][1] = Optional.of(new Rook(new Position(0, 1), Color.WHITE));
+        board.grid[7][7] = Optional.of(new King(new Position(7, 7), Color.BLACK));
         
-        Pawn whitePawn = (Pawn) board.getPieceAt(4, 4).get();
-        whitePawn.move(board, 4, 4);
+        Pawn whitePawn = (Pawn) board.getPieceAt(new Position(4, 4)).get();
+        whitePawn.move(board, new Position(4, 4));
         
         // White makes a dummy move
         game.movePiece(0, 1, 0, 2);
@@ -114,10 +115,10 @@ public class EnPassantTest
         // White captures en passant (e5 to d6)
         boolean success = game.movePiece(4, 4, 5, 3);
         
-        boolean whitePawnOnD6 = board.getPieceAt(5, 3).isPresent() && 
-                                board.getPieceAt(5, 3).get() instanceof Pawn &&
-                                board.getPieceAt(5, 3).get().getColor() == Color.WHITE;
-        boolean blackPawnGone = board.isCellEmpty(4, 3);  // d5 should be empty
+        boolean whitePawnOnD6 = board.getPieceAt(new Position(5, 3)).isPresent() && 
+                                board.getPieceAt(new Position(5, 3)).get() instanceof Pawn &&
+                                board.getPieceAt(new Position(5, 3)).get().getColor() == Color.WHITE;
+        boolean blackPawnGone = board.isCellEmpty(new Position(4, 3));  // d5 should be empty
         
         System.out.println("Capture successful: " + success);
         System.out.println("White pawn on d6: " + whitePawnOnD6);
@@ -144,13 +145,13 @@ public class EnPassantTest
         }
         
         // Place black pawn on e4, white pawn on d2
-        board.grid[3][4] = Optional.of(new Pawn(3, 4, Color.BLACK));  // e4
-        board.grid[1][3] = Optional.of(new Pawn(1, 3, Color.WHITE));  // d2
-        board.grid[0][0] = Optional.of(new King(0, 0, Color.WHITE));
-        board.grid[7][7] = Optional.of(new King(7, 7, Color.BLACK));
+        board.grid[3][4] = Optional.of(new Pawn(new Position(3, 4), Color.BLACK));  // e4
+        board.grid[1][3] = Optional.of(new Pawn(new Position(1, 3), Color.WHITE));  // d2
+        board.grid[0][0] = Optional.of(new King(new Position(0, 0), Color.WHITE));
+        board.grid[7][7] = Optional.of(new King(new Position(7, 7), Color.BLACK));
         
-        Pawn blackPawn = (Pawn) board.getPieceAt(3, 4).get();
-        blackPawn.move(board, 3, 4);
+        Pawn blackPawn = (Pawn) board.getPieceAt(new Position(3, 4)).get();
+        blackPawn.move(board, new Position(3, 4));
         
         // White moves pawn two squares (d2 to d4)
         game.movePiece(1, 3, 3, 3);
@@ -158,10 +159,10 @@ public class EnPassantTest
         // Black captures en passant (e4 to d3)
         boolean success = game.movePiece(3, 4, 2, 3);
         
-        boolean blackPawnOnD3 = board.getPieceAt(2, 3).isPresent() && 
-                                board.getPieceAt(2, 3).get() instanceof Pawn &&
-                                board.getPieceAt(2, 3).get().getColor() == Color.BLACK;
-        boolean whitePawnGone = board.isCellEmpty(3, 3);  // d4 should be empty
+        boolean blackPawnOnD3 = board.getPieceAt(new Position(2, 3)).isPresent() && 
+                                board.getPieceAt(new Position(2, 3)).get() instanceof Pawn &&
+                                board.getPieceAt(new Position(2, 3)).get().getColor() == Color.BLACK;
+        boolean whitePawnGone = board.isCellEmpty(new Position(3, 3));  // d4 should be empty
         
         System.out.println("Capture successful: " + success);
         System.out.println("Black pawn on d3: " + blackPawnOnD3);
@@ -188,14 +189,14 @@ public class EnPassantTest
         }
         
         // Place white pawn on e5, black pawn on f7
-        board.grid[4][4] = Optional.of(new Pawn(4, 4, Color.WHITE));  // e5
-        board.grid[6][5] = Optional.of(new Pawn(6, 5, Color.BLACK));  // f7
-        board.grid[0][0] = Optional.of(new King(0, 0, Color.WHITE));
-        board.grid[0][1] = Optional.of(new Rook(0, 1, Color.WHITE));
-        board.grid[7][7] = Optional.of(new King(7, 7, Color.BLACK));
+        board.grid[4][4] = Optional.of(new Pawn(new Position(4, 4), Color.WHITE));  // e5
+        board.grid[6][5] = Optional.of(new Pawn(new Position(6, 5), Color.BLACK));  // f7
+        board.grid[0][0] = Optional.of(new King(new Position(0, 0), Color.WHITE));
+        board.grid[0][1] = Optional.of(new Rook(new Position(0, 1), Color.WHITE));
+        board.grid[7][7] = Optional.of(new King(new Position(7, 7), Color.BLACK));
         
-        Pawn whitePawn = (Pawn) board.getPieceAt(4, 4).get();
-        whitePawn.move(board, 4, 4);
+        Pawn whitePawn = (Pawn) board.getPieceAt(new Position(4, 4)).get();
+        whitePawn.move(board, new Position(4, 4));
         
         // Black moves pawn two squares
         game.movePiece(6, 5, 4, 5);
@@ -233,15 +234,15 @@ public class EnPassantTest
         }
         
         // Place white pawn on e5, black pawn on f6
-        board.grid[4][4] = Optional.of(new Pawn(4, 4, Color.WHITE));  // e5
-        board.grid[5][5] = Optional.of(new Pawn(5, 5, Color.BLACK));  // f6
-        board.grid[0][0] = Optional.of(new King(0, 0, Color.WHITE));
-        board.grid[7][7] = Optional.of(new King(7, 7, Color.BLACK));
+        board.grid[4][4] = Optional.of(new Pawn(new Position(4, 4), Color.WHITE));  // e5
+        board.grid[5][5] = Optional.of(new Pawn(new Position(5, 5), Color.BLACK));  // f6
+        board.grid[0][0] = Optional.of(new King(new Position(0, 0), Color.WHITE));
+        board.grid[7][7] = Optional.of(new King(new Position(7, 7), Color.BLACK));
         
-        Pawn whitePawn = (Pawn) board.getPieceAt(4, 4).get();
-        whitePawn.move(board, 4, 4);
-        Pawn blackPawn = (Pawn) board.getPieceAt(5, 5).get();
-        blackPawn.move(board, 5, 5);
+        Pawn whitePawn = (Pawn) board.getPieceAt(new Position(4, 4)).get();
+        whitePawn.move(board, new Position(4, 4));
+        Pawn blackPawn = (Pawn) board.getPieceAt(new Position(5, 5)).get();
+        blackPawn.move(board, new Position(5, 5));
         
         // Black moves pawn one square (f6 to f5)
         game.movePiece(5, 5, 4, 5);

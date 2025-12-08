@@ -2,46 +2,47 @@ package chess.openjml.pieces;
 
 import chess.openjml.Board;
 import chess.openjml.pieces.enums.Color;
+import chess.openjml.moves.Position;
 
 public class Pawn extends Piece
 {
-    public Pawn(int row, int col, Color color)
+    public Pawn(Position position, Color color)
     {
-        super(row, col, color);
+        super(position, color);
     }
 
-    public boolean isValidMove(Board board, int targetRow, int targetCol)
+    public boolean isValidMove(Board board, Position target)
     {
-        if (targetRow == row && targetCol == col)
+        if (target.equals(position))
         {
             return false;
         }
-        if (!board.isWithinBounds(targetRow, targetCol))
+        if (!board.isWithinBounds(target))
         {
             return false;
         }
 
         int direction = color.direction();
-        int rowDiff = targetRow - row;
-        int colDiff = Math.abs(targetCol - col);
+        int rowDiff = target.getRow() - position.getRow();
+        int colDiff = Math.abs(target.getCol() - position.getCol());
         
         boolean isSimpleMove = colDiff == 0 && rowDiff == direction;
         if (isSimpleMove)
         {
-            return board.isCellEmpty(targetRow, targetCol);
+            return board.isCellEmpty(target);
         }
         
         boolean isInitialDoubleMove = colDiff == 0 && rowDiff == 2 * direction && !hasMoved();
         if (isInitialDoubleMove)
         {
-            int intermediateRow = row + direction;
-            return board.isCellEmpty(intermediateRow, col) && board.isCellEmpty(targetRow, targetCol);
+            int intermediateRow = position.getRow() + direction;
+            return board.isCellEmpty(new Position(intermediateRow, position.getCol())) && board.isCellEmpty(target);
         }
 
         boolean isSimpleCaptureMove = colDiff == 1 && rowDiff == direction;
         if (isSimpleCaptureMove)
         {
-            return checkTargetMoveIsEnemy(board, targetRow, targetCol);
+            return checkTargetMoveIsEnemy(board, target);
         }
         
         return false;

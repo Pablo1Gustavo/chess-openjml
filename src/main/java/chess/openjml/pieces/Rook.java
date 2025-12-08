@@ -2,49 +2,35 @@ package chess.openjml.pieces;
 
 import chess.openjml.Board;
 import chess.openjml.pieces.enums.Color;
+import chess.openjml.moves.Position;
 
 public class Rook extends Piece
 {
-    public Rook(int row, int col, Color color)
+    public Rook(Position position, Color color)
     {
-        super(row, col, color);
+        super(position, color);
     }
 
-    public boolean isValidMove(Board board, int targetRow, int targetCol)
+    public boolean isValidMove(Board board, Position target)
     {
-        if (targetRow == row && targetCol == col)
+        if (target.equals(position))
         {
             return false;
         }
-        if (!board.isWithinBounds(targetRow, targetCol))
+        if (!board.isWithinBounds(target))
         {
             return false;
         }
-
-        boolean isHorizontal = row == targetRow && col != targetCol;
-        boolean isVertical = col == targetCol && row != targetRow;
-        
-        if (!isHorizontal && !isVertical)
+        if (!position.sameRow(target) && !position.sameCol(target))
+        {
+            return false;
+        }
+        if(!board.isIntervalClear(position, target))
         {
             return false;
         }
         
-        int rowStep = Integer.compare(targetRow - row, 0);
-        int colStep = Integer.compare(targetCol - col, 0);
-        int currentRow = row + rowStep;
-        int currentCol = col + colStep;
-        
-        while (currentRow != targetRow || currentCol != targetCol)
-        {
-            if (board.isCellOccupied(currentRow, currentCol))
-            {
-                return false;
-            }
-            currentRow += rowStep;
-            currentCol += colStep;
-        }
-        
-        return !checkTargetMoveIsAlly(board, targetRow, targetCol);
+        return !checkTargetMoveIsAlly(board, target);
     }
 
     public String icon()

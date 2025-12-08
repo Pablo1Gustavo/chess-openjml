@@ -2,50 +2,35 @@ package chess.openjml.pieces;
 
 import chess.openjml.Board;
 import chess.openjml.pieces.enums.Color;
+import chess.openjml.moves.Position;
 
 public class Bishop extends Piece
 {
-    public Bishop(int row, int col, Color color)
+    public Bishop(Position position, Color color)
     {
-        super(row, col, color);
+        super(position, color);
     }
 
-    public boolean isValidMove(Board board, int targetRow, int targetCol)
+    public boolean isValidMove(Board board, Position target)
     {
-        if (targetRow == row && targetCol == col)
+        if (target.equals(position))
         {
             return false;
         }
-        if (!board.isWithinBounds(targetRow, targetCol))
+        if (!board.isWithinBounds(target))
+        {
+            return false;
+        }
+        if (!position.sameDiagonal(target))
+        {
+            return false;
+        }
+        if (!board.isIntervalClear(position, target))
         {
             return false;
         }
 
-        int rowDiff = Math.abs(targetRow - row);
-        int colDiff = Math.abs(targetCol - col);
-        
-        if (rowDiff != colDiff)
-        {
-            return false;
-        }
-        
-        // Check path is clear
-        int rowStep = Integer.compare(targetRow - row, 0);
-        int colStep = Integer.compare(targetCol - col, 0);
-        int currentRow = row + rowStep;
-        int currentCol = col + colStep;
-        
-        while (currentRow != targetRow || currentCol != targetCol)
-        {
-            if (board.isCellOccupied(currentRow, currentCol))
-            {
-                return false;
-            }
-            currentRow += rowStep;
-            currentCol += colStep;
-        }
-
-        return !checkTargetMoveIsAlly(board, targetRow, targetCol);
+        return !checkTargetMoveIsAlly(board, target);
     }
 
     public String icon()

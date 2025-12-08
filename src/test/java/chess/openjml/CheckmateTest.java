@@ -2,6 +2,7 @@ package chess.openjml;
 
 import java.util.Optional;
 import chess.openjml.pieces.*;
+import chess.openjml.moves.Position;
 import chess.openjml.pieces.enums.Color;
 
 /**
@@ -37,10 +38,10 @@ public class CheckmateTest
         clearBoard(board);
         
         // Place white king on e1 (row 0, col 4)
-        board.grid[0][4] = Optional.of(new King(0, 4, Color.WHITE));
+        board.grid[0][4] = Optional.of(new King(new Position(0, 4), Color.WHITE));
         
         // Place black rook on e8 (row 7, col 4)
-        board.grid[7][4] = Optional.of(new Rook(7, 4, Color.BLACK));
+        board.grid[7][4] = Optional.of(new Rook(new Position(7, 4), Color.BLACK));
         
         System.out.println(board);
         
@@ -66,18 +67,18 @@ public class CheckmateTest
         clearBoard(board);
         
         // White king on g1 (row 0, col 6)
-        board.grid[0][6] = Optional.of(new King(0, 6, Color.WHITE));
+        board.grid[0][6] = Optional.of(new King(new Position(0, 6), Color.WHITE));
         
         // White pawns blocking escape on f2, g2, h2
-        board.grid[1][5] = Optional.of(new Pawn(1, 5, Color.WHITE));
-        board.grid[1][6] = Optional.of(new Pawn(1, 6, Color.WHITE));
-        board.grid[1][7] = Optional.of(new Pawn(1, 7, Color.WHITE));
+        board.grid[1][5] = Optional.of(new Pawn(new Position(1, 5), Color.WHITE));
+        board.grid[1][6] = Optional.of(new Pawn(new Position(1, 6), Color.WHITE));
+        board.grid[1][7] = Optional.of(new Pawn(new Position(1, 7), Color.WHITE));
         
         // Black king somewhere safe (e8)
-        board.grid[7][4] = Optional.of(new King(7, 4, Color.BLACK));
+        board.grid[7][4] = Optional.of(new King(new Position(7, 4), Color.BLACK));
         
         // Black rook on a1 (row 0, col 0) delivering checkmate on the back rank
-        board.grid[0][0] = Optional.of(new Rook(0, 0, Color.BLACK));
+        board.grid[0][0] = Optional.of(new Rook(new Position(0, 0), Color.BLACK));
         
         System.out.println(board);
         
@@ -108,14 +109,14 @@ public class CheckmateTest
         clearBoard(board);
         
         // White pieces
-        board.grid[0][4] = Optional.of(new King(0, 4, Color.WHITE)); // White king on e1
-        board.grid[7][0] = Optional.of(new Rook(7, 0, Color.WHITE)); // Rook on a8
-        board.grid[6][0] = Optional.of(new Rook(6, 0, Color.WHITE)); // Rook on a7 supporting
+        board.grid[0][4] = Optional.of(new King(new Position(0, 4), Color.WHITE)); // White king on e1
+        board.grid[7][0] = Optional.of(new Rook(new Position(7, 0), Color.WHITE)); // Rook on a8
+        board.grid[6][0] = Optional.of(new Rook(new Position(6, 0), Color.WHITE)); // Rook on a7 supporting
         
         // Black pieces - king on h8, trapped
-        board.grid[7][7] = Optional.of(new King(7, 7, Color.BLACK)); // King on h8
-        board.grid[6][6] = Optional.of(new Pawn(6, 6, Color.BLACK)); // Pawn on g7
-        board.grid[6][7] = Optional.of(new Pawn(6, 7, Color.BLACK)); // Pawn on h7
+        board.grid[7][7] = Optional.of(new King(new Position(7, 7), Color.BLACK)); // King on h8
+        board.grid[6][6] = Optional.of(new Pawn(new Position(6, 6), Color.BLACK)); // Pawn on g7
+        board.grid[6][7] = Optional.of(new Pawn(new Position(6, 7), Color.BLACK)); // Pawn on h7
         
         System.out.println(board);
         
@@ -146,10 +147,10 @@ public class CheckmateTest
         clearBoard(board);
         
         // White king on e1 (row 0, col 4) - can escape to d1, d2, e2, f2, f1
-        board.grid[0][4] = Optional.of(new King(0, 4, Color.WHITE));
+        board.grid[0][4] = Optional.of(new King(new Position(0, 4), Color.WHITE));
         
         // Black rook on e8 (row 7, col 4) giving check
-        board.grid[7][4] = Optional.of(new Rook(7, 4, Color.BLACK));
+        board.grid[7][4] = Optional.of(new Rook(new Position(7, 4), Color.BLACK));
         
         System.out.println(board);
         
@@ -180,13 +181,13 @@ public class CheckmateTest
         clearBoard(board);
         
         // White king on a1 (row 0, col 0) - trapped in corner
-        board.grid[0][0] = Optional.of(new King(0, 0, Color.WHITE));
+        board.grid[0][0] = Optional.of(new King(new Position(0, 0), Color.WHITE));
         
         // Black king on c3 (row 2, col 2) - controlling escape squares
-        board.grid[2][2] = Optional.of(new King(2, 2, Color.BLACK));
+        board.grid[2][2] = Optional.of(new King(new Position(2, 2), Color.BLACK));
         
         // Black queen on b3 (row 2, col 1) - controlling b1 and b2, but NOT giving check
-        board.grid[2][1] = Optional.of(new Queen(2, 1, Color.BLACK));
+        board.grid[2][1] = Optional.of(new Queen(new Position(2, 1), Color.BLACK));
         
         System.out.println(board);
         

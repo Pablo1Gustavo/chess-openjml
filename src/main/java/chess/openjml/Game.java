@@ -80,49 +80,50 @@ public class Game
         }
         
         // White pieces (bottom, rows 0-1)
-        placePiece(grid, 0, 0, new Rook(0, 0, Color.WHITE));
-        placePiece(grid, 0, 1, new Knight(0, 1, Color.WHITE));
-        placePiece(grid, 0, 2, new Bishop(0, 2, Color.WHITE));
-        placePiece(grid, 0, 3, new Queen(0, 3, Color.WHITE));
-        placePiece(grid, 0, 4, new King(0, 4, Color.WHITE));
-        placePiece(grid, 0, 5, new Bishop(0, 5, Color.WHITE));
-        placePiece(grid, 0, 6, new Knight(0, 6, Color.WHITE));
-        placePiece(grid, 0, 7, new Rook(0, 7, Color.WHITE));
+        placePiece(grid, new Position(0, 0), new Rook(new Position(0, 0), Color.WHITE));
+        placePiece(grid, new Position(0, 1), new Knight(new Position(0, 1), Color.WHITE));
+        placePiece(grid, new Position(0, 2), new Bishop(new Position(0, 2), Color.WHITE));
+        placePiece(grid, new Position(0, 3), new Queen(new Position(0, 3), Color.WHITE));
+        placePiece(grid, new Position(0, 4), new King(new Position(0, 4), Color.WHITE));
+        placePiece(grid, new Position(0, 5), new Bishop(new Position(0, 5), Color.WHITE));
+        placePiece(grid, new Position(0, 6), new Knight(new Position(0, 6), Color.WHITE));
+        placePiece(grid, new Position(0, 7), new Rook(new Position(0, 7), Color.WHITE));
         
         for (int col = 0; col < 8; col++)
         {
-            placePiece(grid, 1, col, new Pawn(1, col, Color.WHITE));
+            placePiece(grid, new Position(1, col), new Pawn(new Position(1, col), Color.WHITE));
         }
         
         // Black pieces (top, rows 7-6)
-        placePiece(grid, 7, 0, new Rook(7, 0, Color.BLACK));
-        placePiece(grid, 7, 1, new Knight(7, 1, Color.BLACK));
-        placePiece(grid, 7, 2, new Bishop(7, 2, Color.BLACK));
-        placePiece(grid, 7, 3, new Queen(7, 3, Color.BLACK));
-        placePiece(grid, 7, 4, new King(7, 4, Color.BLACK));
-        placePiece(grid, 7, 5, new Bishop(7, 5, Color.BLACK));
-        placePiece(grid, 7, 6, new Knight(7, 6, Color.BLACK));
-        placePiece(grid, 7, 7, new Rook(7, 7, Color.BLACK));
+        placePiece(grid, new Position(7, 0), new Rook(new Position(7, 0), Color.BLACK));
+        placePiece(grid, new Position(7, 1), new Knight(new Position(7, 1), Color.BLACK));
+        placePiece(grid, new Position(7, 2), new Bishop(new Position(7, 2), Color.BLACK));
+        placePiece(grid, new Position(7, 3), new Queen(new Position(7, 3), Color.BLACK));
+        placePiece(grid, new Position(7, 4), new King(new Position(7, 4), Color.BLACK));
+        placePiece(grid, new Position(7, 5), new Bishop(new Position(7, 5), Color.BLACK));
+        placePiece(grid, new Position(7, 6), new Knight(new Position(7, 6), Color.BLACK));
+        placePiece(grid, new Position(7, 7), new Rook(new Position(7, 7), Color.BLACK));
         
         for (int col = 0; col < 8; col++)
         {
-            placePiece(grid, 6, col, new Pawn(6, col, Color.BLACK));
+            placePiece(grid, new Position(6, col), new Pawn(new Position(6, col), Color.BLACK));
         }
         
         this.board = new Board(grid);
     }
     
-    //@ requires row >= 0 && row < 8;
-    //@ requires col >= 0 && col < 8;
+    //@ requires position != null;
+    //@ requires position.getRow() >= 0 && position.getRow() < 8;
+    //@ requires position.getCol() >= 0 && position.getCol() < 8;
     //@ requires piece != null;
     //@ requires grid != null;
     //@ requires grid.length == 8;
-    //@ requires grid[row] != null;
-    //@ requires grid[row].length == 8;
-    //@ ensures grid[row][col] != null;
-    private void placePiece(Optional<Piece>[][] grid, int row, int col, Piece piece)
+    //@ requires grid[position.getRow()] != null;
+    //@ requires grid[position.getRow()].length == 8;
+    //@ ensures grid[position.getRow()][position.getCol()] != null;
+    private void placePiece(Optional<Piece>[][] grid, Position position, Piece piece)
     {
-        grid[row][col] = Optional.of(piece);
+        grid[position.getRow()][position.getCol()] = Optional.of(piece);
     }
     
     //@ ensures \result == board;
@@ -191,18 +192,18 @@ public class Game
     public boolean movePiece(int fromRow, int fromCol, int toRow, int toCol, String promotionPiece)
     {
         // Check bounds
-        if (!board.isWithinBounds(fromRow, fromCol) || !board.isWithinBounds(toRow, toCol))
+        if (!board.isWithinBounds(new Position(fromRow, fromCol)) || !board.isWithinBounds(new Position(toRow, toCol)))
         {
             return false;
         }
         
         // Check source has a piece
-        if (board.isCellEmpty(fromRow, fromCol))
+        if (board.isCellEmpty(new Position(fromRow, fromCol)))
         {
             return false;
         }
         
-        Piece piece = board.getPieceAt(fromRow, fromCol).get();
+        Piece piece = board.getPieceAt(new Position(fromRow, fromCol)).get();
         
         // Check it's the right player's turn
         if (piece.getColor() != currentPlayer)
@@ -225,7 +226,7 @@ public class Game
         }
         
         // Check move is valid for this piece (or is en passant)
-        if (!isEnPassantMove && !piece.isValidMove(board, toRow, toCol))
+        if (!isEnPassantMove && !piece.isValidMove(board, new Position(toRow, toCol)))
         {
             return false;
         }
@@ -241,9 +242,9 @@ public class Game
         
         // Capture if there's an enemy piece
         String capturedType = null;
-        if (board.isCellOccupied(toRow, toCol))
+        if (board.isCellOccupied(new Position(toRow, toCol)))
         {
-            capturedType = board.getPieceAt(toRow, toCol).get().getClass().getSimpleName();
+            capturedType = board.getPieceAt(new Position(toRow, toCol)).get().getClass().getSimpleName();
         }
         
         // Check for en passant capture
@@ -252,7 +253,7 @@ public class Game
         {
             // This is an en passant capture - remove the captured pawn
             int capturedPawnRow = (currentPlayer == Color.WHITE) ? toRow - 1 : toRow + 1;
-            if (board.isCellOccupied(capturedPawnRow, toCol))
+            if (board.isCellOccupied(new Position(capturedPawnRow, toCol)))
             {
                 capturedType = "Pawn";
                 board.grid[capturedPawnRow][toCol] = Optional.empty();
@@ -266,7 +267,7 @@ public class Game
             // Move the pawn directly without validation (we already validated it's en passant)
             board.grid[toRow][toCol] = Optional.of(piece);
             board.grid[fromRow][fromCol] = Optional.empty();
-            piece.move(board, toRow, toCol);
+            piece.move(board, new Position(toRow, toCol));
         }
         else
         {
@@ -289,7 +290,7 @@ public class Game
             int promotionRank = (currentPlayer == Color.WHITE) ? 7 : 0;
             if (toRow == promotionRank)
             {
-                Piece promotedPiece = createPromotedPiece(promotionPiece, toRow, toCol, currentPlayer);
+                Piece promotedPiece = createPromotedPiece(promotionPiece, new Position(toRow, toCol), currentPlayer);
                 if (promotedPiece != null)
                 {
                     board.grid[toRow][toCol] = Optional.of(promotedPiece);
@@ -356,8 +357,8 @@ public class Game
     private String generateAlgebraicNotation(Piece piece, int fromRow, int fromCol, 
                                              int toRow, int toCol, String capturedType, boolean causesCheck, boolean causesCheckmate, String promotionPiece)
     {
-        String fromSquare = squareToAlgebraic(fromRow, fromCol);
-        String toSquare = squareToAlgebraic(toRow, toCol);
+        String fromSquare = new Position(fromRow, fromCol).toAlgebraic();
+        String toSquare = new Position(toRow, toCol).toAlgebraic();
         
         String notation;
         
@@ -423,34 +424,23 @@ public class Game
         };
     }
     
-    //@ requires row >= 0 && row < 8;
-    //@ requires col >= 0 && col < 8;
-    //@ ensures \result != null;
-    //@ ensures \result.length() == 2;
-    //@ pure
-    private String squareToAlgebraic(int row, int col)
-    {
-        char file = (char) ('a' + col);
-        int rank = row + 1;
-        return "" + file + rank;
-    }
-    
     /**
      * Create a promoted piece based on the promotion type
      */
     //@ requires promotionType != null;
-    //@ requires row >= 0 && row < 8;
-    //@ requires col >= 0 && col < 8;
+    //@ requires position != null;
+    //@ requires position.getRow() >= 0 && position.getRow() < 8;
+    //@ requires position.getCol() >= 0 && position.getCol() < 8;
     //@ requires color != null;
     //@ pure
-    private Piece createPromotedPiece(String promotionType, int row, int col, Color color)
+    private Piece createPromotedPiece(String promotionType, Position position, Color color)
     {
         return switch (promotionType)
         {
-            case "Queen" -> new Queen(row, col, color);
-            case "Rook" -> new Rook(row, col, color);
-            case "Bishop" -> new Bishop(row, col, color);
-            case "Knight" -> new Knight(row, col, color);
+            case "Queen" -> new Queen(position, color);
+            case "Rook" -> new Rook(position, color);
+            case "Bishop" -> new Bishop(position, color);
+            case "Knight" -> new Knight(position, color);
             default -> null;
         };
     }
@@ -532,13 +522,13 @@ public class Game
         }
         
         // Check king and rook are in correct positions
-        if (board.isCellEmpty(row, kingCol) || board.isCellEmpty(row, rookCol))
+        if (board.isCellEmpty(new Position(row, kingCol)) || board.isCellEmpty(new Position(row, rookCol)))
         {
             return false;
         }
         
-        Piece king = board.getPieceAt(row, kingCol).get();
-        Piece rook = board.getPieceAt(row, rookCol).get();
+        Piece king = board.getPieceAt(new Position(row, kingCol)).get();
+        Piece rook = board.getPieceAt(new Position(row, rookCol)).get();
         
         if (!(king instanceof King) || !(rook instanceof Rook))
         {
@@ -555,7 +545,7 @@ public class Game
         int end = Math.max(kingCol, rookCol);
         for (int col = start; col < end; col++)
         {
-            if (board.isCellOccupied(row, col))
+            if (board.isCellOccupied(new Position(row, col)))
             {
                 return false;
             }
@@ -580,11 +570,11 @@ public class Game
         // Execute castling - move king and rook
         board.grid[row][kingToCol] = Optional.of(king);
         board.grid[row][kingCol] = Optional.empty();
-        king.setPosition(row, kingToCol);
+        king.setPosition(new Position(row, kingToCol));
         
         board.grid[row][rookToCol] = Optional.of(rook);
         board.grid[row][rookCol] = Optional.empty();
-        rook.setPosition(row, rookToCol);
+        rook.setPosition(new Position(row, rookToCol));
         
         // Update castling rights
         if (currentPlayer == Color.WHITE)
@@ -668,9 +658,9 @@ public class Game
         {
             for (int col = 0; col < 8; col++)
             {
-                if (board.isCellOccupied(row, col))
+                if (board.isCellOccupied(new Position(row, col)))
                 {
-                    Piece piece = board.getPieceAt(row, col).get();
+                    Piece piece = board.getPieceAt(new Position(row, col)).get();
                     if (piece instanceof King && piece.getColor() == color)
                     {
                         return new int[]{row, col};
@@ -690,16 +680,17 @@ public class Game
     //@ pure
     public boolean isSquareUnderAttack(int targetRow, int targetCol, Color attackingColor)
     {
+        Position target = new Position(targetRow, targetCol);
         for (int row = 0; row < 8; row++)
         {
             for (int col = 0; col < 8; col++)
             {
-                if (board.isCellOccupied(row, col))
+                if (board.isCellOccupied(new Position(row, col)))
                 {
-                    Piece piece = board.getPieceAt(row, col).get();
+                    Piece piece = board.getPieceAt(new Position(row, col)).get();
                     if (piece.getColor() == attackingColor)
                     {
-                        if (piece.isValidMove(board, targetRow, targetCol))
+                        if (piece.isValidMove(board, target))
                         {
                             return true;
                         }
@@ -737,9 +728,11 @@ public class Game
     public boolean wouldLeaveKingInCheck(int fromRow, int fromCol, int toRow, int toCol)
     {
         // Save the current state
-        Piece movingPiece = board.getPieceAt(fromRow, fromCol).get();
-        Optional<Piece> targetPiece = board.getPieceAt(toRow, toCol);
+        Piece movingPiece = board.getPieceAt(new Position(fromRow, fromCol)).get();
+        Optional<Piece> targetPiece = board.getPieceAt(new Position(toRow, toCol));
         Color playerColor = movingPiece.getColor();
+        Position originalPosition = movingPiece.getPosition();
+        Position targetPosition = new Position(toRow, toCol);
         
         // Check if this is an en passant capture
         Optional<Piece> enPassantCapturedPiece = Optional.empty();
@@ -748,13 +741,13 @@ public class Game
         {
             // This is an en passant capture - save the captured pawn
             enPassantCapturedRow = (playerColor == Color.WHITE) ? toRow - 1 : toRow + 1;
-            enPassantCapturedPiece = board.getPieceAt(enPassantCapturedRow, toCol);
+            enPassantCapturedPiece = board.getPieceAt(new Position(enPassantCapturedRow, toCol));
         }
         
         // Temporarily make the move
         board.grid[toRow][toCol] = Optional.of(movingPiece);
         board.grid[fromRow][fromCol] = Optional.empty();
-        movingPiece.setPosition(toRow, toCol);
+        movingPiece.setPosition(targetPosition);
         
         // Remove en passant captured pawn if applicable
         if (enPassantCapturedRow != -1)
@@ -768,7 +761,7 @@ public class Game
         // Undo the move
         board.grid[fromRow][fromCol] = Optional.of(movingPiece);
         board.grid[toRow][toCol] = targetPiece;
-        movingPiece.setPosition(fromRow, fromCol);
+        movingPiece.setPosition(originalPosition);
         
         // Restore en passant captured pawn if applicable
         if (enPassantCapturedRow != -1)
@@ -791,9 +784,9 @@ public class Game
         {
             for (int fromCol = 0; fromCol < 8; fromCol++)
             {
-                if (board.isCellOccupied(fromRow, fromCol))
+                if (board.isCellOccupied(new Position(fromRow, fromCol)))
                 {
-                    Piece piece = board.getPieceAt(fromRow, fromCol).get();
+                    Piece piece = board.getPieceAt(new Position(fromRow, fromCol)).get();
                     if (piece.getColor() == color)
                     {
                         // Try all possible destination squares
@@ -801,8 +794,9 @@ public class Game
                         {
                             for (int toCol = 0; toCol < 8; toCol++)
                             {
+                                Position target = new Position(toRow, toCol);
                                 // Check if this is a valid move for the piece
-                                if (piece.isValidMove(board, toRow, toCol))
+                                if (piece.isValidMove(board, target))
                                 {
                                     // Check if this move would leave king in check
                                     if (!wouldLeaveKingInCheck(fromRow, fromCol, toRow, toCol))

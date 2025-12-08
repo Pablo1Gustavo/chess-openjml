@@ -2,6 +2,7 @@ package chess.openjml;
 
 import java.util.Optional;
 import chess.openjml.pieces.*;
+import chess.openjml.moves.Position;
 import chess.openjml.pieces.enums.Color;
 
 /**
@@ -46,15 +47,15 @@ public class CastlingTest
         System.out.println(board);
         
         // Check king moved to g1 (row 0, col 6)
-        boolean kingCorrect = board.isCellOccupied(0, 6) && 
-                             board.getPieceAt(0, 6).get() instanceof King;
+        boolean kingCorrect = board.isCellOccupied(new Position(0, 6)) && 
+                             board.getPieceAt(new Position(0, 6)).get() instanceof King;
         
         // Check rook moved to f1 (row 0, col 5)
-        boolean rookCorrect = board.isCellOccupied(0, 5) && 
-                             board.getPieceAt(0, 5).get() instanceof Rook;
+        boolean rookCorrect = board.isCellOccupied(new Position(0, 5)) && 
+                             board.getPieceAt(new Position(0, 5)).get() instanceof Rook;
         
         // Check e1 and h1 are empty
-        boolean oldPositionsEmpty = board.isCellEmpty(0, 4) && board.isCellEmpty(0, 7);
+        boolean oldPositionsEmpty = board.isCellEmpty(new Position(0, 4)) && board.isCellEmpty(new Position(0, 7));
         
         System.out.println("Castling successful? " + success);
         System.out.println("King on g1? " + kingCorrect);
@@ -88,15 +89,15 @@ public class CastlingTest
         System.out.println(board);
         
         // Check king moved to c1 (row 0, col 2)
-        boolean kingCorrect = board.isCellOccupied(0, 2) && 
-                             board.getPieceAt(0, 2).get() instanceof King;
+        boolean kingCorrect = board.isCellOccupied(new Position(0, 2)) && 
+                             board.getPieceAt(new Position(0, 2)).get() instanceof King;
         
         // Check rook moved to d1 (row 0, col 3)
-        boolean rookCorrect = board.isCellOccupied(0, 3) && 
-                             board.getPieceAt(0, 3).get() instanceof Rook;
+        boolean rookCorrect = board.isCellOccupied(new Position(0, 3)) && 
+                             board.getPieceAt(new Position(0, 3)).get() instanceof Rook;
         
         // Check e1 and a1 are empty
-        boolean oldPositionsEmpty = board.isCellEmpty(0, 4) && board.isCellEmpty(0, 0);
+        boolean oldPositionsEmpty = board.isCellEmpty(new Position(0, 4)) && board.isCellEmpty(new Position(0, 0));
         
         System.out.println("Castling successful? " + success);
         System.out.println("King on c1? " + kingCorrect);
@@ -142,9 +143,9 @@ public class CastlingTest
         }
         
         // Place only the pieces needed for the test
-        board.grid[0][4] = Optional.of(new King(0, 4, Color.WHITE));   // e1
-        board.grid[0][7] = Optional.of(new Rook(0, 7, Color.WHITE));   // h1
-        board.grid[7][5] = Optional.of(new Rook(7, 5, Color.BLACK));   // f8 - attacks f1
+        board.grid[0][4] = Optional.of(new King(new Position(0, 4), Color.WHITE));   // e1
+        board.grid[0][7] = Optional.of(new Rook(new Position(0, 7), Color.WHITE));   // h1
+        board.grid[7][5] = Optional.of(new Rook(new Position(7, 5), Color.BLACK));   // f8 - attacks f1
         
         System.out.println(board);
         

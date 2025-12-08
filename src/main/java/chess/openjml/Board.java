@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import chess.openjml.pieces.Piece;
 import chess.openjml.moves.BaseMove;
+import chess.openjml.moves.Position;
 
 //@ non_null_by_default
 public class Board
@@ -17,6 +18,7 @@ public class Board
     //@ public invariant grid.length > 0;
     //@ public invariant (\forall int i; 0 <= i && i < grid.length; grid[i].length > 0);
     //@ public invariant (\forall int i; 0 <= i && i < grid.length; grid[i].length == grid[0].length);
+
     //@ requires grid.length > 0;
     //@ requires (\forall int i; 0 <= i && i < grid.length; grid[i].length > 0);
     //@ requires (\forall int i; 0 <= i && i < grid.length; grid[i].length == grid[0].length);
@@ -44,11 +46,14 @@ public class Board
         return grid[0].length;
     }
 
-    //@ ensures \result <==> (row >= 0 && row < grid.length && col >= 0 && col < grid[0].length);
+    //@ requires pos != null;
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
     //@ pure
-    public boolean isWithinBounds(int row, int col)
+    public boolean isWithinBounds(Position pos)
     {
-        return row >= 0 && row < getRowsLength() && col >= 0 && col < getColsLength();
+        return pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+               pos.getCol() >= 0 && pos.getCol() < getColsLength();
     }
 
     //@ requires fromRow >= 0 && fromRow < getRowsLength();
@@ -65,7 +70,7 @@ public class Board
 
         Piece piece = grid[fromRow][fromCol].get();
 
-        if (!piece.isValidMove(this, toRow, toCol))
+        if (!piece.isValidMove(this, new Position(toRow, toCol)))
         {
             return;
         }
@@ -73,9 +78,22 @@ public class Board
         grid[toRow][toCol] = Optional.of(piece);
         grid[fromRow][fromCol] = Optional.empty();
 
-        piece.move(this, toRow, toCol);
+        piece.move(this, new Position(toRow, toCol));
     }
 
+    //@ requires from != null;
+    //@ requires to != null;
+    //@ requires from.getRow() >= 0 && from.getRow() < getRowsLength();
+    //@ requires from.getCol() >= 0 && from.getCol() < getColsLength();
+    //@ requires to.getRow() >= 0 && to.getRow() < getRowsLength();
+    //@ requires to.getCol() >= 0 && to.getCol() < getColsLength();
+    //@ requires grid[from.getRow()][from.getCol()].isPresent();
+    public void movePiece(Position from, Position to)
+    {
+        movePiece(from.getRow(), from.getCol(), to.getRow(), to.getCol());
+    }
+
+    //@ also
     //@ ensures \result.length() > 0;
     //@ pure
     public String toString()
@@ -116,30 +134,59 @@ public class Board
         return sb.toString();
     }
 
-    //@ requires row >= 0 && row < getRowsLength();
-    //@ requires col >= 0 && col < getColsLength();
+    //@ requires pos != null;
+    //@ requires pos.getRow() >= 0 && pos.getRow() < getRowsLength();
+    //@ requires pos.getCol() >= 0 && pos.getCol() < getColsLength();
+    //@ ensures \result == grid[pos.getRow()][pos.getCol()];
     //@ pure
-    public Optional<Piece> getPieceAt(int row, int col)
+    public Optional<Piece> getPieceAt(Position pos)
     {
-        return grid[row][col];
+        return grid[pos.getRow()][pos.getCol()];
     }
 
-    //@ requires row >= 0 && row < getRowsLength();
-    //@ requires col >= 0 && col < getColsLength();
-    //@ ensures \result <==> !grid[row][col].isPresent();
+    //@ requires pos != null;
+    //@ requires pos.getRow() >= 0 && pos.getRow() < getRowsLength();
+    //@ requires pos.getCol() >= 0 && pos.getCol() < getColsLength();
+    //@ ensures \result <==> !grid[pos.getRow()][pos.getCol()].isPresent();
     //@ pure
-    public boolean isCellEmpty(int row, int col)
+    public boolean isCellEmpty(Position pos)
     {
-        return !grid[row][col].isPresent();
+        return !grid[pos.getRow()][pos.getCol()].isPresent();
+    }
+    
+    //@ requires pos != null;
+    //@ requires isWithinBounds(pos);
+    //@ ensures \result <==> grid[pos.getRow()][pos.getCol()].isPresent();
+    //@ pure
+    public boolean isCellOccupied(Position pos)
+    {
+        return grid[pos.getRow()][pos.getCol()].isPresent();
     }
 
-    //@ requires row >= 0 && row < getRowsLength();
-    //@ requires col >= 0 && col < getColsLength();
-    //@ ensures \result <==> grid[row][col].isPresent();
+    //@ requires from != null;
+    //@ requires to != null;
+    //@ requires isWithinBounds(from);
+    //@ requires isWithinBounds(to);
+    //@ requires from.sameRow(to) || from.sameCol(to) || from.sameDiagonal(to);
     //@ pure
-    public boolean isCellOccupied(int row, int col)
+    public boolean isIntervalClear(Position from, Position to)
     {
-        return grid[row][col].isPresent();
+        int rowStep = Integer.compare(to.getRow() - from.getRow(), 0);
+        int colStep = Integer.compare(to.getCol() - from.getCol(), 0);
+        int currentRow = from.getRow() + rowStep;
+        int currentCol = from.getCol() + colStep;
+
+        while (!to.equals(currentRow, currentCol))
+        {
+            if (isCellOccupied(new Position(currentRow, currentCol)))
+            {
+                return false;
+            }
+            currentRow += rowStep;
+            currentCol += colStep;
+        }
+
+        return true;
     }
     
     public void addMoveToHistory(BaseMove move)

@@ -2,6 +2,7 @@ package chess.openjml.pieces;
 
 import chess.openjml.Board;
 import chess.openjml.pieces.enums.Color;
+import chess.openjml.moves.Position;
 
 //@ non_null_by_default
 public abstract class Piece
@@ -9,27 +10,21 @@ public abstract class Piece
     //@ spec_public
     protected int moveCount = 0;
     //@ spec_public
-    protected int row;
-    //@ spec_public
-    protected int col;
+    protected Position position;
     //@ spec_public
     protected Color color;
 
-    //@ public invariant row >= 0;
-    //@ public invariant col >= 0;
+    //@ public invariant position != null;
     //@ public invariant moveCount >= 0;
 
-    //@ requires row >= 0;
-    //@ requires col >= 0;
-    //@ ensures this.row == row;
-    //@ ensures this.col == col;
+    //@ requires position != null;
+    //@ ensures this.position == position;
     //@ ensures this.color == color;
     //@ ensures this.moveCount == 0;
     //@ ensures !hasMoved();
-    public Piece(int row, int col, Color color)
+    public Piece(Position position, Color color)
     {
-        this.row = row;
-        this.col = col;
+        this.position = position;
         this.color = color;
     }
 
@@ -47,40 +42,43 @@ public abstract class Piece
         return this.color == other.color;
     }
 
-    //@ requires targetRow >= 0 && targetRow < board.getRowsLength();
-    //@ requires targetCol >= 0 && targetCol < board.getColsLength();
-    //@ ensures \result ==> board.isCellOccupied(targetRow, targetCol);
+    //@ requires target != null;
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+    //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
+    //@ ensures \result ==> board.isCellOccupied(target);
     //@ pure
-    protected boolean checkTargetMoveIsAlly(Board board, int targetRow, int targetCol)
+    protected boolean checkTargetMoveIsAlly(Board board, Position target)
     {
-        if (board.isCellOccupied(targetRow, targetCol))
+        if (board.isCellOccupied(target))
         {
-            Piece targetPiece = board.getPieceAt(targetRow, targetCol).get();
+            Piece targetPiece = board.getPieceAt(target).get();
             return isAlly(targetPiece);
         }
         return false;
     }
 
-    //@ requires targetRow >= 0 && targetRow < board.getRowsLength();
-    //@ requires targetCol >= 0 && targetCol < board.getColsLength();
-    //@ ensures \result ==> board.isCellOccupied(targetRow, targetCol);
+    //@ requires target != null;
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+    //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
+    //@ ensures \result ==> board.isCellOccupied(target);
     //@ pure
-    protected boolean checkTargetMoveIsEnemy(Board board, int targetRow, int targetCol)
+    protected boolean checkTargetMoveIsEnemy(Board board, Position target)
     {
-        if (board.isCellOccupied(targetRow, targetCol))
+        if (board.isCellOccupied(target))
         {
-            Piece targetPiece = board.getPieceAt(targetRow, targetCol).get();
+            Piece targetPiece = board.getPieceAt(target).get();
             return isEnemy(targetPiece);
         }
         return false;
     }
 
-    //@ requires targetRow >= 0 && targetRow < board.getRowsLength();
-    //@ requires targetCol >= 0 && targetCol < board.getColsLength();
-    //@ ensures \result ==> board.isWithinBounds(targetRow, targetCol);
-    //@ ensures \result ==> (targetRow != row || targetCol != col);
+    //@ requires target != null;
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+    //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
+    //@ ensures \result ==> board.isWithinBounds(target);
+    //@ ensures \result ==> !target.equals(position);
     //@ pure
-    public abstract boolean isValidMove(Board board, int targetRow, int targetCol);
+    public abstract boolean isValidMove(Board board, Position target);
 
     //@ ensures \result == (moveCount > 0);
     //@ pure
@@ -89,43 +87,46 @@ public abstract class Piece
         return moveCount > 0;
     }
 
-    //@ requires targetRow >= 0 && targetRow < board.getRowsLength();
-    //@ requires targetCol >= 0 && targetCol < board.getColsLength();
-    //@ ensures this.row == targetRow;
-    //@ ensures this.col == targetCol;
+    //@ requires target != null;
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+    //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
+    //@ ensures this.position == target;
     //@ ensures this.moveCount == \old(moveCount) + 1;
     //@ ensures hasMoved();
-    public void move(Board board, int targetRow, int targetCol)
+    public void move(Board board, Position target)
     {
-        this.row = targetRow;
-        this.col = targetCol;
+        this.position = target;
         this.moveCount++;
     }
     
-    //@ requires row >= 0;
-    //@ requires col >= 0;
-    //@ ensures this.row == row;
-    //@ ensures this.col == col;
-    public void setPosition(int row, int col)
+    //@ requires newPosition != null;
+    //@ ensures this.position == newPosition;
+    public void setPosition(Position newPosition)
     {
-        this.row = row;
-        this.col = col;
+        this.position = newPosition;
     }
 
-    //@ ensures \result == row;
+    //@ ensures \result == position;
+    //@ pure
+    public Position getPosition()
+    {
+        return position;
+    }
+
+    //@ ensures \result == position.getRow();
     //@ ensures \result >= 0;
     //@ pure
     public int getRow()
     {
-        return row;
+        return position.getRow();
     }
 
-    //@ ensures \result == col;
+    //@ ensures \result == position.getCol();
     //@ ensures \result >= 0;
     //@ pure
     public int getCol()
     {
-        return col;
+        return position.getCol();
     }
 
     //@ ensures \result == color;

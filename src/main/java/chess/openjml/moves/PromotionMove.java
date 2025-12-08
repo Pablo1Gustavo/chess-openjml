@@ -14,11 +14,35 @@ public class PromotionMove extends BaseMove
     //@ spec_public
     private final String capturedPieceType;
     //@ spec_public
-    private final int capturedRow;
-    //@ spec_public
-    private final int capturedCol;
+    private final Position capturedPosition;
     //@ spec_public
     private final boolean isAlsoCapture;
+    
+    //@ requires from != null;
+    //@ requires to != null;
+    //@ requires moveIndex >= 0;
+    //@ requires previousHalfmoveClock >= 0;
+    //@ requires previousFullmoveNumber >= 1;
+    public PromotionMove(Position from, Position to,
+                         Color pieceColor, String promotionPieceType,
+                         String capturedPieceType, Position capturedPosition,
+                         CastlingRights previousCastlingRights,
+                         int previousEnPassantRow, int previousEnPassantCol,
+                         int previousHalfmoveClock, int previousFullmoveNumber,
+                         int moveIndex, long timestamp, long timeRemaining,
+                         String algebraicNotation, String resultingFEN)
+    {
+        super(from, to, "Pawn", pieceColor,
+              previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
+              previousHalfmoveClock, previousFullmoveNumber,
+              moveIndex, timestamp, timeRemaining,
+              algebraicNotation, resultingFEN);
+        
+        this.promotionPieceType = promotionPieceType;
+        this.capturedPieceType = capturedPieceType;
+        this.capturedPosition = capturedPosition;
+        this.isAlsoCapture = !capturedPieceType.isEmpty();
+    }
     
     //@ requires fromRow >= 0;
     //@ requires fromCol >= 0;
@@ -36,17 +60,13 @@ public class PromotionMove extends BaseMove
                          int moveIndex, long timestamp, long timeRemaining,
                          String algebraicNotation, String resultingFEN)
     {
-        super(fromRow, fromCol, toRow, toCol, "Pawn", pieceColor,
+        this(new Position(fromRow, fromCol), new Position(toRow, toCol),
+              pieceColor, promotionPieceType, capturedPieceType,
+              capturedRow >= 0 ? new Position(capturedRow, capturedCol) : null,
               previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
               previousHalfmoveClock, previousFullmoveNumber,
               moveIndex, timestamp, timeRemaining,
               algebraicNotation, resultingFEN);
-        
-        this.promotionPieceType = promotionPieceType;
-        this.capturedPieceType = capturedPieceType;
-        this.capturedRow = capturedRow;
-        this.capturedCol = capturedCol;
-        this.isAlsoCapture = !capturedPieceType.isEmpty();
     }
     
     //@ pure
@@ -62,22 +82,28 @@ public class PromotionMove extends BaseMove
     }
     
     //@ pure
+    public Position getCapturedPosition()
+    {
+        return capturedPosition;
+    }
+    
+    //@ pure
     public int getCapturedRow()
     {
-        return capturedRow;
+        return capturedPosition != null ? capturedPosition.getRow() : -1;
     }
     
     //@ pure
     public int getCapturedCol()
     {
-        return capturedCol;
+        return capturedPosition != null ? capturedPosition.getCol() : -1;
     }
     
     //@ requires isCapture();
     //@ pure
     public String getCapturedSquare()
     {
-        return squareToAlgebraic(capturedRow, capturedCol);
+        return capturedPosition != null ? capturedPosition.toAlgebraic() : "";
     }
     
     public boolean isCapture()

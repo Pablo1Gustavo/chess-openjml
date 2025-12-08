@@ -8,6 +8,26 @@ import chess.openjml.pieces.enums.Color;
  */
 public class StandardMove extends BaseMove
 {
+    //@ requires from != null;
+    //@ requires to != null;
+    //@ requires moveIndex >= 0;
+    //@ requires previousHalfmoveClock >= 0;
+    //@ requires previousFullmoveNumber >= 1;
+    public StandardMove(Position from, Position to,
+                        String pieceType, Color pieceColor,
+                        CastlingRights previousCastlingRights,
+                        int previousEnPassantRow, int previousEnPassantCol,
+                        int previousHalfmoveClock, int previousFullmoveNumber,
+                        int moveIndex, long timestamp, long timeRemaining,
+                        String algebraicNotation, String resultingFEN)
+    {
+        super(from, to, pieceType, pieceColor,
+              previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
+              previousHalfmoveClock, previousFullmoveNumber,
+              moveIndex, timestamp, timeRemaining,
+              algebraicNotation, resultingFEN);
+    }
+    
     //@ requires fromRow >= 0;
     //@ requires fromCol >= 0;
     //@ requires toRow >= 0;
@@ -23,7 +43,7 @@ public class StandardMove extends BaseMove
                         int moveIndex, long timestamp, long timeRemaining,
                         String algebraicNotation, String resultingFEN)
     {
-        super(fromRow, fromCol, toRow, toCol, pieceType, pieceColor,
+        this(new Position(fromRow, fromCol), new Position(toRow, toCol), pieceType, pieceColor,
               previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
               previousHalfmoveClock, previousFullmoveNumber,
               moveIndex, timestamp, timeRemaining,

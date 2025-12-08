@@ -16,6 +16,31 @@ public class CastlingMove extends BaseMove
     //@ public invariant kingSide || queenSide;
     //@ public invariant !(kingSide && queenSide);
     
+    //@ requires from != null;
+    //@ requires to != null;
+    //@ requires moveIndex >= 0;
+    //@ requires previousHalfmoveClock >= 0;
+    //@ requires previousFullmoveNumber >= 1;
+    //@ requires kingSide || queenSide;
+    //@ requires !(kingSide && queenSide);
+    public CastlingMove(Position from, Position to,
+                        Color pieceColor, boolean kingSide, boolean queenSide,
+                        CastlingRights previousCastlingRights,
+                        int previousEnPassantRow, int previousEnPassantCol,
+                        int previousHalfmoveClock, int previousFullmoveNumber,
+                        int moveIndex, long timestamp, long timeRemaining,
+                        String algebraicNotation, String resultingFEN)
+    {
+        super(from, to, "King", pieceColor,
+              previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
+              previousHalfmoveClock, previousFullmoveNumber,
+              moveIndex, timestamp, timeRemaining,
+              algebraicNotation, resultingFEN);
+        
+        this.kingSide = kingSide;
+        this.queenSide = queenSide;
+    }
+    
     //@ requires fromRow >= 0;
     //@ requires fromCol >= 0;
     //@ requires toRow >= 0;
@@ -33,14 +58,11 @@ public class CastlingMove extends BaseMove
                         int moveIndex, long timestamp, long timeRemaining,
                         String algebraicNotation, String resultingFEN)
     {
-        super(fromRow, fromCol, toRow, toCol, "King", pieceColor,
+        this(new Position(fromRow, fromCol), new Position(toRow, toCol), pieceColor, kingSide, queenSide,
               previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
               previousHalfmoveClock, previousFullmoveNumber,
               moveIndex, timestamp, timeRemaining,
               algebraicNotation, resultingFEN);
-        
-        this.kingSide = kingSide;
-        this.queenSide = queenSide;
     }
     
     //@ pure

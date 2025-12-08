@@ -16,13 +16,9 @@ public class MoveFactory
     {
         // Required
         //@ spec_public
-        private int fromRow;
+        private Position from;
         //@ spec_public
-        private int fromCol;
-        //@ spec_public
-        private int toRow;
-        //@ spec_public
-        private int toCol;
+        private Position to;
         //@ spec_public
         private String pieceType;
         //@ spec_public
@@ -31,9 +27,7 @@ public class MoveFactory
         //@ spec_public
         private String capturedPieceType = "";
         //@ spec_public
-        private int capturedRow = -1;
-        //@ spec_public
-        private int capturedCol = -1;
+        private Position capturedPosition = null;
         //@ spec_public
         private String promotionPieceType = "";
         
@@ -75,18 +69,33 @@ public class MoveFactory
         //@ spec_public
         private String resultingFEN = "";
         
+        //@ requires from != null;
+        //@ requires to != null;
+        public Builder(Position from, Position to, String pieceType, Color pieceColor)
+        {
+            this.from = from;
+            this.to = to;
+            this.pieceType = pieceType;
+            this.pieceColor = pieceColor;
+        }
+        
         //@ requires fromRow >= 0;
         //@ requires fromCol >= 0;
         //@ requires toRow >= 0;
         //@ requires toCol >= 0;
         public Builder(int fromRow, int fromCol, int toRow, int toCol, String pieceType, Color pieceColor)
         {
-            this.fromRow = fromRow;
-            this.fromCol = fromCol;
-            this.toRow = toRow;
-            this.toCol = toCol;
-            this.pieceType = pieceType;
-            this.pieceColor = pieceColor;
+            this(new Position(fromRow, fromCol), new Position(toRow, toCol), pieceType, pieceColor);
+        }
+        
+        //@ requires capturedPosition != null;
+        //@ ensures \result == this;
+        public Builder capture(String capturedType, Position capturedPosition)
+        {
+            this.isCapture = true;
+            this.capturedPieceType = capturedType;
+            this.capturedPosition = capturedPosition;
+            return this;
         }
         
         //@ requires capturedRow >= 0;
@@ -94,11 +103,7 @@ public class MoveFactory
         //@ ensures \result == this;
         public Builder capture(String capturedType, int capturedRow, int capturedCol)
         {
-            this.isCapture = true;
-            this.capturedPieceType = capturedType;
-            this.capturedRow = capturedRow;
-            this.capturedCol = capturedCol;
-            return this;
+            return capture(capturedType, new Position(capturedRow, capturedCol));
         }
         
         //@ ensures \result == this;
@@ -207,7 +212,7 @@ public class MoveFactory
             if (isCastleKingSide || isCastleQueenSide)
             {
                 move = new CastlingMove(
-                    fromRow, fromCol, toRow, toCol,
+                    from, to,
                     pieceColor, isCastleKingSide, isCastleQueenSide,
                     previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
                     previousHalfmoveClock, previousFullmoveNumber,
@@ -218,9 +223,9 @@ public class MoveFactory
             else if (isPromotion)
             {
                 move = new PromotionMove(
-                    fromRow, fromCol, toRow, toCol,
+                    from, to,
                     pieceColor, promotionPieceType,
-                    capturedPieceType, capturedRow, capturedCol,
+                    capturedPieceType, capturedPosition,
                     previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
                     previousHalfmoveClock, previousFullmoveNumber,
                     moveIndex, timestamp, timeRemaining,
@@ -230,9 +235,9 @@ public class MoveFactory
             else if (isCapture)
             {
                 move = new CaptureMove(
-                    fromRow, fromCol, toRow, toCol,
+                    from, to,
                     pieceType, pieceColor,
-                    capturedPieceType, capturedRow, capturedCol, isEnPassant,
+                    capturedPieceType, capturedPosition, isEnPassant,
                     previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
                     previousHalfmoveClock, previousFullmoveNumber,
                     moveIndex, timestamp, timeRemaining,
@@ -242,7 +247,7 @@ public class MoveFactory
             else
             {
                 move = new StandardMove(
-                    fromRow, fromCol, toRow, toCol,
+                    from, to,
                     pieceType, pieceColor,
                     previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
                     previousHalfmoveClock, previousFullmoveNumber,

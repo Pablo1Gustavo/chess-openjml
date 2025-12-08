@@ -12,11 +12,36 @@ public class CaptureMove extends BaseMove
     //@ spec_public
     private final String capturedPieceType;
     //@ spec_public
-    private final int capturedRow;
-    //@ spec_public
-    private final int capturedCol;
+    private final Position capturedPosition;
     //@ spec_public
     private final boolean isEnPassantCapture;
+    
+    //@ requires from != null;
+    //@ requires to != null;
+    //@ requires capturedPosition != null;
+    //@ requires moveIndex >= 0;
+    //@ requires previousHalfmoveClock >= 0;
+    //@ requires previousFullmoveNumber >= 1;
+    public CaptureMove(Position from, Position to,
+                       String pieceType, Color pieceColor,
+                       String capturedPieceType, Position capturedPosition,
+                       boolean isEnPassant,
+                       CastlingRights previousCastlingRights,
+                       int previousEnPassantRow, int previousEnPassantCol,
+                       int previousHalfmoveClock, int previousFullmoveNumber,
+                       int moveIndex, long timestamp, long timeRemaining,
+                       String algebraicNotation, String resultingFEN)
+    {
+        super(from, to, pieceType, pieceColor,
+              previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
+              previousHalfmoveClock, previousFullmoveNumber,
+              moveIndex, timestamp, timeRemaining,
+              algebraicNotation, resultingFEN);
+        
+        this.capturedPieceType = capturedPieceType;
+        this.capturedPosition = capturedPosition;
+        this.isEnPassantCapture = isEnPassant;
+    }
     
     //@ requires fromRow >= 0;
     //@ requires fromCol >= 0;
@@ -37,16 +62,12 @@ public class CaptureMove extends BaseMove
                        int moveIndex, long timestamp, long timeRemaining,
                        String algebraicNotation, String resultingFEN)
     {
-        super(fromRow, fromCol, toRow, toCol, pieceType, pieceColor,
-              previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
+        this(new Position(fromRow, fromCol), new Position(toRow, toCol),
+              pieceType, pieceColor, capturedPieceType, new Position(capturedRow, capturedCol),
+              isEnPassant, previousCastlingRights, previousEnPassantRow, previousEnPassantCol,
               previousHalfmoveClock, previousFullmoveNumber,
               moveIndex, timestamp, timeRemaining,
               algebraicNotation, resultingFEN);
-        
-        this.capturedPieceType = capturedPieceType;
-        this.capturedRow = capturedRow;
-        this.capturedCol = capturedCol;
-        this.isEnPassantCapture = isEnPassant;
     }
     
     //@ pure
@@ -56,22 +77,28 @@ public class CaptureMove extends BaseMove
     }
     
     //@ pure
+    public Position getCapturedPosition()
+    {
+        return capturedPosition;
+    }
+    
+    //@ pure
     public int getCapturedRow()
     {
-        return capturedRow;
+        return capturedPosition.getRow();
     }
     
     //@ pure
     public int getCapturedCol()
     {
-        return capturedCol;
+        return capturedPosition.getCol();
     }
     
     //@ requires isCapture();
     //@ pure
     public String getCapturedSquare()
     {
-        return squareToAlgebraic(capturedRow, capturedCol);
+        return capturedPosition.toAlgebraic();
     }
     
     //@ also

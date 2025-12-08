@@ -2,27 +2,28 @@ package chess.openjml.pieces;
 
 import chess.openjml.Board;
 import chess.openjml.pieces.enums.Color;
+import chess.openjml.moves.Position;
 
 public class Knight extends Piece
 {
-    public Knight(int row, int col, Color color)
+    public Knight(Position position, Color color)
     {
-        super(row, col, color);
+        super(position, color);
     }
 
-    public boolean isValidMove(Board board, int targetRow, int targetCol)
+    public boolean isValidMove(Board board, Position target)
     {
-        if (targetRow == row && targetCol == col)
+        if (target.equals(position))
         {
             return false;
         }
-        if (!board.isWithinBounds(targetRow, targetCol))
+        if (!board.isWithinBounds(target))
         {
             return false;
         }
 
-        int rowDiff = Math.abs(targetRow - row);
-        int colDiff = Math.abs(targetCol - col);
+        int rowDiff = Math.abs(target.getRow() - position.getRow());
+        int colDiff = Math.abs(target.getCol() - position.getCol());
         
         boolean isValidKnightMove = (rowDiff == 2 && colDiff == 1) || (rowDiff == 1 && colDiff == 2);
         if (!isValidKnightMove)
@@ -30,7 +31,7 @@ public class Knight extends Piece
             return false;
         }
         
-        return !checkTargetMoveIsAlly(board, targetRow, targetCol);
+        return !checkTargetMoveIsAlly(board, target);
     }
 
     public String icon()
