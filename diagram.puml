@@ -24,6 +24,7 @@ package chess.openjml {
         + isCellOccupied(pos: Position): boolean
         + isCellEmpty(pos: Position): boolean
         + isIntervalClear(from: Position, to: Position): boolean
+        + findPiece<T extends Piece>(cls: Class<T>, color: Color): Optional<T>
         + toString(): String
     }
 
@@ -329,38 +330,5 @@ Builder ..> BaseMove : builds
 Builder --> Position : uses
 Builder --> Color : uses
 Builder --> CastlingRights : uses
-
-note right of Game
-  Main game controller.
-  Manages board state,
-  turn tracking, castling
-  rights, en passant,
-  and move validation.
-end note
-
-note right of Board
-  Represents the chess board.
-  Contains 8x8 grid of pieces
-  and move history.
-end note
-
-note left of Piece
-  Abstract base class for
-  all chess pieces. Each
-  piece type implements
-  its own move validation.
-end note
-
-note bottom of BaseMove
-  Abstract base for all move types.
-  Stores complete move metadata
-  including previous state for undo.
-end note
-
-note right of MoveFactory
-  Factory pattern with fluent
-  builder for creating different
-  types of chess moves.
-end note
 
 @enduml
