@@ -1,6 +1,7 @@
 package chess.openjml;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import chess.openjml.pieces.Piece;
@@ -9,6 +10,7 @@ import chess.openjml.pieces.enums.Color;
 import chess.openjml.moves.BaseMove;
 import chess.openjml.moves.MovePair;
 import chess.openjml.moves.Position;
+import chess.openjml.moves.BaseMove.DisambiguationType;
 
 //@ non_null_by_default
 public class Board
@@ -59,6 +61,27 @@ public class Board
         this.moveHistory = new LinkedList<>();
     }
 
+    public Board(List<Piece> pieces, int width, int height)
+    {
+        @SuppressWarnings("unchecked")
+        Optional<Piece>[][] boardMatrix = new Optional[width][height];
+
+        for (int row = 0; row < width; row++)
+        {
+            for (int col = 0; col < height; col++)
+            {
+                boardMatrix[row][col] = Optional.empty();
+            }
+        }
+        for (Piece piece : pieces)
+        {
+            boardMatrix[piece.getRow()][piece.getCol()] = Optional.of(piece);
+        }
+
+        this.grid = boardMatrix;
+        this.moveHistory = new LinkedList<>();
+    }
+
     //@ ensures \result == grid.length;
     //@ ensures \result > 0;
     //@ pure
@@ -85,41 +108,39 @@ public class Board
                pos.getCol() >= 0 && pos.getCol() < getColsLength();
     }
 
-    //@ requires fromRow >= 0 && fromRow < getRowsLength();
-    //@ requires fromCol >= 0 && fromCol < getColsLength();
-    //@ requires toRow >= 0 && toRow < getRowsLength();
-    //@ requires toCol >= 0 && toCol < getColsLength();
-    //@ requires grid[fromRow][fromCol].isPresent();
-    public void movePiece(int fromRow, int fromCol, int toRow, int toCol)
-    {   
-        if (!grid[fromRow][fromCol].isPresent())
+    //@ requires isValidMove(move);
+    public void movePiece(MovePair move)
+    {
+        if (!isValidMove(move))
         {
             return;
         }
 
-        Piece piece = grid[fromRow][fromCol].get();
+        Position from = move.getFrom();
+        Position to = move.getTo();
 
-        if (!piece.isValidMove(this, new Position(toRow, toCol)))
-        {
-            return;
-        }
+        Piece piece = grid[from.getRow()][from.getCol()].get();
 
-        grid[toRow][toCol] = Optional.of(piece);
-        grid[fromRow][fromCol] = Optional.empty();
+        grid[to.getRow()][to.getCol()] = Optional.of(piece);
+        grid[from.getRow()][from.getCol()] = Optional.empty();
 
-        piece.move(this, new Position(toRow, toCol));
+        piece.move(this, to);
     }
 
-    //@ requires from != null;
-    //@ requires to != null;
-    //@ requires from.getRow() >= 0 && from.getRow() < getRowsLength();
-    //@ requires from.getCol() >= 0 && from.getCol() < getColsLength();
-    //@ requires to.getRow() >= 0 && to.getRow() < getRowsLength();
-    //@ requires to.getCol() >= 0 && to.getCol() < getColsLength();
-    //@ requires grid[from.getRow()][from.getCol()].isPresent();
-    public void movePiece(Position from, Position to)
+    //@ requires isCellOccupied(move.from);
+    //@ pure
+    public boolean isValidMove(MovePair move)
     {
-        movePiece(from.getRow(), from.getCol(), to.getRow(), to.getCol());
+        Position from = move.getFrom();
+        Position to = move.getTo();
+
+        if (isCellEmpty(from))
+        {
+            return false;
+        }
+
+        Piece piece = grid[from.getRow()][from.getCol()].get();
+        return piece.isValidMove(this, to);
     }
 
     //@ also
@@ -282,7 +303,10 @@ public class Board
         return king.isPresent() && king.get().isBeingAttacked(this);
     }
 
-    public boolean willResultInCheck(MovePair movePair)
+    //@ requires movePair != null;
+    //@ requires isCellOccupied(movePair.from);
+    //@ pure
+    public boolean resultsInCheck(MovePair movePair)
     {
         var from = movePair.getFrom();
         var to = movePair.getTo();
@@ -296,7 +320,7 @@ public class Board
         Color movingColor = movingPiece.getColor();
 
         Optional<Piece> capturedPiece = grid[to.getRow()][to.getCol()];
-        Position originalPosition = new Position(to.getRow(), to.getCol());
+        Position originalPosition = new Position(from.getRow(), from.getCol());
 
         grid[to.getRow()][to.getCol()] = Optional.of(movingPiece);
         grid[from.getRow()][from.getCol()] = Optional.empty();
@@ -309,6 +333,14 @@ public class Board
         movingPiece.setPosition(originalPosition);
 
         return resultInCheck;
+    }
+
+    //@ requires from != null;
+    //@ requires to != null;
+    //@ pure
+    public boolean resultsInCheck(Position from, Position to)
+    {
+        return resultsInCheck(new MovePair(from, to));
     }
 
     //@ requires color != null;
@@ -341,7 +373,7 @@ public class Board
                         Position to = new Position(destRow, destCol);
 
                         boolean isLegalMove = !from.equals(to) &&
-                            piece.isValidMove(this, to) && !willResultInCheck(new MovePair(from, to));
+                            piece.isValidMove(this, to) && !resultsInCheck(new MovePair(from, to));
 
                         if (isLegalMove)
                         {
@@ -354,18 +386,88 @@ public class Board
         return false;
     }
 
-
     //@ requires color != null;
-    //@ ensures \result <==> isInCheck(color) && !hasLegalMoves(color
-    public boolean isCheckmate(Color color)
+    //@ ensures \result <==> isInCheck(color) && !hasLegalMoves(color);
+    //@ pure
+    public boolean isCheckMate(Color color)
     {
         return isInCheck(color) && !hasLegalMoves(color);
     }
 
     //@ requires color != null;
     //@ ensures \result <==> !isInCheck(color) && !hasLegalMoves(color);
+    //@ pure
     public boolean isStalemate(Color color)
     {
         return !isInCheck(color) && !hasLegalMoves(color);
+    }
+    
+    //@ requires move != null;
+    //@ requires isCellOccupied(move.from);
+    //@ pure
+    public DisambiguationType getDisambiguationType(MovePair move)
+    {
+        var from = move.getFrom();
+        var to = move.getTo();
+        
+        if (isCellEmpty(from))
+        {
+            return DisambiguationType.NONE;
+        }
+        
+        Piece movingPiece = getPieceAt(from).get();
+        Class<? extends Piece> pieceClass = movingPiece.getClass();
+        Color pieceColor = movingPiece.getColor();
+        
+        boolean sameFileExists = false;
+        boolean sameRankExists = false;
+        
+        for (int row = 0; row < getRowsLength(); row++)
+        {
+            for (int col = 0; col < getColsLength(); col++)
+            {
+                var cellOpt = grid[row][col];
+                if (!cellOpt.isPresent())
+                {
+                    continue;
+                }
+                
+                Piece currPiece = cellOpt.get();
+                Position piecePos = new Position(row, col);
+                
+                if (piecePos.equals(from))
+                {
+                    continue;
+                }
+                
+                if (currPiece.getClass() != pieceClass || currPiece.isEnemy(pieceColor))
+                {
+                    continue;
+                }
+                
+                if (!currPiece.isValidMove(this, to))
+                {
+                    continue;
+                }
+
+                sameRankExists |= piecePos.sameCol(from);
+                sameFileExists |= piecePos.sameRow(from);
+            }
+        }
+        
+        if (sameFileExists && sameRankExists)
+        {
+            return DisambiguationType.BOTH;
+        }
+        if (sameFileExists)
+        {
+            return DisambiguationType.FILE;
+        }
+        if (sameRankExists)
+        {
+            return DisambiguationType.RANK;
+        }
+        
+        return DisambiguationType.NONE;
     }
 }
