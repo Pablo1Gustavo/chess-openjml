@@ -47,6 +47,13 @@ public class Position
         return (char) ('a' + col);
     }
 
+    //@ ensures \result == row + 1;
+    //@ pure
+    public int getRealRow()
+    {
+        return row + 1;
+    }
+
     //@ requires p != null;
     //@ ensures \result <==> (this.row == p.row);
     //@ pure
@@ -117,17 +124,17 @@ public class Position
 
     //@ public normal_behavior
     //@   requires notation != null;
-    //@   requires notation.length() == 2;
+    //@   requires notation.length() >= 2;
     //@   requires 'a' <= notation.charAt(0) && notation.charAt(0) <= 'z';
-    //@   requires '1' <= notation.charAt(1) && notation.charAt(1) <= '9';
+    //@   requires notation.substring(1).chars().allMatch(c -> '0' <= c && c <= '9');
     //@   ensures \result.getCol() == notation.charAt(0) - 'a';
-    //@   ensures \result.getRow() == notation.charAt(1) - '1';
+    //@ pure
     public static Position fromAlgebraic(String notation)
     {
         notation = notation.trim().toLowerCase();
 
         int col = notation.charAt(0) - 'a';
-        int row = notation.charAt(1) - '1';
+        int row = Integer.parseInt(notation.substring(1)) - 1;
         return new Position(row, col);
     }
 

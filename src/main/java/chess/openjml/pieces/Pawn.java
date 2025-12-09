@@ -56,9 +56,9 @@ public class Pawn extends Piece
     }
 
     //@ also
-    //@ ensures \result == "P";
+    //@ ensures \result == "";
     public String letter()
     {
-        return "P";
+        return "";
     }
 }

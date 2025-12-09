@@ -7,6 +7,7 @@ import chess.openjml.pieces.Piece;
 import chess.openjml.pieces.King;
 import chess.openjml.pieces.enums.Color;
 import chess.openjml.moves.BaseMove;
+import chess.openjml.moves.MovePair;
 import chess.openjml.moves.Position;
 
 //@ non_null_by_default
@@ -15,11 +16,18 @@ public class Board
     //@ spec_public
     Optional<Piece>[][] grid;
     //@ spec_public
-    private LinkedList<BaseMove> moveHistory;
+    private LinkedList<BaseMove<Piece>> moveHistory;
 
     //@ public invariant grid.length > 0;
     //@ public invariant (\forall int r; 0 <= r && r < grid.length; grid[r].length > 0 && grid[r].length <= 26);
     //@ public invariant (\forall int r; 0 <= r && r < grid.length; grid[r].length == grid[0].length);
+    // === se grid[r][c] tem uma piece, sua posição deve ser (r, c) ===
+    //@ public invariant
+    //@     (\forall int r, c;
+    //@         0 <= r && r < grid.length &&
+    //@         0 <= c && c < grid[r].length &&
+    //@         grid[r][c].isPresent()
+    //@     ==> (grid[r][c].get().getRow() == r && grid[r][c].get().getCol() == c));
     // === existe exatamente 1 rei branco ===
     //@ public invariant
     //@     (\num_of int r, c;
@@ -239,14 +247,14 @@ public class Board
     //@ requires move != null;
     //@ ensures moveHistory.size() == \old(moveHistory.size()) + 1;
     //@ ensures moveHistory.getLast() == move;
-    public void addMoveToHistory(BaseMove move)
+    public void addMoveToHistory(BaseMove<Piece> move)
     {
         moveHistory.add(move);
     }
     
     //@ ensures \result == moveHistory;
     //@ pure
-    public LinkedList<BaseMove> getMoveHistory()
+    public LinkedList<BaseMove<Piece>> getMoveHistory()
     {
         return moveHistory;
     }
@@ -254,7 +262,7 @@ public class Board
     //@ requires moveHistory.size() > 0;
     //@ ensures \result == moveHistory.getLast();
     //@ pure
-    public BaseMove getLastMove()
+    public BaseMove<Piece> getLastMove()
     {
         return moveHistory.getLast();
     }
@@ -264,5 +272,100 @@ public class Board
     public int getMoveCount()
     {
         return moveHistory.size();
+    }
+
+    //@ requires color != null;
+    //@ pure
+    public boolean isInCheck(Color color)
+    {
+        var king = findPiece(King.class, color);
+        return king.isPresent() && king.get().isBeingAttacked(this);
+    }
+
+    public boolean willResultInCheck(MovePair movePair)
+    {
+        var from = movePair.getFrom();
+        var to = movePair.getTo();
+
+        if (isCellEmpty(from))
+        {
+            return false;
+        }
+
+        Piece movingPiece = getPieceAt(from).get();
+        Color movingColor = movingPiece.getColor();
+
+        Optional<Piece> capturedPiece = grid[to.getRow()][to.getCol()];
+        Position originalPosition = new Position(to.getRow(), to.getCol());
+
+        grid[to.getRow()][to.getCol()] = Optional.of(movingPiece);
+        grid[from.getRow()][from.getCol()] = Optional.empty();
+        movingPiece.setPosition(to);
+
+        boolean resultInCheck = isInCheck(movingColor);
+
+        grid[from.getRow()][from.getCol()] = Optional.of(movingPiece);
+        grid[to.getRow()][to.getCol()] = capturedPiece;
+        movingPiece.setPosition(originalPosition);
+
+        return resultInCheck;
+    }
+
+    //@ requires color != null;
+    //@ pure
+    public boolean hasLegalMoves(Color color)
+    {
+        for (int row = 0; row < getRowsLength(); row++)
+        {
+            for (int col = 0; col < getColsLength(); col++)
+            {
+                var pieceOpt = grid[row][col];
+
+                if (!pieceOpt.isPresent())
+                {
+                    continue;
+                }
+    
+                Piece piece = pieceOpt.get();
+                Position from = piece.getPosition();
+
+                if (piece.isEnemy(color))
+                {
+                    continue;
+                }
+                
+                for (int destRow = 0; destRow < getRowsLength(); destRow++)
+                {
+                    for (int destCol = 0; destCol < getColsLength(); destCol++)
+                    {
+                        Position to = new Position(destRow, destCol);
+
+                        boolean isLegalMove = !from.equals(to) &&
+                            piece.isValidMove(this, to) && !willResultInCheck(new MovePair(from, to));
+
+                        if (isLegalMove)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
+    //@ requires color != null;
+    //@ ensures \result <==> isInCheck(color) && !hasLegalMoves(color
+    public boolean isCheckmate(Color color)
+    {
+        return isInCheck(color) && !hasLegalMoves(color);
+    }
+
+    //@ requires color != null;
+    //@ ensures \result <==> !isInCheck(color) && !hasLegalMoves(color);
+    public boolean isStalemate(Color color)
+    {
+        return !isInCheck(color) && !hasLegalMoves(color);
     }
 }
