@@ -1,7 +1,7 @@
 package chess.openjml.pieces;
 
-import chess.openjml.Board;
 import chess.openjml.pieces.enums.Color;
+import chess.openjml.Board;
 import chess.openjml.moves.Position;
 
 public class Queen extends Piece
@@ -29,6 +29,11 @@ public class Queen extends Piece
         {
             return false;
         }
+        if (board.resultsInCheck(position, target))
+        {
+            return false;
+        }
+
         
         return !checkTargetMoveIsAlly(board, target);
     }

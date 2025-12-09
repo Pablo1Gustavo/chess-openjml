@@ -1,7 +1,7 @@
 package chess.openjml.pieces;
 
-import chess.openjml.Board;
 import chess.openjml.pieces.enums.Color;
+import chess.openjml.Board;
 import chess.openjml.moves.Position;
 
 //@ non_null_by_default
@@ -91,6 +91,7 @@ public abstract class Piece
     //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
     //@ ensures \result ==> board.isWithinBounds(target);
     //@ ensures \result ==> !target.equals(position);
+    //@ ensures \result ==> !board.resultsInCheck(position, target);
     //@ pure
     public abstract boolean isValidMove(Board board, Position target);
 

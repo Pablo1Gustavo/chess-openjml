@@ -1,7 +1,7 @@
 package chess.openjml.pieces;
 
-import chess.openjml.Board;
 import chess.openjml.pieces.enums.Color;
+import chess.openjml.Board;
 import chess.openjml.moves.Position;
 
 public class Bishop extends Piece
@@ -26,6 +26,10 @@ public class Bishop extends Piece
             return false;
         }
         if (!board.isIntervalClear(position, target))
+        {
+            return false;
+        }
+        if (board.resultsInCheck(position, target))
         {
             return false;
         }

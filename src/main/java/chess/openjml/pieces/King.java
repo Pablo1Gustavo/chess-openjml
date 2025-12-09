@@ -1,7 +1,7 @@
 package chess.openjml.pieces;
 
-import chess.openjml.Board;
 import chess.openjml.pieces.enums.Color;
+import chess.openjml.Board;
 import chess.openjml.moves.Position;
 
 public class King extends Piece
@@ -21,7 +21,6 @@ public class King extends Piece
         {
             return false;
         }
-
         int rowDiff = Math.abs(target.getRow() - position.getRow());
         int colDiff = Math.abs(target.getCol() - position.getCol());
         
@@ -31,6 +30,11 @@ public class King extends Piece
         {
             return false;
         }
+        if (board.resultsInCheck(position, target))
+        {
+            return false;
+        }
+
         
         return !checkTargetMoveIsAlly(board, target);
     }
