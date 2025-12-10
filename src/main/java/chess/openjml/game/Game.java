@@ -56,11 +56,11 @@ public class Game
         board.movePiece(move);
         changeTurn();
 
-        if (board.isCheckMate(currentTurn.opposite()))
+        if (board.isCheckMate(currentTurn))
         {
             return MoveResult.CHECKMATE;
         }
-        else if (board.isInCheck(currentTurn.opposite()))
+        else if (board.isInCheck(currentTurn))
         {
             return MoveResult.CHECK;
         }
