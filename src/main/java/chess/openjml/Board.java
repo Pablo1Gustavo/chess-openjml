@@ -93,7 +93,18 @@ public class Board
         this.grid = boardMatrix;
         this.moveHistory = new LinkedList<>();
     }
-    
+
+    //@ also
+    //@ ensures \result != null && \result != this;
+    //@ ensures \result.getRowsLength() == this.getRowsLength();
+    //@ ensures \result.getColsLength() == this.getColsLength();
+    //@ ensures (\forall int r, c;
+    //@             0 <= r && r < getRowsLength() &&
+    //@             0 <= c && c < getColsLength();
+    //@               (\result.grid[r][c].isPresent() <==> grid[r][c].isPresent())
+    //@               && (\result.grid[r][c].isPresent() ==> \result.grid[r][c].get() == grid[r][c].get())
+    //@         );
+    //@ pure
     public Board clone()
     {
         return new Board(getAllPieces(), getRowsLength(), getColsLength());
