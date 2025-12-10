@@ -13,3 +13,5 @@ tools/
 .DS_Store
 Thumbs.db
 *.pgn
+
+output.txt
