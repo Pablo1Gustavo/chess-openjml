@@ -1,15 +1,20 @@
 package chess.openjml.moves;
 
 import chess.openjml.pieces.Piece;
+import java.util.regex.Pattern;
 
-public class SimpleMove<T extends Piece> extends BaseMove<T>
-{    
-    public SimpleMove(MovePair movePair, Class<T> pieceType, DisambiguationType disambiguationType)
+//@ non_null_by_default
+public class SimpleMove extends BaseMove
+{
+    public static final Pattern SIMPLE_PIECE_MOVE = Pattern.compile("^([kqrbn])([a-z]\\d+)$");
+    public static final Pattern SIMPLE_PAWN_MOVE = Pattern.compile("^([a-z]\\d+)$");
+
+    public SimpleMove(MovePair movePair, Class<? extends Piece> pieceType, DisambiguationType disambiguationType)
     {
         super(movePair, pieceType, disambiguationType);
     }
 
-    public SimpleMove(MovePair movePair, Class<T> pieceType)
+    public SimpleMove(MovePair movePair, Class<? extends Piece> pieceType)
     {
         this(movePair, pieceType, DisambiguationType.NONE);
     }

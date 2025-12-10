@@ -1,10 +1,19 @@
 package chess.openjml.moves;
 
+import java.util.regex.Pattern;
+
+//@ non_null_by_default
 public class MovePair
 {
+    public static final Pattern SIMPLE_FROM_TO_NOTATION = Pattern.compile("^[a-z]\\d+ [a-z]\\d+$");
+
     public final Position from;
     public final Position to;
     
+    //@ requires from != null && to != null;
+    //@ requires !from.equals(to);
+    //@ ensures this.from == from;
+    //@ ensures this.to == to;
     public MovePair(Position from, Position to)
     {
         this.from = from;

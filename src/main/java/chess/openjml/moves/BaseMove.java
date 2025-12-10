@@ -3,7 +3,7 @@ package chess.openjml.moves;
 import chess.openjml.pieces.Piece;
 
 //@ non_null_by_default
-public abstract class BaseMove<T extends Piece>
+public abstract class BaseMove
 {
     public enum DisambiguationType
     {
@@ -13,30 +13,50 @@ public abstract class BaseMove<T extends Piece>
         BOTH    // Full disambiguation (e.g., Rb1xd5)
     }
 
+    //@ spec_public
     protected final MovePair movePair;
-    protected final Class<T> pieceType;
+    //@ spec_public
+    protected final Class<? extends Piece> pieceType;
+    //@ spec_public
     protected final DisambiguationType disambiguationType;
 
-    public BaseMove(MovePair movePair, Class<T> pieceType, DisambiguationType disambiguationType)
+    //@ requires = movePair != null && pieceType != null && disambiguationType != null;
+    //@ ensures this.movePair == movePair;
+    //@ ensures this.pieceType == pieceType;
+    //@ ensures this.disambiguationType == disambiguationType;
+    public BaseMove(MovePair movePair, Class<? extends Piece> pieceType, DisambiguationType disambiguationType)
     {
         this.movePair = movePair;
         this.pieceType = pieceType;
         this.disambiguationType = disambiguationType;
     }
 
-    public BaseMove(MovePair movePair, Class<T> pieceType)
+    //@ requires movePair != null && pieceType != null;
+    //@ ensures this.movePair == movePair;
+    //@ ensures this.pieceType == pieceType;
+    //@ ensures this.disambiguationType == DisambiguationType.NONE;
+    public BaseMove(MovePair movePair, Class<? extends Piece> pieceType)
     {
         this.movePair = movePair;
         this.pieceType = pieceType;
         this.disambiguationType = DisambiguationType.NONE;
     }
+    
+    //@ ensures \result == movePair;
+    //@ pure
+    public MovePair getMove()
+    {
+        return movePair;
+    }
 
+    //@ pure
     public Position getFrom()
     {
         return movePair.getFrom();
     }
 
-    public <U> String getPieceAlgebraicNotation(Class<U> pieceType)
+    //@ pure
+    public String getPieceAlgebraicNotation(Class<? extends Piece> pieceType)
     {
         return switch(pieceType.getSimpleName())
         {
@@ -50,8 +70,10 @@ public abstract class BaseMove<T extends Piece>
         };
     }
 
+    //@ pure
     public abstract String algebraicNotation();
 
+    //@ pure
     protected String disambiguationAlgebraicNotation()
     {
         return switch(disambiguationType)

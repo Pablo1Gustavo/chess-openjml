@@ -1,12 +1,16 @@
 package chess.openjml.moves;
 
 import chess.openjml.pieces.Piece;
+import java.util.regex.Pattern;
 
-public class CheckMateMove<T extends Piece> extends BaseMove<T>
+//@ non_null_by_default
+public class CheckMateMove extends BaseMove
 {
-    protected final BaseMove<T> baseMove;
+    private static final Pattern CHECKMATE_SUFFIX = Pattern.compile("#$");
+    //@ spec_public
+    protected final BaseMove baseMove;
 
-    public CheckMateMove(BaseMove<T> baseMove)
+    public CheckMateMove(BaseMove baseMove)
     {
         super(baseMove.movePair, baseMove.pieceType, baseMove.disambiguationType);
         this.baseMove = baseMove;
