@@ -4,8 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-import chess.openjml.pieces.Piece;
-import chess.openjml.pieces.King;
+import chess.openjml.pieces.*;
 import chess.openjml.pieces.enums.Color;
 import chess.openjml.moves.BaseMove;
 import chess.openjml.moves.MovePair;
@@ -18,7 +17,7 @@ public class Board
     //@ spec_public
     Optional<Piece>[][] grid;
     //@ spec_public
-    private LinkedList<BaseMove<Piece>> moveHistory;
+    private LinkedList<BaseMove> moveHistory;
 
     //@ public invariant grid.length > 0;
     //@ public invariant (\forall int r; 0 <= r && r < grid.length; grid[r].length > 0 && grid[r].length <= 26);
@@ -81,6 +80,23 @@ public class Board
         this.grid = boardMatrix;
         this.moveHistory = new LinkedList<>();
     }
+
+    //@ ensures \result.size() >= 2;
+    //@ pure
+    public List<Piece> getAllPieces()
+    {
+        LinkedList<Piece> pieces = new LinkedList<>();
+
+        for (int row = 0; row < getRowsLength(); row++)
+        {
+            for (int col = 0; col < getColsLength(); col++)
+            {
+                Optional<Piece> cell = grid[row][col];
+                cell.ifPresent(pieces::add);
+            }
+        }
+        return pieces;
+    }   
 
     //@ ensures \result == grid.length;
     //@ ensures \result > 0;
@@ -268,14 +284,14 @@ public class Board
     //@ requires move != null;
     //@ ensures moveHistory.size() == \old(moveHistory.size()) + 1;
     //@ ensures moveHistory.getLast() == move;
-    public void addMoveToHistory(BaseMove<Piece> move)
+    public void addMoveToHistory(BaseMove move)
     {
         moveHistory.add(move);
     }
     
     //@ ensures \result == moveHistory;
     //@ pure
-    public LinkedList<BaseMove<Piece>> getMoveHistory()
+    public LinkedList<BaseMove> getMoveHistory()
     {
         return moveHistory;
     }
@@ -283,7 +299,7 @@ public class Board
     //@ requires moveHistory.size() > 0;
     //@ ensures \result == moveHistory.getLast();
     //@ pure
-    public BaseMove<Piece> getLastMove()
+    public BaseMove getLastMove()
     {
         return moveHistory.getLast();
     }
@@ -400,6 +416,33 @@ public class Board
     public boolean isStalemate(Color color)
     {
         return !isInCheck(color) && !hasLegalMoves(color);
+    }
+
+    // @ ensures isStalemate(Color.WHITE) || isStalemate(Color.BLACK) ==> \result;
+    //@ pure
+    public boolean isDraw()
+    {
+        if (isStalemate(Color.WHITE) || isStalemate(Color.BLACK))
+        {
+            return true;
+        }
+
+        var pieceList = getAllPieces();
+        
+        if (pieceList.size() == 2)
+        {
+            return true;
+        }
+
+        boolean hasBishop = pieceList.stream().anyMatch(p -> p instanceof Bishop);
+        boolean hasKnight = pieceList.stream().anyMatch(p -> p instanceof Knight);
+
+        if (pieceList.size() == 3 && (hasBishop || hasKnight))
+        {
+            return true;
+        }
+
+        return false;
     }
     
     //@ requires move != null;
