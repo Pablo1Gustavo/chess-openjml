@@ -1,65 +1,51 @@
 @startuml Chess OpenJML Class Diagram
+left to right direction
 
 !define ABSTRACT_CLASS abstract class
 !define ENUM enum
 
 ' Main package
-package chess.openjml {
-    class App {
-        - {static} game: Game
-        + {static} main(args: String[]): void
-        - {static} showBoard(): void
-    }
-
+package chess {
     class Board {
         - grid: Optional<Piece>[][]
         - moveHistory: LinkedList<BaseMove>
         + Board(grid: Optional<Piece>[][])
-        + getRowsLength(): int
-        + getColsLength(): int
-        + isWithinBounds(pos: Position): boolean
-        + movePiece(fromRow: int, fromCol: int, toRow: int, toCol: int): void
-        + movePiece(from: Position, to: Position): void
+        + getBoard(): Board
+        + clone(): Board
         + getPieceAt(pos: Position): Optional<Piece>
-        + isCellOccupied(pos: Position): boolean
-        + isCellEmpty(pos: Position): boolean
-        + isIntervalClear(from: Position, to: Position): boolean
-        + findPiece<T extends Piece>(cls: Class<T>, color: Color): Optional<T>
+        + movePiece(move: BaseMove): void
+        + isValidMove(move: BaseMove): boolean
+        + isPathClear(from: Position, to: Position): boolean
+        + findPiece<T extends Piece>(type: Class<T>, color: Color): Optional<T>
         + toString(): String
     }
+}
 
+' Game package
+package chess.game {
     class Game {
+        - initialBoard: Board
         - board: Board
-        - currentPlayer: Color
-        - fullMoveNumber: int
-        - whiteCanCastleKingside: boolean
-        - whiteCanCastleQueenside: boolean
-        - blackCanCastleKingside: boolean
-        - blackCanCastleQueenside: boolean
-        - enPassantRow: int
-        - enPassantCol: int
-        + Game()
-        - initializeBoard(): void
+        - currentTurn: Color
+        + Game(board: Board)
         + getBoard(): Board
-        + getCurrentPlayer(): Color
-        + movePiece(fromRow: int, fromCol: int, toRow: int, toCol: int, promotionPiece: String): boolean
-        + castle(kingSide: boolean): boolean
-        + isInCheck(color: Color): boolean
-        + isInCheckmate(color: Color): boolean
-        + undoLastMove(): boolean
-        + exportToPGN(filePath: String): void
+        + getCurrentTurn(): Color
+        + changeTurn(): void
+        + move(move: MovePair): MoveResult
+        + undoLastMove(): void
     }
 
-    class SANParser {
-        + {static} parseSANAndMove(game: Game, san: String): boolean
-        - {static} parsePawnMove(game: Game, san: String): boolean
-        - {static} parsePieceMove(game: Game, san: String): boolean
-        - {static} handleCastling(game: Game, kingSide: boolean): boolean
+    ENUM MoveResult {
+        COMMON
+        INVALID
+        CHECK
+        CHECKMATE
+        DRAW
     }
 }
 
 ' Pieces package
-package chess.openjml.pieces {
+package chess.pieces {
     ABSTRACT_CLASS Piece {
         # moveCount: int
         # position: Position
@@ -135,169 +121,101 @@ package chess.openjml.pieces {
 }
 
 ' Moves package
-package chess.openjml.moves {
-    ABSTRACT_CLASS BaseMove {
-        # {final} from: Position
-        # {final} to: Position
-        # {final} pieceType: String
-        # {final} pieceColor: Color
-        # resultsInCheck: boolean
-        # resultsInCheckmate: boolean
-        # {final} previousCastlingRights: CastlingRights
-        # {final} previousEnPassantRow: int
-        # {final} previousEnPassantCol: int
-        # {final} previousFullmoveNumber: int
-        # {final} moveIndex: int
-        # {final} timestamp: long
-        # {final} timeRemaining: long
-        # algebraicNotation: String
-        # resultingFEN: String
-        # BaseMove(...)
-        + getFrom(): Position
-        + getTo(): Position
-        + getPieceType(): String
-        + getPieceColor(): Color
-        + getAlgebraicNotation(): String
-        + getResultingFEN(): String
-        + isCheck(): boolean
-        + isCheckmate(): boolean
-        + getMoveIndex(): int
-        + toSAN(): String
-        + toPGN(): String
-    }
-
-    class StandardMove {
-        + StandardMove(...)
-        + getDescription(): String
-    }
-
-    class CaptureMove {
-        - {final} capturedPieceType: String
-        - {final} capturedPosition: Position
-        - {final} isEnPassantCapture: boolean
-        + CaptureMove(...)
-        + getCapturedPieceType(): String
-        + getCapturedPosition(): Position
-        + isEnPassant(): boolean
-        + getDescription(): String
-    }
-
-    class CastlingMove {
-        - {final} kingSide: boolean
-        - {final} queenSide: boolean
-        + CastlingMove(...)
-        + isKingSide(): boolean
-        + isQueenSide(): boolean
-        + getDescription(): String
-    }
-
-    class PromotionMove {
-        - {final} promotionPieceType: String
-        - {final} capturedPieceType: String
-        - {final} capturedPosition: Position
-        - {final} isAlsoCapture: boolean
-        + PromotionMove(...)
-        + getPromotionPieceType(): String
-        + getCapturedPieceType(): String
-        + isAlsoCapture(): boolean
-        + getDescription(): String
-    }
-
+package chess.moves {
     class Position {
         - {final} row: int
         - {final} col: int
         + Position(row: int, col: int)
         + getRow(): int
         + getCol(): int
-        + getColChar(): char
-        + sameRow(p: Position): boolean
-        + sameCol(p: Position): boolean
-        + sameDiagonal(p: Position): boolean
+        + toAlgebraic(): String
+        + fromAlgebraic(notation: String): Position
         + equals(obj: Object): boolean
         + hashCode(): int
         + toString(): String
     }
 
-    class CastlingRights {
-        - whiteKingSide: boolean
-        - whiteQueenSide: boolean
-        - blackKingSide: boolean
-        - blackQueenSide: boolean
-        + CastlingRights()
-        + CastlingRights(whiteKingSide: boolean, whiteQueenSide: boolean, blackKingSide: boolean, blackQueenSide: boolean)
-        + CastlingRights(other: CastlingRights)
-        + canWhiteCastleKingSide(): boolean
-        + canWhiteCastleQueenSide(): boolean
-        + canBlackCastleKingSide(): boolean
-        + canBlackCastleQueenSide(): boolean
-        + revokeWhiteKingSide(): void
-        + revokeWhiteQueenSide(): void
-        + revokeBlackKingSide(): void
-        + revokeBlackQueenSide(): void
-        + toString(): String
+    class MovePair {
+        + {final} from: Position
+        + {final} to: Position
+        + MovePair(from: Position, to: Position)
+        + fromString(notation: String): MovePair
     }
 
-    class MoveFactory {
-        + {static} createBuilder(): Builder
-        + {static} createStandardMove(...): StandardMove
-        + {static} createCaptureMove(...): CaptureMove
-        + {static} createCastlingMove(...): CastlingMove
-        + {static} createPromotionMove(...): PromotionMove
+    ABSTRACT_CLASS BaseMove {
+        # {final} movePair: MovePair
+        # {final} pieceType: Class<? extends Piece>
+        # {final} disambiguationType: DisambiguationType
+        # BaseMove(movePair: MovePair, pieceType: Class<? extends Piece>, disambiguationType: DisambiguationType)
+        + getMovePair(): MovePair
+        + getPieceType(): Class<? extends Piece>
+        + algebraicNotation(): String
+        + {abstract} isLegal(board: Board): boolean
     }
 
-    class Builder {
-        - from: Position
-        - to: Position
-        - pieceType: String
-        - pieceColor: Color
-        - capturedPieceType: String
-        - capturedPosition: Position
-        - promotionPieceType: String
-        - isCapture: boolean
-        - isCastleKingSide: boolean
-        - isCastleQueenSide: boolean
-        - isEnPassant: boolean
-        - isPromotion: boolean
-        - resultsInCheck: boolean
-        - resultsInCheckmate: boolean
-        - previousCastlingRights: CastlingRights
-        - previousEnPassantRow: int
-        - previousEnPassantCol: int
-        - previousFullmoveNumber: int
-        - moveIndex: int
-        - timestamp: long
-        - timeRemaining: long
-        - algebraicNotation: String
-        - resultingFEN: String
-        + from(position: Position): Builder
-        + to(position: Position): Builder
-        + pieceType(pieceType: String): Builder
-        + pieceColor(color: Color): Builder
-        + capture(...): Builder
-        + promotion(...): Builder
-        + castling(...): Builder
-        + build(): BaseMove
+    ENUM DisambiguationType {
+        NONE
+        FILE
+        RANK
+        BOTH
+    }
+
+    class SimpleMove {
+        + SimpleMove(movePair: MovePair, pieceType: Class<? extends Piece>, disambiguationType: DisambiguationType)
+        + SimpleMove(movePair: MovePair, pieceType: Class<? extends Piece>)
+        + algebraicNotation(): String
+    }
+
+    class CaptureMove {
+        - {final} capturedPieceType: Class<? extends Piece>
+        + CaptureMove(movePair: MovePair, pieceType: Class<? extends Piece>, capturedPieceType: Class<? extends Piece>, disambiguationType: DisambiguationType)
+        + getCapturedPieceType(): Class<? extends Piece>
+        + algebraicNotation(): String
+    }
+
+    class CastlingMove {
+        - {final} kingSide: boolean
+        + CastlingMove(movePair: MovePair, kingSide: boolean)
+        + isKingSide(): boolean
+        + algebraicNotation(): String
+    }
+
+    class CheckMove {
+        + CheckMove(baseMove: BaseMove)
+        + algebraicNotation(): String
+    }
+
+    class CheckMateMove {
+        + CheckMateMove(baseMove: BaseMove)
+        + algebraicNotation(): String
+    }
+
+    class EnPassantMove {
+        - {final} capturedPawnPosition: Position
+        + EnPassantMove(movePair: MovePair, capturedPawnPosition: Position, disambiguationType: DisambiguationType)
+        + getCapturedPawnPosition(): Position
+        + algebraicNotation(): String
+    }
+
+    class PromotionMove {
+        - {final} promotionPieceType: Class<? extends Piece>
+        - {final} capturedPieceType: Class<? extends Piece>
+        + PromotionMove(movePair: MovePair, promotionPieceType: Class<? extends Piece>, capturedPieceType: Class<? extends Piece>, disambiguationType: DisambiguationType)
+        + getPromotionPieceType(): Class<? extends Piece>
+        + getCapturedPieceType(): Class<? extends Piece>
+        + algebraicNotation(): String
     }
 }
 
 ' Relationships
 
-' App uses Game and SANParser
-App --> Game : uses
-App --> SANParser : uses
-
-' Game has Board and uses moves
+' Game has Board
 Game *-- Board : contains
-Game --> Color : uses
-Game ..> BaseMove : creates
+Game --> MovePair : receives
 
-' SANParser uses Game
-SANParser --> Game : uses
-
-' Board contains Pieces and BaseMove
-Board o-- Piece : contains
-Board o-- BaseMove : stores history
+' Board uses Position and BaseMove
 Board --> Position : uses
+Board --> BaseMove : stores history
 
 ' Piece hierarchy
 King --|> Piece
@@ -310,25 +228,31 @@ Pawn --|> Piece
 ' Piece uses Color and Position
 Piece --> Color : has
 Piece --> Position : has
-Piece --> Board : validates moves
 
 ' Move hierarchy
-StandardMove --|> BaseMove
+SimpleMove --|> BaseMove
 CaptureMove --|> BaseMove
 CastlingMove --|> BaseMove
+CheckMove --|> BaseMove
+CheckMateMove --|> BaseMove
+EnPassantMove --|> BaseMove
 PromotionMove --|> BaseMove
 
-' BaseMove uses Position, Color, and CastlingRights
-BaseMove --> Position : has
-BaseMove --> Color : has
-BaseMove --> CastlingRights : stores
+' MovePair uses Position
+MovePair --> Position : uses
+MovePair *-- Position : contains
 
-' MoveFactory creates moves and contains Builder
-MoveFactory ..> BaseMove : creates
-MoveFactory +-- Builder : contains
-Builder ..> BaseMove : builds
-Builder --> Position : uses
-Builder --> Color : uses
-Builder --> CastlingRights : uses
+' BaseMove uses MovePair
+BaseMove --> MovePair : uses
+BaseMove --> DisambiguationType : uses
+
+' CaptureMove and PromotionMove use capturedPieceType
+CaptureMove --> Piece : references captured piece
+
+' EnPassantMove references captured position
+EnPassantMove --> Position : references captured pawn
+
+' PromotionMove references promotion piece
+PromotionMove --> Piece : references promotion piece
 
 @enduml
