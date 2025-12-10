@@ -20,7 +20,7 @@ public abstract class BaseMove
     //@ spec_public
     protected final DisambiguationType disambiguationType;
 
-    //@ requires = movePair != null && pieceType != null && disambiguationType != null;
+    //@ requires movePair != null && pieceType != null && disambiguationType != null;
     //@ ensures this.movePair == movePair;
     //@ ensures this.pieceType == pieceType;
     //@ ensures this.disambiguationType == disambiguationType;

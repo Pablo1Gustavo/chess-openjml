@@ -80,6 +80,11 @@ public class Board
         this.grid = boardMatrix;
         this.moveHistory = new LinkedList<>();
     }
+    
+    public Board clone()
+    {
+        return new Board(getAllPieces(), getRowsLength(), getColsLength());
+    }
 
     //@ ensures \result.size() >= 2;
     //@ pure
@@ -112,6 +117,13 @@ public class Board
     public int getColsLength()
     {
         return grid[0].length;
+    }
+
+    //@ ensures \result == (moveHistory.size() % 2 == 0 ? Color.WHITE : Color.BLACK);
+    //@ pure
+    public Color getCurrentPlayerColor()
+    {
+        return moveHistory.size() % 2 == 0 ? Color.WHITE : Color.BLACK;
     }
 
     //@ requires pos != null;
@@ -317,6 +329,13 @@ public class Board
     {
         var king = findPiece(King.class, color);
         return king.isPresent() && king.get().isBeingAttacked(this);
+    }
+
+    //@ ensures \result <==> isInCheck(Color.WHITE) || isInCheck(Color.BLACK);
+    //@ pure
+    public boolean someoneIsInCheck()
+    {
+        return isInCheck(Color.WHITE) || isInCheck(Color.BLACK);
     }
 
     //@ requires movePair != null;

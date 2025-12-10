@@ -10,6 +10,8 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import chess.openjml.game.Game;
+import chess.openjml.game.MoveResult;
 import chess.openjml.moves.MovePair;
 import chess.openjml.moves.Position;
 import chess.openjml.pieces.Piece;
@@ -20,17 +22,17 @@ public class GUIGame extends JFrame
     private static final int BOARD_SIZE = 8;
     private static final int STATUS_BAR_HEIGHT = 50;
     
-    private final Board board;
+    private final Game game;
     private final ChessBoardPanel boardPanel;
     private final JLabel statusLabel;
-    private Color currentTurn;
+    private boolean gameOver;
 
-    public GUIGame(Board board)
+    public GUIGame(Game game)
     {
-        this.board = board;
-        this.currentTurn = Color.WHITE;
+        this.game = game;
         this.boardPanel = new ChessBoardPanel();
         this.statusLabel = createStatusLabel();
+        this.gameOver = false;
         
         initializeFrame();
     }
@@ -63,16 +65,12 @@ public class GUIGame extends JFrame
         return label;
     }
 
-    public void changeTurn()
-    {
-        currentTurn = currentTurn.opposite();
-        updateStatusText(statusLabel);
-    }
-
     private void updateStatusText(JLabel label)
     {
+        Color currentTurn = game.getCurrentTurn();
         String status = currentTurn + " to move";
-        if (board.isInCheck(currentTurn))
+
+        if (game.getBoard().someoneIsInCheck())
         {
             status += " (check)";
         }
@@ -220,7 +218,7 @@ public class GUIGame extends JFrame
 
         private void drawPieceIfPresent(Graphics2D g2d, int row, int col)
         {
-            board.getPieceAt(new Position(row, col)).ifPresent(piece ->
+            game.getBoard().getPieceAt(new Position(row, col)).ifPresent(piece ->
             {
                 int x = col * SQUARE_SIZE;
                 int y = (BOARD_SIZE - 1 - row) * SQUARE_SIZE;
@@ -263,9 +261,14 @@ public class GUIGame extends JFrame
             @Override
             public void mouseClicked(MouseEvent e)
             {
+                if (gameOver)
+                {
+                    return;
+                }
+
                 Position clickedPos = screenToBoard(e.getX(), e.getY());
 
-                if (!board.isWithinBounds(clickedPos))
+                if (!game.getBoard().isWithinBounds(clickedPos))
                 {
                     return;
                 }
@@ -282,13 +285,13 @@ public class GUIGame extends JFrame
 
             private void handlePieceSelection(Position pos)
             {
-                board.getPieceAt(pos)
-                    .filter(piece -> piece.isAlly(currentTurn))
+                game.getBoard().getPieceAt(pos)
+                    .filter(piece -> piece.isAlly(game.getCurrentTurn()))
                     .ifPresent(piece ->
                     {
                         selectedPosition = pos;
                         validMoves.clear();
-                        validMoves.addAll(piece.getValidMoves(board));
+                        validMoves.addAll(piece.getValidMoves(game.getBoard()));
                         invalidPosition = null;
                         repaint();
                     });
@@ -304,29 +307,27 @@ public class GUIGame extends JFrame
                 }
 
                 MovePair move = new MovePair(selectedPosition, targetPos);
+                MoveResult result = game.move(move);
 
-                if (!board.isValidMove(move))
+                if (result == MoveResult.INVALID)
                 {
                     invalidPosition = targetPos;
                     repaint();
                     return;
                 }
 
-                executeMove(move);
-            }
-
-            private void executeMove(MovePair move)
-            {
-                board.movePiece(move);
                 clearSelection();
+                updateStatusText(statusLabel);
 
-                if (board.isCheckMate(currentTurn.opposite()))
+                if (result == MoveResult.CHECKMATE)
                 {
-                    statusLabel.setText("Checkmate! " + currentTurn + " wins!");
+                    statusLabel.setText("Checkmate! " + game.getCurrentTurn().opposite() + " wins!");
+                    gameOver = true;
                 }
-                else
+                else if (result == MoveResult.DRAW)
                 {
-                    changeTurn();
+                    statusLabel.setText("The game is a draw!");
+                    gameOver = true;
                 }
                 
                 repaint();

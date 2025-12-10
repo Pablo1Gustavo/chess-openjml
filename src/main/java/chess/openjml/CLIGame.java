@@ -2,31 +2,25 @@ package chess.openjml;
 
 import java.util.Scanner;
 
-import chess.openjml.moves.AlgebraicNotationParser;
+import chess.openjml.game.Game;
+import chess.openjml.game.MoveResult;
 import chess.openjml.moves.MovePair;
-import chess.openjml.pieces.enums.Color;
 
 public class CLIGame
 {
-    protected final Board board;
-    protected Color currentTurn = Color.WHITE;
+    protected final Game game;
     
-    public CLIGame(Board board)
+    public CLIGame(Game game)
     {
-        this.board = board;
-    }
-
-    public void changeTurn()
-    {
-        currentTurn = currentTurn.opposite();
+        this.game = game;
     }
 
     public void start()
     {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(board.toString());
-        System.out.print(currentTurn.toString() + " > ");
+        System.out.println(game.getBoard().toString());
+        System.out.print(game.getCurrentTurn().toString() + " > ");
 
         while(true)
         {
@@ -37,40 +31,52 @@ public class CLIGame
                 System.out.println("Exiting...");
                 break;
             }
+            if("reset".equals(line))
+            {
+                game.reset();
+                System.out.println("===== Game reset =====");
+                System.out.println(game.getBoard().toString());
+                System.out.print(game.getCurrentTurn().toString() + " > ");
+                continue;
+            }
 
-            boolean validNotation = AlgebraicNotationParser.isSimpleFromToNotation(line);
+            boolean validNotation = MovePair.SIMPLE_FROM_TO_NOTATION.matcher(line).matches();
 
             if (!validNotation)
             {
                 System.out.println("Invalid notation. Please use simple from-to notation (e.g., e2 e4).");
+                System.out.print(game.getCurrentTurn().toString() + " > ");
                 continue;
             }
 
             MovePair move = MovePair.fromString(line);
 
-            if (!board.isValidMove(move))
+            MoveResult result = game.move(move);
+
+            if (result == MoveResult.INVALID)
             {
                 System.out.println("Invalid move. Please try again.");
                 continue;
             }
-            
-            board.movePiece(move);
 
-            if (board.isInCheck(currentTurn))
+            if (result == MoveResult.CHECKMATE)
+            {
+                System.out.println("Checkmate! " + game.getCurrentTurn() + " wins!");
+                break;
+            }
+            if (result == MoveResult.DRAW)
+            {
+                System.out.println("The game is a draw!");
+                break;
+            }
+            if (result == MoveResult.CHECK)
             {
                 System.out.println("Check!");
             }
 
-            if (board.isCheckMate(currentTurn.opposite()))
-            {
-                System.out.println("Checkmate! " + currentTurn + " wins!");
-                break;
-            }
-
-            changeTurn();
             System.out.println();
-            System.out.println(board.toString());
-            System.out.print(currentTurn.toString() + " > ");
+            System.out.println(game.getBoard().toString());
+            System.out.print(game.getCurrentTurn().toString() + " > ");
         }
 
         scanner.close();

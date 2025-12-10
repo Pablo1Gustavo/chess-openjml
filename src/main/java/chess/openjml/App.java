@@ -3,6 +3,7 @@ package chess.openjml;
 import java.util.ArrayList;
 import java.util.List;
 
+import chess.openjml.game.Game;
 import chess.openjml.moves.Position;
 import chess.openjml.pieces.*;
 import chess.openjml.pieces.enums.Color;
@@ -39,17 +40,18 @@ public class App
         }
 
         Board board = new Board(pieces, 8, 8);
+        Game game = new Game(board);
 
         String mode = args.length > 0 ? args[0].toLowerCase() : "gui";
         
         if ("cli".equals(mode))
         {
-            CLIGame cliGame = new CLIGame(board);
+            CLIGame cliGame = new CLIGame(game);
             cliGame.start();
         }
         else
         {
-            new GUIGame(board);
+            new GUIGame(game);
         }
     }
 }
