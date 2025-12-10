@@ -11,11 +11,14 @@ public class SimpleMove extends BaseMove
     //@ public static invariant SIMPLE_PAWN_MOVE != null;
     public static final Pattern SIMPLE_PAWN_MOVE = Pattern.compile("^([a-z]\\d+)$");
 
+    //@ requires movePair != null && pieceType != null;
     public SimpleMove(MovePair movePair, Class<? extends Piece> pieceType, DisambiguationType disambiguationType)
     {
         super(movePair, pieceType, disambiguationType);
     }
 
+    //@ requires movePair != null && pieceType != null;
+    //@ ensures disambiguationType == DisambiguationType.NONE;
     public SimpleMove(MovePair movePair, Class<? extends Piece> pieceType)
     {
         this(movePair, pieceType, DisambiguationType.NONE);

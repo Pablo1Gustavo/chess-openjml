@@ -11,6 +11,8 @@ public class CheckMateMove extends BaseMove
     //@ spec_public
     protected final BaseMove baseMove;
 
+    //@ requires baseMove != null;
+    //@ ensures this.baseMove == baseMove;
     public CheckMateMove(BaseMove baseMove)
     {
         super(baseMove.movePair, baseMove.pieceType, baseMove.disambiguationType);

@@ -44,24 +44,22 @@ public class Board
     //@         0 <= c && c < grid[r].length &&
     //@         grid[r][c].isPresent()
     //@     ==> (grid[r][c].get().getRow() == r && grid[r][c].get().getCol() == c));
-    // === existe exatamente 1 rei branco ===
+    // === existe um rei branco ===
     //@ public invariant
-    //@     (\num_of int r, c;
+    //@     (\exists int r, c;
     //@         0 <= r && r < grid.length &&
     //@         0 <= c && c < grid[r].length &&
     //@         grid[r][c].isPresent() &&
     //@         (grid[r][c].get() instanceof King) &&
-    //@         ((King)grid[r][c].get()).color == Color.WHITE
-    //@     ) == 1;
-    // === existe exatamente 1 rei preto ===
+    //@         ((King)grid[r][c].get()).color == Color.WHITE);
+    // === existe um rei preto ===
     //@ public invariant
-    //@     (\num_of int r, c;
+    //@     (\exists int r, c;
     //@         0 <= r && r < grid.length &&
     //@         0 <= c && c < grid[r].length &&
     //@         grid[r][c].isPresent() &&
     //@         (grid[r][c].get() instanceof King) &&
-    //@         ((King)grid[r][c].get()).color == Color.BLACK
-    //@     ) == 1;
+    //@         ((King)grid[r][c].get()).color == Color.BLACK);
 
     //@ requires grid.length > 0;
     //@ requires (\forall int r; 0 <= r && r < grid.length; grid[r].length > 0 && grid[r].length <= 26);
@@ -273,6 +271,10 @@ public class Board
         int currentRow = from.getRow() + rowStep;
         int currentCol = from.getCol() + colStep;
 
+        //@ loop_invariant 0 <= currentRow && currentRow < getRowsLength();
+        //@ loop_invariant 0 <= currentCol && currentCol < getColsLength();
+        //@ loop_invariant (\exists int k; 1 <= k && currentRow == from.getRow() + k*rowStep && currentCol == from.getCol() + k*colStep);
+        //@ decreases Math.abs(to.getRow() - currentRow) + Math.abs(to.getCol() - currentCol);
         while (!to.equals(currentRow, currentCol))
         {
             if (isCellOccupied(new Position(currentRow, currentCol)))

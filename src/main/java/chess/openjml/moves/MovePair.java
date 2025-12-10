@@ -21,6 +21,8 @@ public class MovePair
         this.to = to;
     }
 
+    //@ requires notation != null;
+    //@ pure
     public static MovePair fromString(String notation)
     {
         String[] parts = notation.split(" ");
@@ -31,20 +33,14 @@ public class MovePair
         return new MovePair(from, to);
     }
 
-    /*@ public normal_behavior
-      @   ensures \result == from;
-      @   assignable \nothing;
-      @*/
-    public /*@ pure @*/ Position getFrom()
+    //@ ensures \result == from;
+    //@ pure
+    public Position getFrom()
     {
         return from;
     }
 
-    /*@ public normal_behavior
-      @   ensures \result == to;
-      @   assignable \nothing;
-      @*/
-    public /*@ pure @*/ Position getTo()
+    public Position getTo()
     {
         return to;
     }

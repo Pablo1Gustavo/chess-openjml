@@ -11,6 +11,8 @@ public class CastlingMove extends BaseMove
     //@ spec_public
     protected final boolean isKingSide;
 
+    //@ requires movePair != null;
+    //@ ensures this.isKingSide == isKingSide;
     public CastlingMove(MovePair movePair, boolean isKingSide)
     {
         super(movePair, King.class, DisambiguationType.NONE);

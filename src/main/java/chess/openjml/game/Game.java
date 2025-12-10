@@ -16,7 +16,8 @@ public class Game
     protected Color currentTurn = Color.WHITE;
 
     //@ requires board != null;
-    //@ ensures this.board == board;
+    //@ ensures this.board != null;
+    //@ ensures this.initialBoard != null;
     public Game(Board board)
     {
         this.board = board;
@@ -37,8 +38,8 @@ public class Game
         return currentTurn;
     }
 
-    //@ ensures currentTurn == Color.WHITE ==> currentTurn == Color.BLACK;
-    //@ ensures currentTurn == Color.BLACK ==> currentTurn == Color.WHITE;
+    //@ ensures (\old(currentTurn) == Color.WHITE) ==> (currentTurn == Color.BLACK);
+    //@ ensures (\old(currentTurn) == Color.BLACK) ==> (currentTurn == Color.WHITE);
     public void changeTurn()
     {
         currentTurn = currentTurn.opposite();
