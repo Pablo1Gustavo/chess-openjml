@@ -20,19 +20,7 @@ public class Board
     private LinkedList<BaseMove> moveHistory;
 
     // === número de peças no tabuleiro nunca aumenta ===
-    //@ public constraint
-    //@     (\num_of int r, c;
-    //@         0 <= r && r < grid.length &&
-    //@         0 <= c && c < grid[r].length &&
-    //@         grid[r][c].isPresent()
-    //@     )
-    //@     <=
-    //@     (\old(
-    //@         \num_of int r, c;
-    //@             0 <= r && r < grid.length &&
-    //@             0 <= c && c < grid[r].length &&
-    //@             grid[r][c].isPresent()
-    //@     ));
+    //@ public constraint \old(getAllPieces()).size() >= getAllPieces().size();
 
     //@ public invariant grid.length > 0;
     //@ public invariant (\forall int r; 0 <= r && r < grid.length; grid[r].length > 0 && grid[r].length <= 26);
@@ -97,6 +85,7 @@ public class Board
     //@ also
     //@ ensures \result != null && \result != this;
     //@ ensures \result.getRowsLength() == this.getRowsLength();
+    //@ ensures \result.getRowsLength() == this.getRowsLength();
     //@ ensures \result.getColsLength() == this.getColsLength();
     //@ ensures (\forall int r, c;
     //@             0 <= r && r < getRowsLength() &&
@@ -104,7 +93,6 @@ public class Board
     //@               (\result.grid[r][c].isPresent() <==> grid[r][c].isPresent())
     //@               && (\result.grid[r][c].isPresent() ==> \result.grid[r][c].get() == grid[r][c].get())
     //@         );
-    //@ pure
     public Board clone()
     {
         return new Board(getAllPieces(), getRowsLength(), getColsLength());
@@ -116,8 +104,10 @@ public class Board
     {
         LinkedList<Piece> pieces = new LinkedList<>();
 
+        //@ loop_invariant 0 <= row && row <= getRowsLength();
         for (int row = 0; row < getRowsLength(); row++)
         {
+            //@ loop_invariant 0 <= col && col <= getColsLength();
             for (int col = 0; col < getColsLength(); col++)
             {
                 Optional<Piece> cell = grid[row][col];

@@ -55,6 +55,7 @@ public abstract class BaseMove
         return movePair.getFrom();
     }
 
+    //@ requires pieceType != null;
     //@ pure
     public String getPieceAlgebraicNotation(Class<? extends Piece> pieceType)
     {

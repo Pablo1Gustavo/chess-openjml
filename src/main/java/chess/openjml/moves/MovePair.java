@@ -40,6 +40,8 @@ public class MovePair
         return from;
     }
 
+    //@ ensures \result == to;
+    //@ pure
     public Position getTo()
     {
         return to;
