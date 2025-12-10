@@ -78,9 +78,6 @@ def _process_jml_line(line: str, stats: JMLStats, patterns: Patterns) -> None:
     
     for pattern, key in annotation_map.items():
         _count_annotation(line, pattern, stats, key)
-    
-    if patterns.loop_annotation.search(line):
-        stats['loops_specified'] += 1
 
 
 def count_jml_annotations(src_dir: Path) -> JMLStats:
@@ -124,12 +121,17 @@ def count_jml_annotations(src_dir: Path) -> JMLStats:
         is_abstract_or_interface = False
         extends_class = False
         implements_interface = False
+        loop_seen_jml = False  # Rastreia se já contamos anotações de loop neste bloco
         
         for line in lines:
             if patterns.jml.match(line):
                 has_jml_in_class = True
                 has_jml_before_method = True
                 _process_jml_line(line, stats, patterns)
+                
+                if patterns.loop_annotation.search(line) and not loop_seen_jml:
+                    stats['loops_specified'] += 1
+                    loop_seen_jml = True
             
             elif class_match := patterns.class_.match(line):
                 current_class = class_match.group(4)
@@ -144,10 +146,13 @@ def count_jml_annotations(src_dir: Path) -> JMLStats:
                 if has_jml_before_method:
                     stats['methods_with_jml'] += 1
                     has_jml_before_method = False
+                loop_seen_jml = False
             
             elif line.strip() and not line.strip().startswith('//'):
                 if not patterns.jml.match(line):
                     has_jml_before_method = False
+                    if re.search(r'\b(for|while)\s*\(', line):
+                        loop_seen_jml = False
         
         if has_jml_in_class and current_class:
             stats['classes_with_jml'].add(current_class)
