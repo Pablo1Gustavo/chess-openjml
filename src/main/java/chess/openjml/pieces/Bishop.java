@@ -37,6 +37,11 @@ public class Bishop extends Piece
         return !checkTargetMoveIsAlly(board, target);
     }
 
+    public int getPoints()
+    {
+        return 3;
+    }
+
     //@ also
     //@ ensures \result == (color == Color.WHITE ? "♗" : "♝");
     public String icon()

@@ -52,6 +52,11 @@ public class Pawn extends Piece
         return false;
     }
 
+    public int getPoints()
+    {
+        return 1;
+    }
+
     //@ also
     //@ ensures \result == (color == Color.WHITE ? "♙" : "♟");
     public String icon()

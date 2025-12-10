@@ -38,6 +38,11 @@ public class Queen extends Piece
         return !checkTargetMoveIsAlly(board, target);
     }
 
+    public int getPoints()
+    {
+        return 9;
+    }
+
     //@ also
     //@ ensures \result == (color == Color.WHITE ? "♕" : "♛");
     public String icon()

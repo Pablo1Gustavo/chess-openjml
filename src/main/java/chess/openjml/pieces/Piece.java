@@ -104,6 +104,10 @@ public abstract class Piece
     //@ pure
     public abstract boolean isValidMove(Board board, Position target);
 
+    //@ ensures \result > 0;
+    //@ pure
+    public abstract int getPoints();
+
     //@ requires board != null;
     //@ ensures (\forall int i; 0 <= i && i < \result.size(); isValidMove(board, \result.get(i)));
     //@ pure

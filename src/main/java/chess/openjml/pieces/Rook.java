@@ -38,6 +38,11 @@ public class Rook extends Piece
         return !checkTargetMoveIsAlly(board, target);
     }
 
+    public int getPoints()
+    {
+        return 5;
+    }
+
     //@ also
     //@ ensures \result == (color == Color.WHITE ? "♖" : "♜");
     public String icon()

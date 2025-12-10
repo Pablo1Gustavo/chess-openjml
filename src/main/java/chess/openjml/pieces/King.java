@@ -39,6 +39,11 @@ public class King extends Piece
         return !checkTargetMoveIsAlly(board, target);
     }
 
+    public int getPoints()
+    {
+        return 1_000_000; // Arbitrarily high value
+    }
+
     //@ also
     //@ ensures \result == (color == Color.WHITE ? "♔" : "♚");
     public String icon()

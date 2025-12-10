@@ -2,6 +2,7 @@ package chess.openjml.game;
 
 import chess.openjml.Board;
 import chess.openjml.moves.MovePair;
+import chess.openjml.pieces.Piece;
 import chess.openjml.pieces.enums.Color;
 
 //@ non_null_by_default
@@ -76,5 +77,25 @@ public class Game
     {
         this.board = initialBoard.clone();
         this.currentTurn = Color.WHITE;
+    }
+    
+    //@ ensures \result >= 0;
+    //@ pure
+    public int getCapturedPointsFor(Color color)
+    {
+        var currentPieces = board.getAllPieces();
+        var initialPieces = initialBoard.getAllPieces();
+
+        int opponentInitialPoints = initialPieces.stream()
+            .filter(p -> p.isEnemy(color))
+            .mapToInt(Piece::getPoints)
+            .sum();
+
+        int opponentCurrentPoints = currentPieces.stream()
+            .filter(p -> p.isEnemy(color))
+            .mapToInt(Piece::getPoints)
+            .sum();
+
+        return opponentInitialPoints - opponentCurrentPoints;
     }
 }
