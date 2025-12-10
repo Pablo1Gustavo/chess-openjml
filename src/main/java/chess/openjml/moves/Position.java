@@ -25,6 +25,13 @@ public class Position
         this.col = col;
     }
 
+    //@ also
+    //@ ensures \result.equals(this);
+    public Position clone()
+    {
+        return new Position(this.row, this.col);
+    }
+
     //@ ensures \result == row;
     //@ pure
     public int getRow()

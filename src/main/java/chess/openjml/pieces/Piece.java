@@ -1,6 +1,10 @@
 package chess.openjml.pieces;
 
 import chess.openjml.pieces.enums.Color;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import chess.openjml.Board;
 import chess.openjml.moves.Position;
 
@@ -10,6 +14,8 @@ public abstract class Piece
     //@ spec_public
     protected int moveCount = 0;
     //@ spec_public
+    protected final Position initialPosition;
+    //@ spec_public
     protected Position position;
     //@ spec_public
     protected final Color color;
@@ -18,13 +24,16 @@ public abstract class Piece
     //@ public invariant moveCount >= 0;
 
     //@ requires position != null;
+    //@ requires color != null;
     //@ ensures this.position == position;
     //@ ensures this.color == color;
     //@ ensures this.moveCount == 0;
     //@ ensures !hasMoved();
+    //@ ensures this.initialPosition.equals(this.position);
     public Piece(Position position, Color color)
     {
         this.position = position;
+        this.initialPosition = position.clone();
         this.color = color;
     }
 
@@ -95,6 +104,28 @@ public abstract class Piece
     //@ pure
     public abstract boolean isValidMove(Board board, Position target);
 
+    //@ requires board != null;
+    //@ ensures (\forall int i; 0 <= i && i < \result.size(); isValidMove(board, \result.get(i)));
+    //@ pure
+    public List<Position> getValidMoves(Board board)
+    {
+        List<Position> validMoves = new ArrayList<>();
+
+        for (int row = 0; row < board.getRowsLength(); row++)
+        {
+            for (int col = 0; col < board.getColsLength(); col++)
+            {
+                Position target = new Position(row, col);
+                if (isValidMove(board, target))
+                {
+                    validMoves.add(target);
+                }
+            }
+        }
+
+        return validMoves;
+    }
+
     //@ ensures \result == (moveCount > 0);
     //@ pure
     public boolean hasMoved()
@@ -126,6 +157,13 @@ public abstract class Piece
     public Position getPosition()
     {
         return position;
+    }
+
+    //@ ensures \result == initialPosition;
+    //@ pure
+    public Position getInitialPosition()
+    {
+        return initialPosition;
     }
 
     //@ ensures \result == position.getRow();
