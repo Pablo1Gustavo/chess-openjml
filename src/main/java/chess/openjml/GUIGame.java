@@ -5,10 +5,8 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -23,25 +21,29 @@ public class GUIGame extends JFrame
     private static final int STATUS_BAR_HEIGHT = 50;
     
     private final Board board;
-    private Color currentTurn;
     private final ChessBoardPanel boardPanel;
     private final JLabel statusLabel;
+    private Color currentTurn;
 
     public GUIGame(Board board)
     {
         this.board = board;
         this.currentTurn = Color.WHITE;
+        this.boardPanel = new ChessBoardPanel();
+        this.statusLabel = createStatusLabel();
         
+        initializeFrame();
+    }
+
+    private void initializeFrame()
+    {
         setTitle("Chess OpenJML");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-
-        boardPanel = new ChessBoardPanel();
-        statusLabel = createStatusLabel();
-
+        
         add(boardPanel, BorderLayout.CENTER);
         add(statusLabel, BorderLayout.SOUTH);
-
+        
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -50,32 +52,38 @@ public class GUIGame extends JFrame
     private JLabel createStatusLabel()
     {
         JLabel label = new JLabel();
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setVerticalAlignment(JLabel.CENTER);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setVerticalAlignment(SwingConstants.CENTER);
         label.setFont(new Font("Arial", Font.BOLD, 16));
-        label.setPreferredSize(new Dimension(ChessBoardPanel.SQUARE_SIZE * BOARD_SIZE, STATUS_BAR_HEIGHT));
-        label.setText(currentTurn + " to move");
+        label.setPreferredSize(new Dimension(
+            ChessBoardPanel.SQUARE_SIZE * BOARD_SIZE, 
+            STATUS_BAR_HEIGHT
+        ));
+        updateStatusText(label);
         return label;
     }
 
     public void changeTurn()
     {
         currentTurn = currentTurn.opposite();
-        updateStatus();
+        updateStatusText(statusLabel);
     }
 
-    private void updateStatus()
+    private void updateStatusText(JLabel label)
     {
-        statusLabel.setText(currentTurn + " to move");
+        String status = currentTurn + " to move";
+        if (board.isInCheck(currentTurn))
+        {
+            status += " (check)";
+        }
+        label.setText(status);
     }
 
     @Override
     public Dimension getPreferredSize()
     {
-        return new Dimension(
-            ChessBoardPanel.SQUARE_SIZE * BOARD_SIZE,
-            ChessBoardPanel.SQUARE_SIZE * BOARD_SIZE + STATUS_BAR_HEIGHT
-        );
+        int size = ChessBoardPanel.SQUARE_SIZE * BOARD_SIZE;
+        return new Dimension(size, size + STATUS_BAR_HEIGHT);
     }
 
     private class ChessBoardPanel extends JPanel
@@ -85,27 +93,27 @@ public class GUIGame extends JFrame
         private static final java.awt.Color LIGHT_SQUARE = new java.awt.Color(240, 217, 181);
         private static final java.awt.Color DARK_SQUARE = new java.awt.Color(181, 136, 99);
         private static final java.awt.Color SELECTED_COLOR = new java.awt.Color(255, 255, 0, 100);
-        private static final java.awt.Color INVALID_COLOR = new java.awt.Color(255, 0, 0, 150);
+        private static final java.awt.Color INVALID_COLOR = new java.awt.Color(250, 50, 50, 200);
+        private static final java.awt.Color VALID_MOVE_COLOR = new java.awt.Color(60, 130, 60, 200);
 
+        private final Map<String, BufferedImage> pieceImages;
+        private final Set<Position> validMoves;
         private Position selectedPosition;
         private Position invalidPosition;
-        private final Map<String, BufferedImage> pieceImages;
 
         public ChessBoardPanel()
         {
-            pieceImages = new HashMap<>();
+            this.pieceImages = new HashMap<>();
+            this.validMoves = new HashSet<>();
             loadPieceImages();
             addMouseListener(new BoardClickListener());
         }
 
         private void loadPieceImages()
         {
-            List<String> colors = List.of("white", "black");
-            List<String> pieces = List.of("pawn", "bishop", "knight", "tower", "queen", "king");
-
-            for (String color : colors)
+            for (String color : Arrays.asList("white", "black"))
             {
-                for (String piece : pieces)
+                for (String piece : Arrays.asList("pawn", "bishop", "knight", "rook", "queen", "king"))
                 {
                     loadPieceImage(color, piece);
                 }
@@ -125,7 +133,6 @@ public class GUIGame extends JFrame
                     System.err.println("Resource not found: " + path);
                     return;
                 }
-
                 BufferedImage original = ImageIO.read(resource);
                 BufferedImage scaled = scaleImage(original, SQUARE_SIZE - IMAGE_PADDING);
                 pieceImages.put(key, scaled);
@@ -167,65 +174,63 @@ public class GUIGame extends JFrame
             int x = col * SQUARE_SIZE;
             int y = (BOARD_SIZE - 1 - row) * SQUARE_SIZE;
 
-            g2d.setColor(getSquareColor(row, col));
+            g2d.setColor(isLightSquare(row, col) ? LIGHT_SQUARE : DARK_SQUARE);
             g2d.fillRect(x, y, SQUARE_SIZE, SQUARE_SIZE);
 
             g2d.setColor(java.awt.Color.BLACK);
             g2d.setStroke(new BasicStroke(1));
             g2d.drawRect(x, y, SQUARE_SIZE, SQUARE_SIZE);
 
-            drawHighlightIfNeeded(g2d, row, col, x, y);
+            drawHighlight(g2d, row, col, x, y);
         }
 
-        private java.awt.Color getSquareColor(int row, int col)
+        private boolean isLightSquare(int row, int col)
         {
-            return (row + col) % 2 == 0 ? LIGHT_SQUARE : DARK_SQUARE;
+            return (row + col) % 2 == 0;
         }
 
-        private void drawHighlightIfNeeded(Graphics2D g2d, int row, int col, int x, int y)
+        private void drawHighlight(Graphics2D g2d, int row, int col, int x, int y)
         {
-            if (isPositionSelected(row, col))
+            Position pos = new Position(row, col);
+            
+            if (pos.equals(selectedPosition))
             {
                 g2d.setColor(SELECTED_COLOR);
                 g2d.fillRect(x, y, SQUARE_SIZE, SQUARE_SIZE);
             }
-            else if (isPositionInvalid(row, col))
+            else if (pos.equals(invalidPosition))
             {
                 g2d.setColor(INVALID_COLOR);
                 g2d.fillRect(x, y, SQUARE_SIZE, SQUARE_SIZE);
             }
+            else if (validMoves.contains(pos))
+            {
+                drawValidMoveIndicator(g2d, x, y);
+            }
         }
 
-        private boolean isPositionSelected(int row, int col)
+        private void drawValidMoveIndicator(Graphics2D g2d, int x, int y)
         {
-            return selectedPosition != null 
-                && selectedPosition.getRow() == row 
-                && selectedPosition.getCol() == col;
-        }
-
-        private boolean isPositionInvalid(int row, int col)
-        {
-            return invalidPosition != null 
-                && invalidPosition.getRow() == row 
-                && invalidPosition.getCol() == col;
+            int dotRadius = 8;
+            int centerX = x + SQUARE_SIZE / 2;
+            int centerY = y + SQUARE_SIZE / 2;
+            g2d.setColor(VALID_MOVE_COLOR);
+            g2d.fillOval(centerX - dotRadius, centerY - dotRadius, dotRadius * 2, dotRadius * 2);
         }
 
         private void drawPieceIfPresent(Graphics2D g2d, int row, int col)
         {
-            Optional<Piece> piece = board.getPieceAt(new Position(row, col));
-            if (piece.isPresent())
+            board.getPieceAt(new Position(row, col)).ifPresent(piece ->
             {
                 int x = col * SQUARE_SIZE;
                 int y = (BOARD_SIZE - 1 - row) * SQUARE_SIZE;
-                drawPiece(g2d, piece.get(), x, y);
-            }
+                drawPiece(g2d, piece, x, y);
+            });
         }
 
         private void drawPiece(Graphics2D g2d, Piece piece, int x, int y)
         {
-            String imageKey = getPieceImageKey(piece);
-            BufferedImage image = pieceImages.get(imageKey);
-
+            BufferedImage image = pieceImages.get(getPieceImageKey(piece));
             if (image != null)
             {
                 int imageX = x + (SQUARE_SIZE - image.getWidth()) / 2;
@@ -236,15 +241,7 @@ public class GUIGame extends JFrame
 
         private String getPieceImageKey(Piece piece)
         {
-            String color = piece.getColor() == chess.openjml.pieces.enums.Color.WHITE ? "white" : "black";
-            String type = getPieceTypeName(piece);
-            return color + "_" + type;
-        }
-
-        private String getPieceTypeName(Piece piece)
-        {
-            String className = piece.getClass().getSimpleName().toLowerCase();
-            return "rook".equals(className) ? "tower" : className;
+            return piece.getColor().toString().toLowerCase() + "_" + piece.getClass().getSimpleName().toLowerCase();
         }
 
         private Position screenToBoard(int mouseX, int mouseY)
@@ -252,6 +249,13 @@ public class GUIGame extends JFrame
             int col = mouseX / SQUARE_SIZE;
             int row = (BOARD_SIZE - 1) - (mouseY / SQUARE_SIZE);
             return new Position(row, col);
+        }
+
+        private void clearSelection()
+        {
+            selectedPosition = null;
+            validMoves.clear();
+            invalidPosition = null;
         }
 
         private class BoardClickListener extends MouseAdapter
@@ -268,77 +272,63 @@ public class GUIGame extends JFrame
 
                 if (selectedPosition == null)
                 {
-                    handleFirstClick(clickedPos);
+                    handlePieceSelection(clickedPos);
                 }
                 else
                 {
-                    handleSecondClick(clickedPos);
+                    handleMoveAttempt(clickedPos);
                 }
             }
 
-            private void handleFirstClick(Position pos)
+            private void handlePieceSelection(Position pos)
             {
-                Optional<Piece> piece = board.getPieceAt(pos);
-                if (piece.isPresent() && piece.get().isAlly(currentTurn))
+                board.getPieceAt(pos)
+                    .filter(piece -> piece.isAlly(currentTurn))
+                    .ifPresent(piece ->
+                    {
+                        selectedPosition = pos;
+                        validMoves.clear();
+                        validMoves.addAll(piece.getValidMoves(board));
+                        invalidPosition = null;
+                        repaint();
+                    });
+            }
+
+            private void handleMoveAttempt(Position targetPos)
+            {
+                if (selectedPosition.equals(targetPos))
                 {
-                    selectedPosition = pos;
-                    invalidPosition = null;
+                    clearSelection();
                     repaint();
-                }
-            }
-
-            private void handleSecondClick(Position pos)
-            {
-                if (selectedPosition.equals(pos))
-                {
-                    deselectPiece();
                     return;
                 }
 
-                MovePair move = new MovePair(selectedPosition, pos);
+                MovePair move = new MovePair(selectedPosition, targetPos);
 
                 if (!board.isValidMove(move))
                 {
-                    markInvalidMove(pos);
+                    invalidPosition = targetPos;
+                    repaint();
                     return;
                 }
 
                 executeMove(move);
             }
 
-            private void deselectPiece()
-            {
-                selectedPosition = null;
-                invalidPosition = null;
-                repaint();
-            }
-
-            private void markInvalidMove(Position pos)
-            {
-                invalidPosition = pos;
-                repaint();
-            }
-
             private void executeMove(MovePair move)
             {
                 board.movePiece(move);
-                invalidPosition = null;
-
-                if (board.isInCheck(currentTurn))
-                {
-                    statusLabel.setText(currentTurn + " is in Check!");
-                }
+                clearSelection();
 
                 if (board.isCheckMate(currentTurn.opposite()))
                 {
                     statusLabel.setText("Checkmate! " + currentTurn + " wins!");
-                    selectedPosition = null;
-                    repaint();
-                    return;
                 }
-
-                changeTurn();
-                selectedPosition = null;
+                else
+                {
+                    changeTurn();
+                }
+                
                 repaint();
             }
         }
