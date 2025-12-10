@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 //@ non_null_by_default
 public class CaptureMove extends BaseMove
 {
+    //@ public static invariant CAPTURE_MOVE != null;
     public static final Pattern CAPTURE_MOVE = Pattern.compile("^([kqrbn])?([a-z])?([\\d])?x([a-z]\\d+)$");
     //@ spec_public
     protected final Class<? extends Piece> capturedPieceType;
@@ -21,6 +22,9 @@ public class CaptureMove extends BaseMove
         this.capturedPieceType = capturedPieceType;
     }
 
+    //@ requires movePair != null && pieceType != null && capturedPieceType != null;
+    //@ requires capturedPieceType != King.class;
+    //@ ensures this.capturedPieceType == capturedPieceType;
     public CaptureMove(MovePair movePair, Class<? extends Piece> pieceType, Class<? extends Piece> capturedPieceType)
     {
         this(movePair, pieceType, capturedPieceType, DisambiguationType.NONE);

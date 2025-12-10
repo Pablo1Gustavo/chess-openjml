@@ -58,16 +58,22 @@ public abstract class BaseMove
     //@ pure
     public String getPieceAlgebraicNotation(Class<? extends Piece> pieceType)
     {
-        return switch(pieceType.getSimpleName())
-        {
-            case "Pawn" -> "";
-            case "Knight" -> "N";
-            case "Bishop" -> "B";
-            case "Rook" -> "R";
-            case "Queen" -> "Q";
-            case "King" -> "K";
-            default -> "?";
-        };
+        /*@ non_null @*/ String simpleName = pieceType.getSimpleName();
+        if (simpleName.equals("Pawn")) {
+            return "";
+        } else if (simpleName.equals("Knight")) {
+            return "N";
+        } else if (simpleName.equals("Bishop")) {
+            return "B";
+        } else if (simpleName.equals("Rook")) {
+            return "R";
+        } else if (simpleName.equals("Queen")) {
+            return "Q";
+        } else if (simpleName.equals("King")) {
+            return "K";
+        } else {
+            return "?";
+        }
     }
 
     //@ pure
@@ -76,12 +82,14 @@ public abstract class BaseMove
     //@ pure
     protected String disambiguationAlgebraicNotation()
     {
-        return switch(disambiguationType)
-        {
-            case FILE -> String.valueOf(movePair.getFrom().getColChar());
-            case RANK -> String.valueOf(movePair.getFrom().getRealRow());
-            case BOTH -> movePair.getFrom().toAlgebraic();
-            case NONE -> "";
-        };
+        if (disambiguationType == DisambiguationType.FILE) {
+            return String.valueOf(movePair.getFrom().getColChar());
+        } else if (disambiguationType == DisambiguationType.RANK) {
+            return String.valueOf(movePair.getFrom().getRealRow());
+        } else if (disambiguationType == DisambiguationType.BOTH) {
+            return movePair.getFrom().toAlgebraic();
+        } else {
+            return "";
+        }
     }
 }

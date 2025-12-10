@@ -1,0 +1,1759 @@
+src/main/java/chess/openjml/moves/CaptureMove.java:6: warning: Use a static_initializer clause to specify the values of static final fields: chess.openjml.moves.MovePair.SIMPLE_FROM_TO_NOTATION (translating chess.openjml.moves.CaptureMove.CaptureMove(chess.openjml.moves.MovePair,java.lang.Class<? extends chess.openjml.pieces.Piece>,java.lang.Class<? extends chess.openjml.pieces.Piece>,chess.openjml.moves.BaseMove.DisambiguationType))
+import java.util.regex.Pattern;
+          ^
+src/main/java/chess/openjml/moves/CaptureMove.java:11: warning: Use a static_initializer clause to specify the values of static final fields: chess.openjml.moves.CaptureMove.CAPTURE_MOVE (translating chess.openjml.moves.CaptureMove.CaptureMove(chess.openjml.moves.MovePair,java.lang.Class<? extends chess.openjml.pieces.Piece>,java.lang.Class<? extends chess.openjml.pieces.Piece>,chess.openjml.moves.BaseMove.DisambiguationType))
+    //@ public static invariant CAPTURE_MOVE != null;
+                                ^
+src/main/java/chess/openjml/moves/CaptureMove.java:6: warning: Use a static_initializer clause to specify the values of static final fields: chess.openjml.moves.MovePair.SIMPLE_FROM_TO_NOTATION (translating chess.openjml.moves.CaptureMove.CaptureMove(chess.openjml.moves.MovePair,java.lang.Class<? extends chess.openjml.pieces.Piece>,java.lang.Class<? extends chess.openjml.pieces.Piece>))
+import java.util.regex.Pattern;
+          ^
+src/main/java/chess/openjml/moves/CaptureMove.java:11: warning: Use a static_initializer clause to specify the values of static final fields: chess.openjml.moves.CaptureMove.CAPTURE_MOVE (translating chess.openjml.moves.CaptureMove.CaptureMove(chess.openjml.moves.MovePair,java.lang.Class<? extends chess.openjml.pieces.Piece>,java.lang.Class<? extends chess.openjml.pieces.Piece>))
+    //@ public static invariant CAPTURE_MOVE != null;
+                                ^
+src/main/java/chess/openjml/moves/CaptureMove.java:6: warning: Use a static_initializer clause to specify the values of static final fields: chess.openjml.moves.MovePair.SIMPLE_FROM_TO_NOTATION (translating chess.openjml.moves.CaptureMove.algebraicNotation())
+import java.util.regex.Pattern;
+          ^
+src/main/java/chess/openjml/moves/CaptureMove.java:11: warning: Use a static_initializer clause to specify the values of static final fields: chess.openjml.moves.CaptureMove.CAPTURE_MOVE (translating chess.openjml.moves.CaptureMove.algebraicNotation())
+    //@ public static invariant CAPTURE_MOVE != null;
+                                ^
+Proving methods in chess.openjml.moves.CaptureMove
+Starting proof of chess.openjml.moves.CaptureMove.CaptureMove(chess.openjml.moves.MovePair,Class<? extends chess.openjml.pieces.Piece>,Class<? extends chess.openjml.pieces.Piece>,chess.openjml.moves.BaseMove.DisambiguationType) with prover z3_4_3
+Method assertions are validated [1,42 secs]
+Completed proof of chess.openjml.moves.CaptureMove.CaptureMove(chess.openjml.moves.MovePair,Class<? extends chess.openjml.pieces.Piece>,Class<? extends chess.openjml.pieces.Piece>,chess.openjml.moves.BaseMove.DisambiguationType) with prover z3_4_3 - no warnings [1,66 secs]
+Starting proof of chess.openjml.moves.CaptureMove.CaptureMove(chess.openjml.moves.MovePair,Class<? extends chess.openjml.pieces.Piece>,Class<? extends chess.openjml.pieces.Piece>) with prover z3_4_3
+Method assertions are validated [1,72 secs]
+Completed proof of chess.openjml.moves.CaptureMove.CaptureMove(chess.openjml.moves.MovePair,Class<? extends chess.openjml.pieces.Piece>,Class<? extends chess.openjml.pieces.Piece>) with prover z3_4_3 - no warnings [1,76 secs]
+Starting proof of chess.openjml.moves.CaptureMove.algebraicNotation() with prover z3_4_3
+error: An error while executing a proof script for algebraicNotation: (error "line 8836 column 51: unknown sort 'T_Bound'")
+  >>>(declare-fun arrays_REF_0 () (Array REF (Array Int T_Bound)))
+Completed proof of chess.openjml.moves.CaptureMove.algebraicNotation() with prover z3_4_3 - ERROR [2,08 secs]
+Completed proving methods in chess.openjml.moves.CaptureMove [5,51 secs]
+src/main/java/chess/openjml/moves/BaseMove.java:8: warning: Use a static_initializer clause to specify the values of static final fields: chess.openjml.moves.MovePair.SIMPLE_FROM_TO_NOTATION (translating chess.openjml.moves.BaseMove.BaseMove(chess.openjml.moves.MovePair,java.lang.Class<? extends chess.openjml.pieces.Piece>,chess.openjml.moves.BaseMove.DisambiguationType))
+    public enum DisambiguationType
+                    ^
+src/main/java/chess/openjml/moves/BaseMove.java:8: warning: Use a static_initializer clause to specify the values of static final fields: chess.openjml.moves.MovePair.SIMPLE_FROM_TO_NOTATION (translating chess.openjml.moves.BaseMove.BaseMove(chess.openjml.moves.MovePair,java.lang.Class<? extends chess.openjml.pieces.Piece>))
+    public enum DisambiguationType
+                    ^
+src/main/java/chess/openjml/moves/BaseMove.java:8: warning: Use a static_initializer clause to specify the values of static final fields: chess.openjml.moves.MovePair.SIMPLE_FROM_TO_NOTATION (translating chess.openjml.moves.BaseMove.getMove())
+    public enum DisambiguationType
+                    ^
+src/main/java/chess/openjml/moves/BaseMove.java:8: warning: Use a static_initializer clause to specify the values of static final fields: chess.openjml.moves.MovePair.SIMPLE_FROM_TO_NOTATION (translating chess.openjml.moves.BaseMove.getFrom())
+    public enum DisambiguationType
+                    ^
+src/main/java/chess/openjml/moves/BaseMove.java:8: warning: Use a static_initializer clause to specify the values of static final fields: chess.openjml.moves.MovePair.SIMPLE_FROM_TO_NOTATION (translating chess.openjml.moves.BaseMove.getPieceAlgebraicNotation(java.lang.Class<? extends chess.openjml.pieces.Piece>))
+    public enum DisambiguationType
+                    ^
+src/main/java/chess/openjml/moves/BaseMove.java:8: warning: Use a static_initializer clause to specify the values of static final fields: chess.openjml.moves.MovePair.SIMPLE_FROM_TO_NOTATION (translating chess.openjml.moves.BaseMove.algebraicNotation())
+    public enum DisambiguationType
+                    ^
+src/main/java/chess/openjml/moves/BaseMove.java:8: warning: Use a static_initializer clause to specify the values of static final fields: chess.openjml.moves.MovePair.SIMPLE_FROM_TO_NOTATION (translating chess.openjml.moves.BaseMove.disambiguationAlgebraicNotation())
+    public enum DisambiguationType
+                    ^
+Proving methods in chess.openjml.moves.BaseMove
+Starting proof of chess.openjml.moves.BaseMove.BaseMove(chess.openjml.moves.MovePair,Class<? extends chess.openjml.pieces.Piece>,chess.openjml.moves.BaseMove.DisambiguationType) with prover z3_4_3
+Method assertions are validated [1,13 secs]
+Completed proof of chess.openjml.moves.BaseMove.BaseMove(chess.openjml.moves.MovePair,Class<? extends chess.openjml.pieces.Piece>,chess.openjml.moves.BaseMove.DisambiguationType) with prover z3_4_3 - no warnings [1,14 secs]
+Starting proof of chess.openjml.moves.BaseMove.BaseMove(chess.openjml.moves.MovePair,Class<? extends chess.openjml.pieces.Piece>) with prover z3_4_3
+Method assertions are validated [1,11 secs]
+Completed proof of chess.openjml.moves.BaseMove.BaseMove(chess.openjml.moves.MovePair,Class<? extends chess.openjml.pieces.Piece>) with prover z3_4_3 - no warnings [1,12 secs]
+Starting proof of chess.openjml.moves.BaseMove.disambiguationAlgebraicNotation() with prover z3_4_3
+Method assertions are validated [11,27 secs]
+Completed proof of chess.openjml.moves.BaseMove.disambiguationAlgebraicNotation() with prover z3_4_3 - no warnings [11,50 secs]
+Proving methods in chess.openjml.moves.BaseMove.DisambiguationType
+Starting proof of chess.openjml.moves.BaseMove.DisambiguationType.DisambiguationType() with prover z3_4_3
+Method assertions are validated [1,03 secs]
+Completed proof of chess.openjml.moves.BaseMove.DisambiguationType.DisambiguationType() with prover z3_4_3 - no warnings [1,04 secs]
+Completed proving methods in chess.openjml.moves.BaseMove.DisambiguationType [1,04 secs]
+Starting proof of chess.openjml.moves.BaseMove.getFrom() with prover z3_4_3
+Method assertions are validated [2,03 secs]
+Completed proof of chess.openjml.moves.BaseMove.getFrom() with prover z3_4_3 - no warnings [2,06 secs]
+Starting proof of chess.openjml.moves.BaseMove.getMove() with prover z3_4_3
+Method assertions are validated [1,81 secs]
+Completed proof of chess.openjml.moves.BaseMove.getMove() with prover z3_4_3 - no warnings [1,84 secs]
+Starting proof of chess.openjml.moves.BaseMove.getPieceAlgebraicNotation(Class<? extends chess.openjml.pieces.Piece>) with prover z3_4_3
+chess.openjml.moves.BaseMove.getPieceAlgebraicNotation Method assertions are INVALID
+src/main/java/chess/openjml/moves/BaseMove.java:61: verify: The prover cannot establish an assertion (PossiblyNullInitialization) in method getPieceAlgebraicNotation: simpleName
+        /*@ non_null @*/ String simpleName = pieceType.getSimpleName();
+                                ^
+Completed proof of chess.openjml.moves.BaseMove.getPieceAlgebraicNotation(Class<? extends chess.openjml.pieces.Piece>) with prover z3_4_3 - with warnings [9,94 secs]
+Completed proving methods in chess.openjml.moves.BaseMove [28,66 secs]
+src/main/java/chess/openjml/moves/Position.java:18: warning: Method Position(int,int) has 'assignable \everything', making its caller likely impossible to verify
+    //@ requires 0 <= row && row < 26;
+        ^
+src/main/java/chess/openjml/pieces/Piece.java:122: warning: Associated declaration: src/main/java/chess/openjml/moves/Position.java:18:
+                Position target = new Position(row, col);
+                                  ^
+Proving methods in chess.openjml.pieces.Piece
+Starting proof of chess.openjml.pieces.Piece.Piece(chess.openjml.moves.Position,chess.openjml.pieces.enums.Color) with prover z3_4_3
+chess.openjml.pieces.Piece.Piece Method assertions are INVALID
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:109: verify: The prover cannot establish an assertion (IllegalArgument: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:28:) in method Piece
+      @   ensures \elemtype(\typeof(\result)) == \elemtype(\typeof(this));
+                                                          ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:28: verify: Associated declaration: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:109:
+ * @author Specifications from Compaq SRC's ESC/Java
+ ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:109: verify: The prover cannot establish an assertion (IllegalArgument: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:28:) in method Piece
+      @   ensures \elemtype(\typeof(\result)) == \elemtype(\typeof(this));
+                           ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:28: verify: Associated declaration: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:109:
+ * @author Specifications from Compaq SRC's ESC/Java
+ ^
+Completed proof of chess.openjml.pieces.Piece.Piece(chess.openjml.moves.Position,chess.openjml.pieces.enums.Color) with prover z3_4_3 - with warnings [1,34 secs]
+Starting proof of chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position) with prover z3_4_3
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:27: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires color != null;
+            ^
+src/main/java/chess/openjml/pieces/Piece.java:32: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ ensures this.initialPosition.equals(this.position);
+                                                ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:27: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires color != null;
+            ^
+src/main/java/chess/openjml/pieces/Piece.java:32: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ ensures this.initialPosition.equals(this.position);
+                                                ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+chess.openjml.pieces.Piece.checkTargetMoveIsAlly Method assertions are INVALID
+src/main/java/chess/openjml/pieces/Piece.java:69: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:69:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:69: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:69:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:70: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:70:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:70: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:70:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:129: verify: The prover cannot establish an assertion (UndefinedNullDeReference: src/main/java/chess/openjml/Board.java:53:) in method checkTargetMoveIsAlly
+    //@ ensures \result == grid[0].length;
+                                  ^
+src/main/java/chess/openjml/Board.java:53: verify: Associated declaration: src/main/java/chess/openjml/Board.java:129:
+    //@         (grid[r][c].get() instanceof King) &&
+                   ^
+src/main/java/chess/openjml/Board.java:255: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isWithinBounds(chess.openjml.moves.Position))
+    //@ requires isWithinBounds(pos);
+                               ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:255:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:255: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isWithinBounds(chess.openjml.moves.Position))
+    //@ requires isWithinBounds(pos);
+                               ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:255:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:75: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isCellOccupied(chess.openjml.moves.Position))
+        if (board.isCellOccupied(target))
+                                ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:75:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:75: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isCellOccupied(chess.openjml.moves.Position))
+        if (board.isCellOccupied(target))
+                                ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:75:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:145: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+                                                                               ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:145:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:145: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+                                                                               ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:145:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:146: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:146:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:146: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:146:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:256: verify: The prover cannot establish an assertion (UndefinedNullDeReference) in method checkTargetMoveIsAlly
+    //@ ensures \result <==> grid[pos.getRow()][pos.getCol()].isPresent();
+                                               ^
+src/main/java/chess/openjml/pieces/Piece.java:77: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getPieceAt(chess.openjml.moves.Position))
+            Piece targetPiece = board.getPieceAt(target).get();
+                                                ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:77:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:77: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getPieceAt(chess.openjml.moves.Position))
+            Piece targetPiece = board.getPieceAt(target).get();
+                                                ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:77:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:256: verify: The prover cannot establish an assertion (UndefinedNullDeReference) in method checkTargetMoveIsAlly
+    //@ ensures \result <==> grid[pos.getRow()][pos.getCol()].isPresent();
+                                                             ^
+src/main/java/chess/openjml/Board.java:235: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ requires pos.getRow() >= 0 && pos.getRow() < getRowsLength();
+                                                                  ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:235:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:235: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ requires pos.getRow() >= 0 && pos.getRow() < getRowsLength();
+                                                                  ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:235:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:236: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@ requires pos.getCol() >= 0 && pos.getCol() < getColsLength();
+                                                                  ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:236:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:236: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@ requires pos.getCol() >= 0 && pos.getCol() < getColsLength();
+                                                                  ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:236:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:255: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isWithinBounds(chess.openjml.moves.Position))
+    //@ requires isWithinBounds(pos);
+                               ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:255:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:60: verify: Associated method exit
+    //@         0 <= c && c < grid[r].length &&
+                    ^
+src/main/java/chess/openjml/Board.java:255: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isWithinBounds(chess.openjml.moves.Position))
+    //@ requires isWithinBounds(pos);
+                               ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:255:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:60: verify: Associated method exit
+    //@         0 <= c && c < grid[r].length &&
+                    ^
+src/main/java/chess/openjml/pieces/Piece.java:71: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isCellOccupied(chess.openjml.moves.Position))
+    //@ ensures \result ==> board.isCellOccupied(target);
+                                                ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:71:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:78: verify: Associated method exit
+            return isAlly(targetPiece);
+            ^
+src/main/java/chess/openjml/pieces/Piece.java:71: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isCellOccupied(chess.openjml.moves.Position))
+    //@ ensures \result ==> board.isCellOccupied(target);
+                                                ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:71:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:78: verify: Associated method exit
+            return isAlly(targetPiece);
+            ^
+src/main/java/chess/openjml/Board.java:145: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+                                                                               ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:145:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:145: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+                                                                               ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:145:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:146: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:146:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:146: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsAlly: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:146:
+    //@ public invariant
+               ^
+Completed proof of chess.openjml.pieces.Piece.checkTargetMoveIsAlly(chess.openjml.Board,chess.openjml.moves.Position) with prover z3_4_3 - with warnings [8,92 secs]
+Starting proof of chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position) with prover z3_4_3
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+src/main/java/chess/openjml/pieces/Piece.java:76: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+        {
+   ^
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+chess.openjml.pieces.Piece.checkTargetMoveIsEnemy Method assertions are INVALID
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:84:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:84: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:84:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:85: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:85:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:85: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:85:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:90: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isCellOccupied(chess.openjml.moves.Position))
+        if (board.isCellOccupied(target))
+                                ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:90:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:90: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isCellOccupied(chess.openjml.moves.Position))
+        if (board.isCellOccupied(target))
+                                ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:90:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:129: verify: The prover cannot establish an assertion (UndefinedNullDeReference: src/main/java/chess/openjml/Board.java:67:) in method checkTargetMoveIsEnemy
+    //@ ensures \result == grid[0].length;
+                                  ^
+src/main/java/chess/openjml/Board.java:67: verify: Associated declaration: src/main/java/chess/openjml/Board.java:129:
+    //@ requires (\forall int r; 0 <= r && r < grid.length; grid[r].length > 0 && grid[r].length <= 26);
+                   ^
+src/main/java/chess/openjml/Board.java:255: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isWithinBounds(chess.openjml.moves.Position))
+    //@ requires isWithinBounds(pos);
+                               ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:255:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:255: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isWithinBounds(chess.openjml.moves.Position))
+    //@ requires isWithinBounds(pos);
+                               ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:255:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:145: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+                                                                               ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:145:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:145: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+                                                                               ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:145:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:146: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:146:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:146: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:146:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:92: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getPieceAt(chess.openjml.moves.Position))
+            Piece targetPiece = board.getPieceAt(target).get();
+                                                ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:92:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:256: verify: The prover cannot establish an assertion (UndefinedNullDeReference) in method checkTargetMoveIsEnemy
+    //@ ensures \result <==> grid[pos.getRow()][pos.getCol()].isPresent();
+                                               ^
+src/main/java/chess/openjml/Board.java:256: verify: The prover cannot establish an assertion (UndefinedNullDeReference) in method checkTargetMoveIsEnemy
+    //@ ensures \result <==> grid[pos.getRow()][pos.getCol()].isPresent();
+                                                             ^
+src/main/java/chess/openjml/pieces/Piece.java:92: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getPieceAt(chess.openjml.moves.Position))
+            Piece targetPiece = board.getPieceAt(target).get();
+                                                ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:92:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:235: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ requires pos.getRow() >= 0 && pos.getRow() < getRowsLength();
+                                                                  ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:235:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:235: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ requires pos.getRow() >= 0 && pos.getRow() < getRowsLength();
+                                                                  ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:235:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:236: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@ requires pos.getCol() >= 0 && pos.getCol() < getColsLength();
+                                                                  ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:236:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:236: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@ requires pos.getCol() >= 0 && pos.getCol() < getColsLength();
+                                                                  ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:236:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:255: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isWithinBounds(chess.openjml.moves.Position))
+    //@ requires isWithinBounds(pos);
+                               ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:255:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:69: verify: Associated method exit
+    //@ requires (\exists int r, c; 0 <= r && r < grid.length && 0 <= c && c < grid[r].length && grid[r][c].isPresent());
+                                                                                                       ^
+src/main/java/chess/openjml/Board.java:145: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+                                                                               ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:145:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:145: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+                                                                               ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:145:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:255: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isWithinBounds(chess.openjml.moves.Position))
+    //@ requires isWithinBounds(pos);
+                               ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:255:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:69: verify: Associated method exit
+    //@ requires (\exists int r, c; 0 <= r && r < grid.length && 0 <= c && c < grid[r].length && grid[r][c].isPresent());
+                                                                                                       ^
+src/main/java/chess/openjml/pieces/Piece.java:86: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isCellOccupied(chess.openjml.moves.Position))
+    //@ ensures \result ==> board.isCellOccupied(target);
+                                                ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:86:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:93: verify: Associated method exit
+            return isEnemy(targetPiece);
+            ^
+src/main/java/chess/openjml/pieces/Piece.java:86: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.isCellOccupied(chess.openjml.moves.Position))
+    //@ ensures \result ==> board.isCellOccupied(target);
+                                                ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:86:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:93: verify: Associated method exit
+            return isEnemy(targetPiece);
+            ^
+src/main/java/chess/openjml/Board.java:146: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:146:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:146: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method checkTargetMoveIsEnemy: (Caller: chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:146:
+    //@ public invariant
+               ^
+Completed proof of chess.openjml.pieces.Piece.checkTargetMoveIsEnemy(chess.openjml.Board,chess.openjml.moves.Position) with prover z3_4_3 - with warnings [8,26 secs]
+Starting proof of chess.openjml.pieces.Piece.getCol() with prover z3_4_3
+Method assertions are validated [1,10 secs]
+Completed proof of chess.openjml.pieces.Piece.getCol() with prover z3_4_3 - no warnings [1,11 secs]
+Starting proof of chess.openjml.pieces.Piece.getColor() with prover z3_4_3
+Method assertions are validated [1,07 secs]
+Completed proof of chess.openjml.pieces.Piece.getColor() with prover z3_4_3 - no warnings [1,08 secs]
+Starting proof of chess.openjml.pieces.Piece.getInitialPosition() with prover z3_4_3
+Method assertions are validated [1,06 secs]
+Completed proof of chess.openjml.pieces.Piece.getInitialPosition() with prover z3_4_3 - no warnings [1,07 secs]
+Starting proof of chess.openjml.pieces.Piece.getPosition() with prover z3_4_3
+Method assertions are validated [1,11 secs]
+Completed proof of chess.openjml.pieces.Piece.getPosition() with prover z3_4_3 - no warnings [1,11 secs]
+Starting proof of chess.openjml.pieces.Piece.getRow() with prover z3_4_3
+Method assertions are validated [1,07 secs]
+Completed proof of chess.openjml.pieces.Piece.getRow() with prover z3_4_3 - no warnings [1,09 secs]
+Starting proof of chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board) with prover z3_4_3
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+chess.openjml.pieces.Piece.getValidMoves Method assertions are INVALID
+src/main/java/chess/openjml/Board.java:41: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:118:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:118: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.getRowsLength())
+        for (int row = 0; row < board.getRowsLength(); row++)
+                                                   ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:118:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:118: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.getRowsLength())
+        for (int row = 0; row < board.getRowsLength(); row++)
+                                                   ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:118:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:120: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.getColsLength())
+            for (int col = 0; col < board.getColsLength(); col++)
+                                                       ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:120:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:120: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.getColsLength())
+            for (int col = 0; col < board.getColsLength(); col++)
+                                                       ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:120:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:129: verify: The prover cannot establish an assertion (UndefinedNullDeReference: src/main/java/chess/openjml/Board.java:105:) in method getValidMoves
+    //@ ensures \result == grid[0].length;
+                                  ^
+src/main/java/chess/openjml/Board.java:105: verify: Associated declaration: src/main/java/chess/openjml/Board.java:129:
+    //@ pure
+            ^
+src/main/java/chess/openjml/pieces/Piece.java:122: verify: The prover cannot establish an assertion (Precondition: src/main/java/chess/openjml/moves/Position.java:22:) in method getValidMoves
+                Position target = new Position(row, col);
+                                  ^
+src/main/java/chess/openjml/moves/Position.java:22: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:122:
+    public Position(int row, int col)
+           ^
+src/main/java/chess/openjml/moves/Position.java:18: verify: Precondition conjunct is false: row < 26
+    //@ requires 0 <= row && row < 26;
+                                 ^
+src/main/java/chess/openjml/pieces/Piece.java:122: verify: The prover cannot establish an assertion (Assignable: src/main/java/chess/openjml/pieces/Piece.java:113:) in method getValidMoves: \everything
+                Position target = new Position(row, col);
+                                  ^
+src/main/java/chess/openjml/pieces/Piece.java:113: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:122:
+    //@ pure
+        ^
+src/main/java/chess/openjml/pieces/Piece.java:123: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/pieces/Piece.java:24:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.pieces.Piece.isValidMove(chess.openjml.Board,chess.openjml.moves.Position))
+                if (isValidMove(board, target))
+                               ^
+src/main/java/chess/openjml/pieces/Piece.java:24: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:123:
+    //@ public invariant moveCount >= 0;
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:123: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:38:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.pieces.Piece.isValidMove(chess.openjml.Board,chess.openjml.moves.Position))
+                if (isValidMove(board, target))
+                                ^
+src/main/java/chess/openjml/Board.java:38: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:123:
+    //@ public invariant (\forall int r; 0 <= r && r < grid.length; grid[r].length > 0 && grid[r].length <= 26);
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:123: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:39:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.pieces.Piece.isValidMove(chess.openjml.Board,chess.openjml.moves.Position))
+                if (isValidMove(board, target))
+                                ^
+src/main/java/chess/openjml/Board.java:39: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:123:
+    //@ public invariant (\forall int r; 0 <= r && r < grid.length; grid[r].length == grid[0].length);
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:19: verify: The prover cannot establish an assertion (NullField) in method getValidMoves
+    protected Position position;
+                       ^
+src/main/java/chess/openjml/pieces/Piece.java:123: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/pieces/Piece.java:23:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.pieces.Piece.isValidMove(chess.openjml.Board,chess.openjml.moves.Position))
+                if (isValidMove(board, target))
+                               ^
+src/main/java/chess/openjml/pieces/Piece.java:23: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:123:
+    //@ public invariant position != null;
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:123: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:41:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.pieces.Piece.isValidMove(chess.openjml.Board,chess.openjml.moves.Position))
+                if (isValidMove(board, target))
+                                ^
+src/main/java/chess/openjml/Board.java:41: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:123:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:123: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.pieces.Piece.isValidMove(chess.openjml.Board,chess.openjml.moves.Position))
+                if (isValidMove(board, target))
+                                ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:123:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:123: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.pieces.Piece.isValidMove(chess.openjml.Board,chess.openjml.moves.Position))
+                if (isValidMove(board, target))
+                                ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:123:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:99: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.getRowsLength())
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:99:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:99: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.getRowsLength())
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:99:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:123: verify: The prover cannot establish an assertion (Precondition: src/main/java/chess/openjml/pieces/Piece.java:105:) in method getValidMoves
+                if (isValidMove(board, target))
+                               ^
+src/main/java/chess/openjml/pieces/Piece.java:105: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:123:
+    public abstract boolean isValidMove(Board board, Position target);
+                            ^
+src/main/java/chess/openjml/pieces/Piece.java:99: verify: Precondition conjunct is false: target.getRow() < board.getRowsLength()
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+                                                         ^
+src/main/java/chess/openjml/pieces/Piece.java:100: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.getColsLength())
+    //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:100:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:100: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.getColsLength())
+    //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:100:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:123: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:37:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.pieces.Piece.isValidMove(chess.openjml.Board,chess.openjml.moves.Position))
+                if (isValidMove(board, target))
+                                ^
+src/main/java/chess/openjml/Board.java:37: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:123:
+    //@ public invariant grid.length > 0;
+               ^
+src/main/java/chess/openjml/Board.java:129: verify: The prover cannot establish an assertion (UndefinedNullDeReference: src/main/java/chess/openjml/Board.java:78:) in method getValidMoves
+    //@ ensures \result == grid[0].length;
+                                  ^
+src/main/java/chess/openjml/Board.java:78: verify: Associated declaration: src/main/java/chess/openjml/Board.java:129:
+    public Board(List<Piece> pieces, int width, int height)
+                                ^
+src/main/java/chess/openjml/pieces/Piece.java:101: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.isWithinBounds(chess.openjml.moves.Position))
+    //@ ensures \result ==> board.isWithinBounds(target);
+                                                ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:101:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:131: verify: Associated method exit
+    }
+     ^
+src/main/java/chess/openjml/pieces/Piece.java:101: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.isWithinBounds(chess.openjml.moves.Position))
+    //@ ensures \result ==> board.isWithinBounds(target);
+                                                ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:101:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:131: verify: Associated method exit
+    }
+     ^
+src/main/java/chess/openjml/Board.java:145: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.getRowsLength())
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+                                                                               ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:145:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:145: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.getRowsLength())
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+                                                                               ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:145:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:146: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.getColsLength())
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:146:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:146: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.getColsLength())
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:146:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:103: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.resultsInCheck(chess.openjml.moves.Position,chess.openjml.moves.Position))
+    //@ ensures \result ==> !board.resultsInCheck(position, target);
+                                                 ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:103:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:131: verify: Associated method exit
+    }
+     ^
+src/main/java/chess/openjml/pieces/Piece.java:103: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.resultsInCheck(chess.openjml.moves.Position,chess.openjml.moves.Position))
+    //@ ensures \result ==> !board.resultsInCheck(position, target);
+                                                 ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:103:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:131: verify: Associated method exit
+    }
+     ^
+src/main/java/chess/openjml/pieces/Piece.java:103: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/moves/Position.java:16:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.resultsInCheck(chess.openjml.moves.Position,chess.openjml.moves.Position))
+    //@ ensures \result ==> !board.resultsInCheck(position, target);
+                                                  ^
+src/main/java/chess/openjml/moves/Position.java:16: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:103:
+    //@ public invariant 0 <= col && col < 26;
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:131: verify: Associated method exit
+    }
+     ^
+src/main/java/chess/openjml/pieces/Piece.java:103: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/moves/Position.java:15:) in method getValidMoves: (Caller: chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board), Callee: chess.openjml.Board.resultsInCheck(chess.openjml.moves.Position,chess.openjml.moves.Position))
+    //@ ensures \result ==> !board.resultsInCheck(position, target);
+                                                  ^
+src/main/java/chess/openjml/moves/Position.java:15: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:103:
+    //@ public invariant 0 <= row && row < 26;
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:131: verify: Associated method exit
+    }
+     ^
+Completed proof of chess.openjml.pieces.Piece.getValidMoves(chess.openjml.Board) with prover z3_4_3 - with warnings [27,98 secs]
+Starting proof of chess.openjml.pieces.Piece.hasMoved() with prover z3_4_3
+Method assertions are validated [1,07 secs]
+Completed proof of chess.openjml.pieces.Piece.hasMoved() with prover z3_4_3 - no warnings [1,08 secs]
+Starting proof of chess.openjml.pieces.Piece.isAlly(chess.openjml.pieces.Piece) with prover z3_4_3
+Method assertions are validated [1,06 secs]
+Completed proof of chess.openjml.pieces.Piece.isAlly(chess.openjml.pieces.Piece) with prover z3_4_3 - no warnings [1,07 secs]
+Starting proof of chess.openjml.pieces.Piece.isAlly(chess.openjml.pieces.enums.Color) with prover z3_4_3
+Method assertions are validated [1,10 secs]
+Completed proof of chess.openjml.pieces.Piece.isAlly(chess.openjml.pieces.enums.Color) with prover z3_4_3 - no warnings [1,11 secs]
+Starting proof of chess.openjml.pieces.Piece.isBeingAttacked(chess.openjml.Board) with prover z3_4_3
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+chess.openjml.pieces.Piece.isBeingAttacked Method assertions are INVALID
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:207:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:207: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.pieces.Piece.isBeingAttacked(chess.openjml.Board), Callee: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color))
+        return position.isBeingAttacked(board, color.opposite());
+                                        ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:207:
+    //@ public invariant
+               ^
+Completed proof of chess.openjml.pieces.Piece.isBeingAttacked(chess.openjml.Board) with prover z3_4_3 - with warnings [1,46 secs]
+Starting proof of chess.openjml.pieces.Piece.isEnemy(chess.openjml.pieces.Piece) with prover z3_4_3
+Method assertions are validated [1,08 secs]
+Completed proof of chess.openjml.pieces.Piece.isEnemy(chess.openjml.pieces.Piece) with prover z3_4_3 - no warnings [1,09 secs]
+Starting proof of chess.openjml.pieces.Piece.isEnemy(chess.openjml.pieces.enums.Color) with prover z3_4_3
+Method assertions are validated [1,12 secs]
+Completed proof of chess.openjml.pieces.Piece.isEnemy(chess.openjml.pieces.enums.Color) with prover z3_4_3 - no warnings [1,12 secs]
+Starting proof of chess.openjml.pieces.Piece.move(chess.openjml.Board,chess.openjml.moves.Position) with prover z3_4_3
+src/main/java/chess/openjml/pieces/Piece.java:68: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ requires target != null;
+                     ^
+chess.openjml.pieces.Piece.move Method assertions are INVALID
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:141:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:141: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method move: (Caller: chess.openjml.pieces.Piece.move(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getRowsLength())
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:141:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:129: verify: The prover cannot establish an assertion (UndefinedNullDeReference: src/main/java/chess/openjml/Board.java:129:) in method move
+    //@ ensures \result == grid[0].length;
+                                  ^
+src/main/java/chess/openjml/Board.java:129: verify: Associated declaration: src/main/java/chess/openjml/Board.java:129:
+    //@ ensures \result == grid[0].length;
+                                         ^
+src/main/java/chess/openjml/pieces/Piece.java:142: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method move: (Caller: chess.openjml.pieces.Piece.move(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:142:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:142: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method move: (Caller: chess.openjml.pieces.Piece.move(chess.openjml.Board,chess.openjml.moves.Position), Callee: chess.openjml.Board.getColsLength())
+    //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:142:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:149: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method move: overflow in int sum
+        this.moveCount++;
+                      ^
+src/main/java/chess/openjml/pieces/Piece.java:146: verify: The prover cannot establish an assertion (InvariantExit: src/main/java/chess/openjml/pieces/Piece.java:24:) in method move
+    public void move(Board board, Position target)
+                ^
+src/main/java/chess/openjml/pieces/Piece.java:24: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:146:
+    //@ public invariant moveCount >= 0;
+               ^
+Completed proof of chess.openjml.pieces.Piece.move(chess.openjml.Board,chess.openjml.moves.Position) with prover z3_4_3 - with warnings [2,47 secs]
+Starting proof of chess.openjml.pieces.Piece.setPosition(chess.openjml.moves.Position) with prover z3_4_3
+Method assertions are validated [1,08 secs]
+Completed proof of chess.openjml.pieces.Piece.setPosition(chess.openjml.moves.Position) with prover z3_4_3 - no warnings [1,08 secs]
+Completed proving methods in chess.openjml.pieces.Piece [62,50 secs]
+src/main/java/chess/openjml/moves/MovePair.java:8: warning: Use a static_initializer clause to specify the values of static final fields: chess.openjml.moves.MovePair.SIMPLE_FROM_TO_NOTATION (translating chess.openjml.moves.MovePair.MovePair(chess.openjml.moves.Position,chess.openjml.moves.Position))
+    //@ public static invariant SIMPLE_FROM_TO_NOTATION != null;
+                                ^
+Proving methods in chess.openjml.moves.MovePair
+Starting proof of chess.openjml.moves.MovePair.MovePair(chess.openjml.moves.Position,chess.openjml.moves.Position) with prover z3_4_3
+Method assertions are validated [1,12 secs]
+Completed proof of chess.openjml.moves.MovePair.MovePair(chess.openjml.moves.Position,chess.openjml.moves.Position) with prover z3_4_3 - no warnings [1,13 secs]
+Starting proof of chess.openjml.moves.MovePair.fromString(String) with prover z3_4_3
+chess.openjml.moves.MovePair.fromString Method assertions are INVALID
+src/main/java/chess/openjml/moves/Position.java:139: verify: Associated declaration: src/main/java/chess/openjml/moves/MovePair.java:28:
+    public static Position fromAlgebraic(String notation)
+                           ^
+src/main/java/chess/openjml/moves/Position.java:134: verify: Precondition conjunct is false: notation.length() >= 2
+    //@   requires notation.length() >= 2;
+                                     ^
+src/main/java/chess/openjml/moves/MovePair.java:29: verify: The prover cannot establish an assertion (PossiblyTooLargeIndex) in method fromString
+        var to = Position.fromAlgebraic(parts[1]);
+                                             ^
+src/main/java/chess/openjml/moves/MovePair.java:29: verify: The prover cannot establish an assertion (Precondition: src/main/java/chess/openjml/moves/Position.java:139:) in method fromString
+        var to = Position.fromAlgebraic(parts[1]);
+                                       ^
+src/main/java/chess/openjml/moves/Position.java:139: verify: Associated declaration: src/main/java/chess/openjml/moves/MovePair.java:29:
+    public static Position fromAlgebraic(String notation)
+                           ^
+src/main/java/chess/openjml/moves/Position.java:134: verify: Precondition conjunct is false: notation.length() >= 2
+    //@   requires notation.length() >= 2;
+                                     ^
+src/main/java/chess/openjml/moves/MovePair.java:31: verify: The prover cannot establish an assertion (Precondition: src/main/java/chess/openjml/moves/MovePair.java:18:) in method fromString
+        return new MovePair(from, to);
+               ^
+src/main/java/chess/openjml/moves/MovePair.java:18: verify: Associated declaration: src/main/java/chess/openjml/moves/MovePair.java:31:
+    public MovePair(Position from, Position to)
+           ^
+src/main/java/chess/openjml/moves/MovePair.java:15: verify: Precondition conjunct is false: !from.equals(to)
+    //@ requires !from.equals(to);
+                 ^
+src/main/java/chess/openjml/moves/MovePair.java:24: verify: The prover cannot establish an assertion (InvariantExit: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/CharSequence.jml:30:) in method fromString: chess.openjml.moves.MovePair.fromString(String) (parameter notation)
+    public static MovePair fromString(String notation)
+                                             ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/CharSequence.jml:30: verify: Associated declaration: src/main/java/chess/openjml/moves/MovePair.java:24:
+	//-RAC@ public invariant charArray != null; // FIXME - why this when there is a non_null declaration
+	               ^
+Completed proof of chess.openjml.moves.MovePair.fromString(String) with prover z3_4_3 - with warnings [2,46 secs]
+Starting proof of chess.openjml.moves.MovePair.getFrom() with prover z3_4_3
+Method assertions are validated [1,04 secs]
+Completed proof of chess.openjml.moves.MovePair.getFrom() with prover z3_4_3 - no warnings [1,05 secs]
+Starting proof of chess.openjml.moves.MovePair.getTo() with prover z3_4_3
+Method assertions are validated [1,04 secs]
+Completed proof of chess.openjml.moves.MovePair.getTo() with prover z3_4_3 - no warnings [1,05 secs]
+Completed proving methods in chess.openjml.moves.MovePair [5,69 secs]
+src/main/java/chess/openjml/moves/Position.java:18: warning: Method Position(int,int) has 'assignable \everything', making its caller likely impossible to verify
+    //@ requires 0 <= row && row < 26;
+        ^
+NULL PRECONDITION FOR chess.openjml.moves.Position.fromAlgebraic(java.lang.String) chess.openjml.moves.Position.fromAlgebraic(java.lang.String) true chess.openjml.moves.Position.fromAlgebraic(java.lang.String) true public normal_behavior
+  requires notation != null; 
+  signals () false; 
+  requires notation != null; 
+  requires notation.length() >= 2; 
+  requires 'a' <= notation.charAt(0) && notation.charAt(0) <= 'z'; 
+  requires notation.substring(1).chars().allMatch((c)->'0' <= c && c <= '9'); 
+  ensures \result.getCol() == notation.charAt(0) - 'a'; 
+  signals_only \nothing; 
+  assignable \nothing; 
+  accessible \everything; 
+NULL PRECONDITION FOR chess.openjml.moves.Position.fromAlgebraic(java.lang.String) chess.openjml.moves.Position.fromAlgebraic(java.lang.String) true chess.openjml.moves.Position.fromAlgebraic(java.lang.String) true public normal_behavior
+  requires notation != null; 
+  signals () false; 
+  requires notation != null; 
+  requires notation.length() >= 2; 
+  requires 'a' <= notation.charAt(0) && notation.charAt(0) <= 'z'; 
+  requires notation.substring(1).chars().allMatch((c)->'0' <= c && c <= '9'); 
+  ensures \result.getCol() == notation.charAt(0) - 'a'; 
+  signals_only \nothing; 
+  assignable \nothing; 
+  accessible \everything; 
+Proving methods in chess.openjml.moves.Position
+Starting proof of chess.openjml.moves.Position.Position(int,int) with prover z3_4_3
+Method assertions are validated [1,02 secs]
+Completed proof of chess.openjml.moves.Position.Position(int,int) with prover z3_4_3 - no warnings [1,02 secs]
+Starting proof of chess.openjml.moves.Position.clone() with prover z3_4_3
+chess.openjml.moves.Position.clone Method assertions are INVALID
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:112: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+    //-RAC@    assignable \nothing;
+               ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Assignable: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:138:) in method clone: \everything
+        return new Position(this.row, this.col);
+               ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:138: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   assignable \nothing;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Assignable: src/main/java/chess/openjml/moves/Position.java:170:) in method clone: \everything
+        return new Position(this.row, this.col);
+               ^
+src/main/java/chess/openjml/moves/Position.java:170: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Assignable: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:169:) in method clone: \everything
+        return new Position(this.row, this.col);
+               ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:169: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   assignable \nothing;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Assignable: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:163:) in method clone: \everything
+        return new Position(this.row, this.col);
+               ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:163: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   assignable \nothing;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Assignable: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:150:) in method clone: \everything
+        return new Position(this.row, this.col);
+               ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:150: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   assignable \nothing;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Assignable: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:144:) in method clone: \everything
+        return new Position(this.row, this.col);
+               ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:144: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   assignable \nothing;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Assignable: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:108:) in method clone: \everything
+        return new Position(this.row, this.col);
+               ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:108: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   assignable \nothing;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Assignable: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:132:) in method clone: \everything
+        return new Position(this.row, this.col);
+               ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:132: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   assignable \nothing;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Assignable: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:189:) in method clone: \everything
+        return new Position(this.row, this.col);
+               ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:189: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   assignable \nothing;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (ExceptionalPostcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:111:) in method clone
+        return new Position(this.row, this.col);
+               ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:111: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+    //-RAC@ also public normal_behavior
+                        ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:145:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:145: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures \result instanceof long[];
+          ^
+src/main/java/chess/openjml/moves/Position.java:156: verify: The prover cannot establish an assertion (IllegalArgument) in method clone
+                Position pos = new Position(row, col);
+                                      ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: Associated method exit
+        return new Position(this.row, this.col);
+        ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:133:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:133: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures \result instanceof Object[];
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:134:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:134: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures ((Object[])\result).length == ((Object[])this).length;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:135:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:135: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures (\forall int i; 0 <= i && i < ((Object[])this).length; ((Object[])this)[i] == ((Object[])\result)[i]);
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:187:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:187: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @ also public exceptional_behavior
+                    ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (ExceptionalPostcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:105:) in method clone
+        return new Position(this.row, this.col);
+               ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:105: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+    /*@ public normal_behavior
+               ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:139:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:139: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures \result instanceof int[];
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:140:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:140: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures ((int[])\result).length == ((int[])this).length;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:141:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:141: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures (\forall int i; 0 <= i && i < ((int[])this).length; ((int[])this)[i] == ((int[])\result)[i]);
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:151:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:151: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures \result instanceof short[];
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:147:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:147: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures (\forall int i; 0 <= i && i < ((long[])this).length; ((long[])this)[i] == ((long[])\result)[i]);
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:170:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:170: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures \result instanceof char[];
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:172:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:172: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures (\forall int i; 0 <= i && i < ((char[])this).length; ((char[])this)[i] == ((char[])\result)[i]);
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:164:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:164: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures \result instanceof boolean[];
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:166:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:166: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures (\forall int i; 0 <= i && i < ((boolean[])this).length; ((boolean[])this)[i] == ((boolean[])\result)[i]);
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Assignable: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:156:) in method clone: \everything
+        return new Position(this.row, this.col);
+               ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:156: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   assignable \nothing;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:157:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:157: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures \result instanceof byte[];
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:153:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:153: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures (\forall int i; 0 <= i && i < ((short[])this).length; ((short[])this)[i] == ((short[])\result)[i]);
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:159:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:159: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures java.util.Arrays.equalArrays((byte[])\result,(byte[])this);
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:158:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:158: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures ((byte[])\result).length == ((byte[])this).length;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:152:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:152: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures ((short[])\result).length == ((short[])this).length;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:146:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:146: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures ((long[])\result).length == ((long[])this).length;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:171:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:171: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures ((char[])\result).length == ((char[])this).length;
+          ^
+src/main/java/chess/openjml/moves/Position.java:32: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:165:) in method clone
+        return new Position(this.row, this.col);
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:165: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:32:
+      @   ensures ((boolean[])\result).length == ((boolean[])this).length;
+          ^
+Completed proof of chess.openjml.moves.Position.clone() with prover z3_4_3 - with warnings [3,34 secs]
+Starting proof of chess.openjml.moves.Position.equals(Object) with prover z3_4_3
+Method assertions are validated [1,06 secs]
+Completed proof of chess.openjml.moves.Position.equals(Object) with prover z3_4_3 - no warnings [1,07 secs]
+Starting proof of chess.openjml.moves.Position.equals(int,int) with prover z3_4_3
+Method assertions are validated [1,03 secs]
+Completed proof of chess.openjml.moves.Position.equals(int,int) with prover z3_4_3 - no warnings [1,03 secs]
+Starting proof of chess.openjml.moves.Position.fromAlgebraic(String) with prover z3_4_3
+chess.openjml.moves.Position.fromAlgebraic Method assertions are INVALID
+src/main/java/chess/openjml/moves/Position.java:136: verify: The prover cannot establish an assertion (Assignable: src/main/java/chess/openjml/moves/Position.java:138:) in method fromAlgebraic: \everything
+    //@   requires notation.substring(1).chars().allMatch(c -> '0' <= c && c <= '9');
+                                              ^
+src/main/java/chess/openjml/moves/Position.java:138: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:136:
+    //@ pure
+        ^
+src/main/java/chess/openjml/moves/Position.java:136: verify: The prover cannot establish an assertion (Assignable: src/main/java/chess/openjml/moves/Position.java:138:) in method fromAlgebraic: \everything
+    //@   requires notation.substring(1).chars().allMatch(c -> '0' <= c && c <= '9');
+                                                         ^
+src/main/java/chess/openjml/moves/Position.java:138: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:136:
+    //@ pure
+        ^
+src/main/java/chess/openjml/moves/Position.java:170: verify: The prover cannot establish an assertion (UndefinedCalledMethodPrecondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/String.jml:297:) in method fromAlgebraic
+Note: Call stack
+  /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/String.jml:949: java.lang.String.charAt
+  src/main/java/chess/openjml/moves/Position.java:141: java.lang.String.trim
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/String.jml:297: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:170:
+    public /*@ spec_pure @*/ char charAt(int index)
+                                  ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/CharSequence.jml:79: verify: Precondition conjunct is false: 0 <= index < charArray.length
+      @      requires 0 <= index < charArray.length;
+                                 ^
+src/main/java/chess/openjml/moves/Position.java:144: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method fromAlgebraic: underflow in int difference
+        int row = Integer.parseInt(notation.substring(1)) - 1;
+                                                          ^
+src/main/java/chess/openjml/moves/Position.java:145: verify: The prover cannot establish an assertion (Precondition: src/main/java/chess/openjml/moves/Position.java:22:) in method fromAlgebraic
+        return new Position(row, col);
+               ^
+src/main/java/chess/openjml/moves/Position.java:22: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:145:
+    public Position(int row, int col)
+           ^
+src/main/java/chess/openjml/moves/Position.java:19: verify: Precondition conjunct is false: col < 26
+    //@ requires 0 <= col && col < 26;
+                                 ^
+src/main/java/chess/openjml/moves/Position.java:145: verify: The prover cannot establish an assertion (Assignable: src/main/java/chess/openjml/moves/Position.java:138:) in method fromAlgebraic: \everything
+        return new Position(row, col);
+               ^
+src/main/java/chess/openjml/moves/Position.java:138: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:145:
+    //@ pure
+        ^
+src/main/java/chess/openjml/moves/Position.java:145: verify: The prover cannot establish an assertion (ExceptionalPostcondition: src/main/java/chess/openjml/moves/Position.java:132:) in method fromAlgebraic
+        return new Position(row, col);
+               ^
+src/main/java/chess/openjml/moves/Position.java:132: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:145:
+    //@ public normal_behavior
+               ^
+src/main/java/chess/openjml/moves/Position.java:145: verify: The prover cannot establish an assertion (Postcondition: src/main/java/chess/openjml/moves/Position.java:137:) in method fromAlgebraic
+        return new Position(row, col);
+        ^
+src/main/java/chess/openjml/moves/Position.java:137: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:145:
+    //@   ensures \result.getCol() == notation.charAt(0) - 'a';
+          ^
+src/main/java/chess/openjml/moves/Position.java:137: verify: The prover cannot establish an assertion (UndefinedCalledMethodPrecondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/String.jml:297:) in method fromAlgebraic
+    //@   ensures \result.getCol() == notation.charAt(0) - 'a';
+                                                     ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/String.jml:297: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:137:
+    public /*@ spec_pure @*/ char charAt(int index)
+                                  ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/CharSequence.jml:79: verify: Precondition conjunct is false: 0 <= index < charArray.length
+      @      requires 0 <= index < charArray.length;
+                                 ^
+src/main/java/chess/openjml/moves/Position.java:137: verify: The prover cannot establish an assertion (InvariantEntrance: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/CharSequence.jml:30:) in method fromAlgebraic: (Caller: chess.openjml.moves.Position.fromAlgebraic(String), Callee: String.charAt(int))
+    //@   ensures \result.getCol() == notation.charAt(0) - 'a';
+                                                     ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/CharSequence.jml:30: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:137:
+	//-RAC@ public invariant charArray != null; // FIXME - why this when there is a non_null declaration
+	               ^
+Completed proof of chess.openjml.moves.Position.fromAlgebraic(String) with prover z3_4_3 - with warnings [4,62 secs]
+Starting proof of chess.openjml.moves.Position.getCol() with prover z3_4_3
+Method assertions are validated [1,04 secs]
+Completed proof of chess.openjml.moves.Position.getCol() with prover z3_4_3 - no warnings [1,04 secs]
+Starting proof of chess.openjml.moves.Position.getColChar() with prover z3_4_3
+Method assertions are validated [1,04 secs]
+Completed proof of chess.openjml.moves.Position.getColChar() with prover z3_4_3 - no warnings [1,05 secs]
+Starting proof of chess.openjml.moves.Position.getRealRow() with prover z3_4_3
+Method assertions are validated [1,03 secs]
+Completed proof of chess.openjml.moves.Position.getRealRow() with prover z3_4_3 - no warnings [1,03 secs]
+Starting proof of chess.openjml.moves.Position.getRow() with prover z3_4_3
+Method assertions are validated [1,02 secs]
+Completed proof of chess.openjml.moves.Position.getRow() with prover z3_4_3 - no warnings [1,03 secs]
+Starting proof of chess.openjml.moves.Position.hashCode() with prover z3_4_3
+chess.openjml.moves.Position.hashCode Method assertions are INVALID
+src/main/java/chess/openjml/moves/Position.java:121: verify: The prover cannot establish an assertion (Postcondition: /home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:72:) in method hashCode
+        return 31 * row + col;
+        ^
+/home/jorgelino/Documents/chess-openjml/tools/specs/java/lang/Object.jml:72: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:121:
+    //-RAC@ ensures \result == theHashCode;  
+            ^
+Completed proof of chess.openjml.moves.Position.hashCode() with prover z3_4_3 - with warnings [1,07 secs]
+Starting proof of chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color) with prover z3_4_3
+src/main/java/chess/openjml/moves/Position.java:81: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@ ensures \result <==> (Math.abs(this.row - p.row) == Math.abs(this.col - p.col));
+                                                  ^
+chess.openjml.moves.Position.isBeingAttacked Method assertions are INVALID
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:152:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/moves/Position.java:152: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getRowsLength())
+        for (int row = 0; row < board.getRowsLength(); row++)
+                                                   ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:152:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/moves/Position.java:154: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getColsLength())
+            for (int col = 0; col < board.getColsLength(); col++)
+                                                       ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:154:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/moves/Position.java:154: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getColsLength())
+            for (int col = 0; col < board.getColsLength(); col++)
+                                                       ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:154:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:129: verify: The prover cannot establish an assertion (UndefinedNullDeReference: src/main/java/chess/openjml/Board.java:112:) in method isBeingAttacked
+    //@ ensures \result == grid[0].length;
+                                  ^
+src/main/java/chess/openjml/Board.java:112: verify: Associated declaration: src/main/java/chess/openjml/Board.java:129:
+            for (int col = 0; col < getColsLength(); col++)
+                           ^
+src/main/java/chess/openjml/moves/Position.java:156: verify: The prover cannot establish an assertion (Precondition: src/main/java/chess/openjml/moves/Position.java:22:) in method isBeingAttacked
+                Position pos = new Position(row, col);
+                               ^
+src/main/java/chess/openjml/moves/Position.java:22: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:156:
+    public Position(int row, int col)
+           ^
+src/main/java/chess/openjml/moves/Position.java:18: verify: Precondition conjunct is false: row < 26
+    //@ requires 0 <= row && row < 26;
+                                 ^
+src/main/java/chess/openjml/moves/Position.java:156: verify: The prover cannot establish an assertion (Assignable: src/main/java/chess/openjml/moves/Position.java:149:) in method isBeingAttacked: \everything
+                Position pos = new Position(row, col);
+                               ^
+src/main/java/chess/openjml/moves/Position.java:149: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:156:
+    //@ pure
+        ^
+src/main/java/chess/openjml/moves/Position.java:157: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:38:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.isCellOccupied(chess.openjml.moves.Position))
+                if (board.isCellOccupied(pos))
+                                        ^
+src/main/java/chess/openjml/Board.java:38: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:157:
+    //@ public invariant (\forall int r; 0 <= r && r < grid.length; grid[r].length > 0 && grid[r].length <= 26);
+               ^
+src/main/java/chess/openjml/moves/Position.java:157: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:39:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.isCellOccupied(chess.openjml.moves.Position))
+                if (board.isCellOccupied(pos))
+                                        ^
+src/main/java/chess/openjml/Board.java:39: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:157:
+    //@ public invariant (\forall int r; 0 <= r && r < grid.length; grid[r].length == grid[0].length);
+               ^
+src/main/java/chess/openjml/moves/Position.java:157: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:41:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.isCellOccupied(chess.openjml.moves.Position))
+                if (board.isCellOccupied(pos))
+                                        ^
+src/main/java/chess/openjml/Board.java:41: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:157:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/moves/Position.java:157: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.isCellOccupied(chess.openjml.moves.Position))
+                if (board.isCellOccupied(pos))
+                                        ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:157:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/moves/Position.java:157: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.isCellOccupied(chess.openjml.moves.Position))
+                if (board.isCellOccupied(pos))
+                                        ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:157:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/moves/Position.java:157: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:37:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.isCellOccupied(chess.openjml.moves.Position))
+                if (board.isCellOccupied(pos))
+                                        ^
+src/main/java/chess/openjml/Board.java:37: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:157:
+    //@ public invariant grid.length > 0;
+               ^
+src/main/java/chess/openjml/Board.java:255: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.isWithinBounds(chess.openjml.moves.Position))
+    //@ requires isWithinBounds(pos);
+                               ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:255:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:255: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.isWithinBounds(chess.openjml.moves.Position))
+    //@ requires isWithinBounds(pos);
+                               ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:255:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:145: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getRowsLength())
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+                                                                               ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:145:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:145: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getRowsLength())
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+                                                                               ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:145:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:146: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getColsLength())
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:146:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:146: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getColsLength())
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:146:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:129: verify: The prover cannot establish an assertion (UndefinedNullDeReference: src/main/java/chess/openjml/Board.java:146:) in method isBeingAttacked
+    //@ ensures \result == grid[0].length;
+                                  ^
+src/main/java/chess/openjml/Board.java:146: verify: Associated declaration: src/main/java/chess/openjml/Board.java:129:
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/moves/Position.java:157: verify: The prover cannot establish an assertion (Precondition: src/main/java/chess/openjml/Board.java:258:) in method isBeingAttacked
+                if (board.isCellOccupied(pos))
+                                        ^
+src/main/java/chess/openjml/Board.java:258: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:157:
+    public boolean isCellOccupied(Position pos)
+                   ^
+src/main/java/chess/openjml/Board.java:255: verify: Precondition conjunct is false: isWithinBounds(pos)
+    //@ requires isWithinBounds(pos);
+                               ^
+src/main/java/chess/openjml/moves/Position.java:159: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getPieceAt(chess.openjml.moves.Position))
+                    Piece piece = board.getPieceAt(pos).get();
+                                                  ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:159:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/moves/Position.java:159: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getPieceAt(chess.openjml.moves.Position))
+                    Piece piece = board.getPieceAt(pos).get();
+                                                  ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:159:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:256: verify: The prover cannot establish an assertion (UndefinedNullDeReference) in method isBeingAttacked
+    //@ ensures \result <==> grid[pos.getRow()][pos.getCol()].isPresent();
+                                               ^
+src/main/java/chess/openjml/Board.java:256: verify: The prover cannot establish an assertion (UndefinedNullDeReference) in method isBeingAttacked
+    //@ ensures \result <==> grid[pos.getRow()][pos.getCol()].isPresent();
+                                                             ^
+src/main/java/chess/openjml/Board.java:235: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getRowsLength())
+    //@ requires pos.getRow() >= 0 && pos.getRow() < getRowsLength();
+                                                                  ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:235:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:235: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getRowsLength())
+    //@ requires pos.getRow() >= 0 && pos.getRow() < getRowsLength();
+                                                                  ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:235:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:236: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getColsLength())
+    //@ requires pos.getCol() >= 0 && pos.getCol() < getColsLength();
+                                                                  ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:236:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:236: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getColsLength())
+    //@ requires pos.getCol() >= 0 && pos.getCol() < getColsLength();
+                                                                  ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:236:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/moves/Position.java:160: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.pieces.Piece.isValidMove(chess.openjml.Board,chess.openjml.moves.Position))
+                    if (piece.isAlly(enemyColor) && piece.isValidMove(board, this))
+                                                                      ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:160:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/moves/Position.java:160: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.pieces.Piece.isValidMove(chess.openjml.Board,chess.openjml.moves.Position))
+                    if (piece.isAlly(enemyColor) && piece.isValidMove(board, this))
+                                                                      ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:160:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:99: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getRowsLength())
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:99:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:99: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getRowsLength())
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:99:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:100: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getColsLength())
+    //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:100:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:100: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getColsLength())
+    //@ requires target.getCol() >= 0 && target.getCol() < board.getColsLength();
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:100:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/moves/Position.java:160: verify: The prover cannot establish an assertion (Precondition: src/main/java/chess/openjml/pieces/Piece.java:105:) in method isBeingAttacked
+                    if (piece.isAlly(enemyColor) && piece.isValidMove(board, this))
+                                                                     ^
+src/main/java/chess/openjml/pieces/Piece.java:105: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:160:
+    public abstract boolean isValidMove(Board board, Position target);
+                            ^
+src/main/java/chess/openjml/pieces/Piece.java:99: verify: Precondition conjunct is false: target.getRow() < board.getRowsLength()
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+                                                         ^
+src/main/java/chess/openjml/pieces/Piece.java:101: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.isWithinBounds(chess.openjml.moves.Position))
+    //@ ensures \result ==> board.isWithinBounds(target);
+                                                ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:101:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:101: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.isWithinBounds(chess.openjml.moves.Position))
+    //@ ensures \result ==> board.isWithinBounds(target);
+                                                ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:101:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:145: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getRowsLength())
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+                                                                               ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:145:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:145: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getRowsLength())
+    //@ ensures \result <==> (pos.getRow() >= 0 && pos.getRow() < getRowsLength() &&
+                                                                               ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:145:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:146: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getColsLength())
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:146:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:146: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.getColsLength())
+    //@                      pos.getCol() >= 0 && pos.getCol() < getColsLength());
+                                                                              ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:146:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:103: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:57:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.resultsInCheck(chess.openjml.moves.Position,chess.openjml.moves.Position))
+    //@ ensures \result ==> !board.resultsInCheck(position, target);
+                                                 ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:103:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:141: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/moves/Position.java:16:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.resultsInCheck(chess.openjml.moves.Position,chess.openjml.moves.Position))
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+                     ^
+src/main/java/chess/openjml/moves/Position.java:16: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:141:
+    //@ public invariant 0 <= col && col < 26;
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:103: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/Board.java:48:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.resultsInCheck(chess.openjml.moves.Position,chess.openjml.moves.Position))
+    //@ ensures \result ==> !board.resultsInCheck(position, target);
+                                                 ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:103:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/pieces/Piece.java:141: verify: The prover cannot establish an assertion (InvariantEntrance: src/main/java/chess/openjml/moves/Position.java:15:) in method isBeingAttacked: (Caller: chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color), Callee: chess.openjml.Board.resultsInCheck(chess.openjml.moves.Position,chess.openjml.moves.Position))
+    //@ requires target.getRow() >= 0 && target.getRow() < board.getRowsLength();
+                     ^
+src/main/java/chess/openjml/moves/Position.java:15: verify: Associated declaration: src/main/java/chess/openjml/pieces/Piece.java:141:
+    //@ public invariant 0 <= row && row < 26;
+               ^
+Completed proof of chess.openjml.moves.Position.isBeingAttacked(chess.openjml.Board,chess.openjml.pieces.enums.Color) with prover z3_4_3 - with warnings [15,59 secs]
+Starting proof of chess.openjml.moves.Position.sameCol(chess.openjml.moves.Position) with prover z3_4_3
+Method assertions are validated [1,03 secs]
+Completed proof of chess.openjml.moves.Position.sameCol(chess.openjml.moves.Position) with prover z3_4_3 - no warnings [1,03 secs]
+Starting proof of chess.openjml.moves.Position.sameDiagonal(chess.openjml.moves.Position) with prover z3_4_3
+Method assertions are validated [1,05 secs]
+Completed proof of chess.openjml.moves.Position.sameDiagonal(chess.openjml.moves.Position) with prover z3_4_3 - no warnings [1,06 secs]
+Starting proof of chess.openjml.moves.Position.sameRow(chess.openjml.moves.Position) with prover z3_4_3
+Method assertions are validated [1,04 secs]
+Completed proof of chess.openjml.moves.Position.sameRow(chess.openjml.moves.Position) with prover z3_4_3 - no warnings [1,06 secs]
+Starting proof of chess.openjml.moves.Position.toAlgebraic() with prover z3_4_3
+chess.openjml.moves.Position.toAlgebraic Method assertions are INVALID
+src/main/java/chess/openjml/moves/Position.java:129: verify: The prover cannot establish an assertion (Postcondition: src/main/java/chess/openjml/moves/Position.java:125:) in method toAlgebraic
+        return String.valueOf(getColChar()) + Integer.toString(row + 1);
+        ^
+src/main/java/chess/openjml/moves/Position.java:125: verify: Associated declaration: src/main/java/chess/openjml/moves/Position.java:129:
+    //@ ensures \result.equals(String.valueOf((char)('a' + col)) + Integer.toString(row + 1));
+        ^
+Completed proof of chess.openjml.moves.Position.toAlgebraic() with prover z3_4_3 - with warnings [16,22 secs]
+Completed proving methods in chess.openjml.moves.Position [51,28 secs]
+src/main/java/chess/openjml/Board.java:78: warning: Method Board(java.util.List<chess.openjml.pieces.Piece>,int,int) has 'assignable \everything', making its caller likely impossible to verify
+    public Board(List<Piece> pieces, int width, int height)
+           ^
+Proving methods in chess.openjml.Board
+Starting proof of chess.openjml.Board.Board(java.util.Optional<chess.openjml.pieces.Piece>[][]) with prover z3_4_3
+chess.openjml.Board.Board Method assertions are INVALID
+src/main/java/chess/openjml/Board.java:41: verify: Associated declaration: src/main/java/chess/openjml/Board.java:72:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:72: verify: The prover cannot establish an assertion (InvariantExit: src/main/java/chess/openjml/Board.java:57:) in method Board
+    public Board(Optional<Piece>[][] grid)
+           ^
+src/main/java/chess/openjml/Board.java:57: verify: Associated declaration: src/main/java/chess/openjml/Board.java:72:
+    //@ public invariant
+               ^
+src/main/java/chess/openjml/Board.java:72: verify: The prover cannot establish an assertion (InvariantExit: src/main/java/chess/openjml/Board.java:48:) in method Board
+    public Board(Optional<Piece>[][] grid)
+           ^
+src/main/java/chess/openjml/Board.java:48: verify: Associated declaration: src/main/java/chess/openjml/Board.java:72:
+    //@ public invariant
+               ^
+Completed proof of chess.openjml.Board.Board(java.util.Optional<chess.openjml.pieces.Piece>[][]) with prover z3_4_3 - with warnings [4,00 secs]
+Starting proof of chess.openjml.Board.Board(java.util.List<chess.openjml.pieces.Piece>,int,int) with prover z3_4_3
+src/main/java/chess/openjml/Board.java:49: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@     (\num_of int r, c;
+             ^
+chess.openjml.Board.Board Method assertions are INVALID
+src/main/java/chess/openjml/Board.java:81: verify: The prover cannot establish an assertion (PossiblyNegativeSize) in method Board
+        Optional<Piece>[][] boardMatrix = new Optional[width][height];
+                                                       ^
+Completed proof of chess.openjml.Board.Board(java.util.List<chess.openjml.pieces.Piece>,int,int) with prover z3_4_3 - with warnings [6,69 secs]
+Starting proof of chess.openjml.Board.addMoveToHistory(chess.openjml.moves.BaseMove) with prover z3_4_3
+src/main/java/chess/openjml/Board.java:49: warning: NOT IMPLEMENTED: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \num_of
+    //@     (\num_of int r, c;
+             ^
+chess.openjml.Board.addMoveToHistory Method assertions are INVALID

@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 public class CheckMove extends BaseMove
 {
+    //@ private static invariant CHECK_SUFFIX != null;
     private static final Pattern CHECK_SUFFIX = Pattern.compile("\\+$");
 
     protected final BaseMove baseMove;

@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 //@ non_null_by_default
 public class MovePair
 {
+    //@ public static invariant SIMPLE_FROM_TO_NOTATION != null;
     public static final Pattern SIMPLE_FROM_TO_NOTATION = Pattern.compile("^[a-z]\\d+ [a-z]\\d+$");
 
     public final Position from;
@@ -30,12 +31,20 @@ public class MovePair
         return new MovePair(from, to);
     }
 
-    public Position getFrom()
+    /*@ public normal_behavior
+      @   ensures \result == from;
+      @   assignable \nothing;
+      @*/
+    public /*@ pure @*/ Position getFrom()
     {
         return from;
     }
 
-    public Position getTo()
+    /*@ public normal_behavior
+      @   ensures \result == to;
+      @   assignable \nothing;
+      @*/
+    public /*@ pure @*/ Position getTo()
     {
         return to;
     }

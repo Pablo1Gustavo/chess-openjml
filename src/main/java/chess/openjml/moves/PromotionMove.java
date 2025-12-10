@@ -10,6 +10,7 @@ import chess.openjml.pieces.King;
 //@ non_null_by_default
 public class PromotionMove extends BaseMove
 {
+    //@ public static invariant PROMOTION_MOVE != null;
     public static final Pattern PROMOTION_MOVE = Pattern.compile("^([a-z]\\d+|[a-z]x[a-z]\\d+)=([qrbn])$");
 
     //@ spec_public

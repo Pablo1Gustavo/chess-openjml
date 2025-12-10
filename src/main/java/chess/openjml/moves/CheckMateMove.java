@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 //@ non_null_by_default
 public class CheckMateMove extends BaseMove
 {
+    //@ private static invariant CHECKMATE_SUFFIX != null;
     private static final Pattern CHECKMATE_SUFFIX = Pattern.compile("#$");
     //@ spec_public
     protected final BaseMove baseMove;

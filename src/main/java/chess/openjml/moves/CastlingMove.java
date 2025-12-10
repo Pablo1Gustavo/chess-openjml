@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 //@ non_null_by_default
 public class CastlingMove extends BaseMove
 {
+    //@ private static invariant CASTLING_MOVE != null;
     private static final Pattern CASTLING_MOVE = Pattern.compile("^o-o(-o)?$");
     //@ spec_public
     protected final boolean isKingSide;
