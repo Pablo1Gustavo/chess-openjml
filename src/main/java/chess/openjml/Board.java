@@ -19,6 +19,21 @@ public class Board
     //@ spec_public
     private LinkedList<BaseMove> moveHistory;
 
+    // === número de peças no tabuleiro nunca aumenta ===
+    //@ public constraint
+    //@     (\num_of int r, c;
+    //@         0 <= r && r < grid.length &&
+    //@         0 <= c && c < grid[r].length &&
+    //@         grid[r][c].isPresent()
+    //@     )
+    //@     <=
+    //@     (\old(
+    //@         \num_of int r, c;
+    //@             0 <= r && r < grid.length &&
+    //@             0 <= c && c < grid[r].length &&
+    //@             grid[r][c].isPresent()
+    //@     ));
+
     //@ public invariant grid.length > 0;
     //@ public invariant (\forall int r; 0 <= r && r < grid.length; grid[r].length > 0 && grid[r].length <= 26);
     //@ public invariant (\forall int r; 0 <= r && r < grid.length; grid[r].length == grid[0].length);
@@ -162,6 +177,10 @@ public class Board
         Position from = move.getFrom();
         Position to = move.getTo();
 
+        if (!isWithinBounds(from) || !isWithinBounds(to))
+        {
+            return false;
+        }
         if (isCellEmpty(from))
         {
             return false;
