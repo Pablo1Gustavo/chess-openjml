@@ -5,12 +5,6 @@
 
 ' Main package
 package chess.openjml {
-    class App {
-        - {static} game: Game
-        + {static} main(args: String[]): void
-        - {static} showBoard(): void
-    }
-
     class Board {
         - grid: Optional<Piece>[][]
         - moveHistory: LinkedList<BaseMove>
@@ -282,9 +276,7 @@ package chess.openjml.moves {
 
 ' Relationships
 
-' App uses Game and SANParser
-App --> Game : uses
-App --> SANParser : uses
+' App removed; no references to CLIGame/GUIGame to include
 
 ' Game has Board and uses moves
 Game *-- Board : contains
